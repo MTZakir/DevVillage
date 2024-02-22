@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<title>Login</title>
+
+<form method = "POST">
+    <button type = "submit">Login</button>
+</form>
+
+<br>
+<a href = "{{url_for('index')}}">Go back Home</a>
+
+{% endblock %}
