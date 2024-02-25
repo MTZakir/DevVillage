@@ -10,5 +10,17 @@ def index():
 def login():
     return render_template("login.html")
 
+@app.route('/register')
+def register():
+    return render_template("register.html")
+
+@app.route('/discover')
+def discover():
+    return render_template("discover.html")
+
+@app.route('/home')
+def homecomp():
+    return render_template("homecomp.html")
+
 if __name__ == '__main__':
     app.run(debug=True)

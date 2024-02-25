@@ -1,17 +1,10 @@
-{% extends 'base.html' %}
-{% block content %}
-{% load static %}
 
-<link rel = "stylesheet" href = "{% static 'css/home.css' %}">
 <title>Register</title>
 
 <form method = "POST">
-    {% csrf_token %}
-    {{ form.as_p }}
     <button type = "submit">Register</button>
 </form>
 
 <br>
-<a href = "{% url 'home' %}">Go back Home</a>
+<a href = "{{url_for('index')}}">Go back Home</a>
 
-{% endblock %}
