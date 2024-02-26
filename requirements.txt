@@ -1,3 +1,7 @@
 Flask
 Flask-Session
 requests
+flask-sqlalchemy
+Flask-Bcrypt
+Flask-WTF
+email_validator
