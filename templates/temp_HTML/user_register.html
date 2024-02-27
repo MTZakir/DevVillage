@@ -18,7 +18,12 @@
         {{ form.email.label }} {{ form.email }}
         {{ form.password.label }} {{ form.password }}
         {{ form.confirm_password.label }} {{ form.confirm_password }}
-        {{ recaptcha }}
+        {{ form.recaptcha }}
+
+        <!-- Not sure if this works -->
+        {% for error in form.error %}
+            <p> {{ error }} </p>
+        {% endfor %}
 
         <button type = "submit">Register</button>
 
