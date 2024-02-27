@@ -2,3 +2,5 @@ Flask
 Flask-Session
 requests
 firebase_admin
+flask-wtf
+flask-recaptcha
