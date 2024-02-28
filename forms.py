@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import StringField, PasswordField, validators
-from wtforms.validators import DataRequired, Email, ValidationError
+from wtforms.validators import DataRequired, Email, ValidationError, EqualTo
 import phonenumbers
 
 # Phone number validator
@@ -28,6 +28,11 @@ class UserRegistrationForm(FlaskForm):
         email = StringField('Email', validators=[DataRequired(), Email()])
         
         password = PasswordField('Password', validators=[DataRequired(), validators.length(min = 8)])
-        confirm_password = PasswordField('Confirm Password', validators=[DataRequired()])
+        confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('confirm_password', message = "Passwords do not match.")])
 
         recaptcha = RecaptchaField()
+
+# User login form
+class UserLoginForm(FlaskForm):
+    username_or_email = StringField('Username / Email', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])

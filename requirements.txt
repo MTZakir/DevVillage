@@ -6,3 +6,4 @@ flask-wtf
 flask-recaptcha
 phonenumbers
 email_validator
+pyrebase4
