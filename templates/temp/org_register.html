@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+</head>
+<body>
+    <form method = "post">
+        {{ csrf_token }}
+        {{ form.hidden_tag() }}
+        {{ form.org_name.label }} {{ form.org_name }}
+        <br>
+        {{ form.email.label }} {{ form.email }}
+        <br>
+        {{ form.password.label }} {{ form.password }}
+        <br>
+        {{ form.confirm_password.label }} {{ form.confirm_password }}
+        <br>
+        {{ form.industry.label }} {{ form.industry }}
+        <br>
+        {{ form.company_website.label }} {{ form.company_website }}
+        <br>
+        {{ form.contact_person_email.label }} {{ form.contact_person_email }}
+        <br>
+        {{ form.recaptcha }}
+
+
+        <button type = "submit">Register</button>
+
+        <a href = "{{ url_for('index') }}">Go back home</a>
+
+    </form>
+</body>
+
+
+</html>

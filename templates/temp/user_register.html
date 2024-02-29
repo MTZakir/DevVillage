@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+</head>
+<body>
+    <form method = "post">
+        {{ csrf_token }}
+        {{ form.hidden_tag() }}
+        {{ form.first_name.label }} {{ form.first_name }}
+        <br>
+        {{ form.last_name.label }} {{ form.last_name }}
+        <br>
+        {{ form.username.label }} {{ form.username }}
+        <br>
+        <label for = "phone">Phone Number</label>
+        <input type = "tel" id = "phone" name = "phone_number">
+        <br>
+        {{ form.email.label }} {{ form.email }}
+        <br>
+        {{ form.password.label }} {{ form.password }}
+        <br>
+        {{ form.confirm_password.label }} {{ form.confirm_password }}
+        <br>
+        {{ form.expertise.label }} {{ form.expertise }}
+        <br>
+        {{ form.recaptcha }}
+
+
+        <button type = "submit">Register</button>
+
+    </form>
+</body>
+
+<script>
+    const phoneInputField = document.querySelector("#phone");
+    const phoneInput = window.intlTelInput(phoneInputField, {
+        utilsScript:
+        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+</script>
+
+<a href = "{{ url_for('index') }}">Go back home</a>
+
+</html>
