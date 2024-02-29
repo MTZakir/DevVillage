@@ -9,7 +9,7 @@
     <form method = "post">
         {{ csrf_token }}
         {{ form.hidden_tag() }}
-        {{ form.username_or_email.label }} {{ form.username_or_email }}
+        {{ form.email.label }} {{ form.email }}
         <br>
         {{ form.password.label }} {{ form.password }}
 

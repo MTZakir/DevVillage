@@ -11,14 +11,7 @@
     <form method = "post">
         {{ csrf_token }}
         {{ form.hidden_tag() }}
-        {{ form.first_name.label }} {{ form.first_name }}
-        <br>
-        {{ form.last_name.label }} {{ form.last_name }}
-        <br>
-        {{ form.username.label }} {{ form.username }}
-        <br>
-        <label for = "phone">Phone Number</label>
-        <input type = "tel" id = "phone" name = "phone_number" required>
+        {{ form.org_name.label }} {{ form.org_name }}
         <br>
         {{ form.email.label }} {{ form.email }}
         <br>
@@ -26,24 +19,21 @@
         <br>
         {{ form.confirm_password.label }} {{ form.confirm_password }}
         <br>
-        {{ form.expertise.label }} {{ form.expertise }}
+        {{ form.industry.label }} {{ form.industry }}
+        <br>
+        {{ form.company_website.label }} {{ form.company_website }}
+        <br>
+        {{ form.contact_person_email.label }} {{ form.contact_person_email }}
         <br>
         {{ form.recaptcha }}
 
 
         <button type = "submit">Register</button>
 
+        <a href = "{{ url_for('index') }}">Go back home</a>
+
     </form>
 </body>
 
-<script>
-    const phoneInputField = document.querySelector("#phone");
-    const phoneInput = window.intlTelInput(phoneInputField, {
-        utilsScript:
-        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-    });
-</script>
-
-<a href = "{{ url_for('index') }}">Go back home</a>
 
 </html>
