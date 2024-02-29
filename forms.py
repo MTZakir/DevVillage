@@ -6,17 +6,22 @@ import phonenumbers
 # Phone number validator
 class E164PhoneNumberValidator:
     def __call__(self, form, field):
-        try:
-            parsed_number = phonenumbers.parse(field.data)
-            if not phonenumbers.is_valid_number(parsed_number):
+        # If phone number field is filled, perform validation
+        if field.data:
+            try:
+                parsed_number = phonenumbers.parse(field.data)
+                if not phonenumbers.is_valid_number(parsed_number):
+                    print("Invalid number")
+                    raise ValidationError('Invalid E.164 phone number format')
+                
+                print("Valid number")
+
+            except phonenumbers.NumberParseException:
                 print("Invalid number")
                 raise ValidationError('Invalid E.164 phone number format')
-            
-            print("Valid number")
-
-        except phonenumbers.NumberParseException:
-            print("Invalid number")
-            raise ValidationError('Invalid E.164 phone number format')
+        # If phone number field is empty, do nothing
+        else:
+            pass
 
 # User registration form
 class UserRegistrationForm(FlaskForm):
@@ -24,7 +29,7 @@ class UserRegistrationForm(FlaskForm):
     last_name = StringField('Last Name', validators=[DataRequired()])
     
     username = StringField('Username', validators=[DataRequired()])
-    phone_number = StringField('Phone Number', validators=[DataRequired(), E164PhoneNumberValidator()])
+    phone_number = StringField('Phone Number', validators=[E164PhoneNumberValidator()])
     email = StringField('Email', validators=[DataRequired(), Email()])
     
     password = PasswordField('Password', validators=[DataRequired(), validators.length(min = 8)])
@@ -63,6 +68,6 @@ class OrganizationRegistrationForm(FlaskForm):
     recaptcha = RecaptchaField()
 
 # Organization login form
-class OrgLoginForm(FlaskForm):
+class OrganizationLoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])

@@ -2,16 +2,13 @@ from flask import Blueprint, render_template
 
 
 # Blueprint initialization
-
-
-
 discover_blueprint = Blueprint(
     "discover", __name__, static_folder="static", template_folder="templates"
 )
 
 # DISCOVER
 @discover_blueprint.route('/discover')
-def discover():
+def main():
 
     # LOGIC FOR DISCOVER
 
