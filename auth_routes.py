@@ -3,13 +3,19 @@ from flask import Blueprint, render_template, session, redirect, url_for
 from firebase_admin import db, auth
 from firebase_admin._auth_utils import EmailAlreadyExistsError, PhoneNumberAlreadyExistsError
 from flask_recaptcha import ReCaptcha
-from forms import OrganizationLoginForm, OrganizationRegistrationForm, UserLoginForm, UserRegistrationForm
-import pyrebase
+from forms import OTPForm, OrganizationLoginForm, OrganizationRegistrationForm, UserLoginForm, UserRegistrationForm
+from apscheduler.schedulers.background import BackgroundScheduler
+import pyrebase, smtplib, datetime, string, random, pytz
+from datetime import timedelta
 
 # Blueprint initialization
 auth_blueprint = Blueprint(
     "auth", __name__, static_folder="static", template_folder="templates"
 )
+
+scheduler = BackgroundScheduler()
+scheduler.start()
+
 
 # Configuration for filipino firebase
 pyrebase_config = {
@@ -35,6 +41,8 @@ recaptcha = ReCaptcha()
 @auth_blueprint.route('/check')
 def check():
     print(session.get('user_id'))
+    verified = auth.get_user(session.get('user_id')).email_verified
+    print('Is user verified: '+ str(verified))
     return render_template('homecomp.html')
 
 @auth_blueprint.route('/logout')
@@ -250,13 +258,23 @@ def org_register():
                     display_name = form.org_name.data,
                     email_verified = False
                 )
+
                 # Updating realtime database to link org name, org website, contact person and org industry
                 dictionary = {
                     "Org Website": form.company_website.data,
+                    "Email": form.email.data,
                     "Contact Person Email": form.contact_person_email.data,
                     "Industry": form.industry.data
                 }
-                org_ref.update({form.org_name.data: dictionary})
+
+                org_ref.update({new_user.uid: dictionary})
+
+                generate_otp_for_email_verification(form.email.data, new_user.uid)
+                
+                session['email'] = form.email.data
+
+                print('Printing user id before redirecting to verify page: '+ new_user.uid)
+                return redirect(url_for('auth.verify'))
 
             # If email already exists
             except EmailAlreadyExistsError:
@@ -272,3 +290,95 @@ def org_register():
         return redirect(url_for('index'))
 
     return render_template("temp/org_register.html", form = form)
+
+#OTP handling
+@auth_blueprint.route('/verify',  methods = ["GET", "POST"])
+def verify():
+    email = session.get('email')
+
+    user_id = auth.get_user_by_email(email).uid
+    
+    if user_id:
+
+        # Get current local time (replace with your specific logic if needed)
+        local_time = datetime.datetime.now()
+
+        # Calculate target execution time with truncation (20 seconds from now in UTC)
+        otp_delete_timer = 18 # Account should be verified within 30 minutes after getting redirected to verify page
+
+        delay = timedelta(seconds=otp_delete_timer)
+        utc_time = local_time.astimezone(pytz.utc)
+        target_time = utc_time + delay
+        target_time = target_time.replace(microsecond=0)
+
+        # Print the target execution time (for reference)
+        print("Target execution time (UTC):", target_time)
+
+        formatted_time = local_time.strftime("%Y-%m-%d %H:%M:%S")
+        print("Formatted Time:", formatted_time)
+
+
+        # Schedule the function using UTC time
+        scheduler.add_job(delete_otp, 'date', run_date=target_time, args=[user_id])
+
+        # await delay_task(user_id)
+
+        form = OTPForm()
+
+        otp_ref = db.reference("/otp")
+
+        if user_id != None:
+            user_otp = form.otp.data
+
+            if user_otp == otp_ref.child(user_id).get():
+                # Updating organization's account with organization name
+                auth.update_user(
+                    user_id,
+                    email_verified = True
+                )
+
+                session.pop('email', None)
+
+        return render_template("temp/otp_submission.html", form = form)
+    else:
+        print('Piss off cunt')
+
+def generate_otp_for_email_verification(email, user_id):
+    otp_db = db.reference("/otp")
+
+    characters = string.ascii_letters + string.digits
+    
+    # Generate OTP using random.choice
+    otp = ''.join(random.choice(characters) for _ in range(8))
+
+    print(otp)
+
+    otp_db.update({user_id: otp})
+
+    subject = 'Email verification'
+    message = 'Your OTP verification code is '+otp+"\nEnter your OTP in the website within 30 minutes to verify this email"
+
+    sender = 'code.dev.village@gmail.com'
+
+    body = f"Subject: {subject}\n\n{message}"
+
+    smtp = smtplib.SMTP('smtp.gmail.com', 587)
+    smtp.starttls()
+
+    smtp.login(sender, 'jpjpoaxdwpjjoejc')
+
+    smtp.sendmail(sender, email, body)
+    smtp.quit()
+
+def delete_otp(user_id):
+    user = auth.get_user(user_id)
+
+    print("Inside delete_otp function")
+    db.reference("/otp").child(user_id).delete()
+
+    if not user.email_verified:
+        auth.delete_user(user_id)
+        if not db.reference("/org_accounts").child(user_id):
+            db.reference("/users").child(user_id).delete()
+        else:
+            db.reference("/org_accounts").child(user_id).delete()

@@ -71,3 +71,7 @@ class OrganizationRegistrationForm(FlaskForm):
 class OrganizationLoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
+
+class OTPForm(FlaskForm):
+    otp = StringField('OTP', validators=[DataRequired()])
+    recaptcha = RecaptchaField()
