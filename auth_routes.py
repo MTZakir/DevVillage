@@ -304,7 +304,7 @@ def verify():
         local_time = datetime.datetime.now()
 
         # Calculate target execution time with truncation (20 seconds from now in UTC)
-        otp_delete_timer = 18 # Account should be verified within 30 minutes after getting redirected to verify page
+        otp_delete_timer = 1800 # Account should be verified within 30 minutes after getting redirected to verify page
 
         delay = timedelta(seconds=otp_delete_timer)
         utc_time = local_time.astimezone(pytz.utc)

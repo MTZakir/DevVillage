@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from auth_routes import auth_blueprint, scheduler
+from auth_routes import auth_blueprint
 from discover_routes import discover_blueprint
 from dashboard_routes import dashboard_blueprint
 
@@ -34,10 +34,7 @@ def homecomp():
 
 
 if __name__ == '__main__':
-    with app.app_context():
-        # ... (Optional) Additional setup that requires application context
-        scheduler.start()  # Start the scheduler here (or in a separate function)
-        app.run(debug=True)
+    app.run(debug=True)
 
 
 
