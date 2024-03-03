@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/styles.css" id="css_file">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="static/js/render.js"></script>
+</head>
+<body>
+    <div class="container fadeinanimation">
+        
+        <!-- individuals -->
+        <div class="img", id="img-ind">
+            <img src="static/images/homepage1.jpg">
+            <h1 id="logo">Dev-Village</h1>
+        </div>
+        <!-- endindividuals -->
+
+        <!-- companies -->
+        <div class="img", id="img-comp">
+            <h1 id="logo" style="color: black;">Dev-Village</h1>
+            <img src="static/images/homecomp.jpg">
+        </div>
+        <!-- endcompanies -->
+
+        {% block maincontent %}
+        <div class="content">
+
+            <!-- individuals -->
+            <div class="navbar noto-sans" id="navbar-ind">
+                <div class="navlinks">
+                    <a class="navitem" href="{{url_for('discover.main')}}">Find Contracts</a>
+                    <a class="navitem" id="forCompanies">For Companies</a>
+                </div> 
+                <div class="buttons">
+                    <button id="btn1" class="btns noto-sans">Sign in</button>
+                    <button id="btn2" class="btns noto-sans">Sign up</button>
+                </div>
+            </div>
+            <!-- endindividuals -->
+
+            <!-- companies -->
+            <div class="navbar noto-sans" id="navbar-comp">
+                <div class="navlinks hover">
+                    <a class="navitem comphover" href="{{url_for('discover.main')}}">Find Contractors</a>
+                    <a class="navitem comphover" id="forIndividuals">For Individuals</a>
+                </div> 
+                <div class="buttons">
+                    <button id="btn1" class="btns noto-sans">Sign in</button>
+                    <button id="btn2" class="btns noto-sans">Sign up</button>
+                </div>
+            </div>
+            <!-- endcompanies -->
+
+            <!-- individuals -->
+            <div class="explore noto-sans" id="mainexp-ind">
+                <p id="sub1">Improve your portfolio</p>
+                <h1 id="maintext">Find Coding Contracts <br>The <span>Easy Way</span><br></h1>
+                <p id="sub2">Best place to discover and work on contracts as a programmer</p>
+                <form class="searchform">
+                    <input id="searchbar" type="text", placeholder="Search companies or contracts">
+                    <button id="expbtn" type="submit">Explore</button>
+                </form>
+            </div>
+            <!-- endindividuals -->
+
+            <!-- companies -->
+            <div class="explore noto-sans" id="mainexp-comp">
+                <p id="sub1">Enhance your company's reputation</p>
+                <h1 id="maintext">Boost your bussiness<br>The<span> Efficient way</span><br></h1>
+                <p id="sub2">Optimal platform for finding and collaborating with talented programmers</p>
+                <form class="searchform">
+                    <input id="searchbar" type="text", placeholder="Search contractors">
+                    <button id="expbtn" type="submit">Explore</button>
+                </form>
+            </div>
+            <!-- endcompanies -->
+
+            <div class="socials">
+                <li><P id="social">Social Media:</P></li>
+                <div class="compsvg">
+                    <li><a href="https://www.instagram.com"><img class="compimg" src="static/icons/instagram.svg"></a></li>
+                    <li><a href="https://www.twitter.com"><img class="compimg" src="static/icons/twitter-x.svg"></a></li>
+                    <li><a href="https://www.reddit.com"><img class="compimg" src="static/icons/reddit.svg"></a></li>
+                    <li><a href="https://www.discord.com"><img class="compimg" src="static/icons/discord.svg"></a></li>
+                    <li><a href="https://www.github.com"><img class="compimg" src="static/icons/github.svg"></a></li> 
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+    </div>
+</body>
+</html>

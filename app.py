@@ -25,8 +25,8 @@ app.config['RECAPTCHA_PRIVATE_KEY'] = '6LcxaoEpAAAAAEOeRtpgYt_PDprYUmkVw_ryUl2p'
 
 # HOME
 @app.route('/')
-def index():
-    return render_template("index.html")
+def home():
+    return render_template("home.html")
 
 @app.route('/home')
 def homecomp():

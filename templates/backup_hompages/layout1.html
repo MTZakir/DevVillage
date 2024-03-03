@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block css_file %}{% endblock %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="static/js/render.js"></script>
+</head>
+<body>
+    <div class="container fadeinanimation">
+        <div class="img", id="img">
+            {% block image %}{% endblock %}
+        </div>
+        {% block maincontent %}
+        <div class="content">
+            <div class="navbar noto-sans" id="navbar">
+                {% block navbar %}{% endblock %}
+            </div>
+            <div class="explore noto-sans" id="mainexp">
+                {% block mainexp %}{% endblock %}
+            </div>
+            <div class="socials">
+                {% block socials %}{% endblock %}
+            </div>
+        </div>
+        {% endblock %}
+    </div>
+</body>
+</html>
