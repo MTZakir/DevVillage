@@ -64,13 +64,13 @@ span{
 .explore{
     display: flex;
     flex-direction: column;
-    font-size: 28px;
+    font-size: 1.458vw;
 }
 
 .navlinks{
     display: flex;
     gap: 30px;
-    font-size: 18px;
+    font-size: 0.938vw;
     cursor: pointer;
 }
 
@@ -87,11 +87,11 @@ span{
 
 .compsvg {
     display: flex;
-    gap:20%;
+    gap:30%;
 }
 
 .compimg {
-    width:30px;
+    width:1.563vw;
     height:30px;
 }
 
@@ -126,26 +126,27 @@ span{
     border: none;
     padding: 8px 30px;
     color: white;
-    font-size: 18px;
+    font-size: 0.938vw;
     cursor:pointer;
     transition: 0.2s;
 }
 
 #maintext{
-    font-size: 3.8rem;
+    font-size: 3.167vw;
     /* border: 2.5px solid black; */
 }
 
 #sub1{
-    margin-bottom: -38px;
+    margin-bottom: -3.8vh;
     margin-left: 4px;
 }
 
 #sub2 {
-    margin-top: -38px;
-    margin-bottom:50px;
-    margin-left: 4px;
-    font-size: 22px;
+    margin-top: -3.8vh;
+    margin-bottom:5vh;
+    margin-left: 0.208vw;
+    font-size: 1.146vw;
+    font-weight: 150;
 }
 
 #logo{
@@ -153,13 +154,13 @@ span{
     top: 0%;
     left: 4%;
     color: #d8dbe0;
-    font-size: 3rem;
+    font-size: 2.833vw;
     font-weight: 130;
     opacity: 90%;
 }
 
 #social {
-    font-size: 20px;
+    font-size: 1.042vw;
     margin-top:0;
     border:none;
 }
@@ -167,12 +168,12 @@ span{
 #searchbar {
     border-radius: 7px;
     border: none;
-    width:50%;
-    height:40px;
+    width:21.5vw;
+    height:5vh;
     color: white;
     text-indent: 20px;
     background-color: #202124;
-    font-size: 16px;
+    font-size: 0.833vw;
 }
 
 #searchbar::placeholder{
@@ -185,8 +186,8 @@ span{
 
 #expbtn {
     width:15%;
-    font-size: 20px;
-    height:42.7px;
+    font-size: 1.042vw;
+    height:5.4vh;
     color: rgb(250,251,255);
     background-color: var(--color);
     border: none;
