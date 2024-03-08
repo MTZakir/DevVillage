@@ -1,3 +1,4 @@
+from auth_routes import session_remove_if_not_verified
 from flask import Blueprint, render_template
 
 
@@ -14,5 +15,5 @@ def main():
 
     # ref = db.reference("/users")
     # ref.update({"Chupapi": {"age": "6", "ball size": "2mm", "ball height": "0.1mm"}})
-
+    session_remove_if_not_verified()
     return render_template("discover.html")

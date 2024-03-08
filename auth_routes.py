@@ -1,20 +1,17 @@
+import threading
+import time
 from email_validator import validate_email
 from flask import Blueprint, render_template, session, redirect, url_for
 from firebase_admin import db, auth
-from firebase_admin._auth_utils import EmailAlreadyExistsError, PhoneNumberAlreadyExistsError
+from firebase_admin._auth_utils import EmailAlreadyExistsError, PhoneNumberAlreadyExistsError, UserNotFoundError
 from flask_recaptcha import ReCaptcha
-from forms import OTPForm, OrganizationLoginForm, OrganizationRegistrationForm, UserLoginForm, UserRegistrationForm
-from apscheduler.schedulers.background import BackgroundScheduler
-import pyrebase, smtplib, datetime, string, random, pytz
-from datetime import timedelta
+from auth_forms import OTPForm, OrganizationLoginForm, OrganizationRegistrationForm, UserLoginForm, UserRegistrationForm
+import pyrebase, smtplib, string, random
 
 # Blueprint initialization
 auth_blueprint = Blueprint(
     "auth", __name__, static_folder="static", template_folder="templates"
 )
-
-scheduler = BackgroundScheduler()
-scheduler.start()
 
 
 # Configuration for filipino firebase
@@ -40,16 +37,16 @@ recaptcha = ReCaptcha()
 
 @auth_blueprint.route('/check')
 def check():
+    session_remove_if_not_verified()
     print(session.get('user_id'))
-    verified = auth.get_user(session.get('user_id')).email_verified
-    print('Is user verified: '+ str(verified))
-    return render_template('homecomp.html')
+    return render_template('home.html')
 
 @auth_blueprint.route('/logout')
 def logout():
+    session_remove_if_not_verified()
     session.pop('user_id', None)
     print("User logged out")
-    return render_template('homecomp.html')
+    return render_template('home.html')
 
 # ------------------------------------------------
 
@@ -71,6 +68,7 @@ def try_login(user_email, user_pass):
 # ---------- USER LOGIN ----------
 @auth_blueprint.route('/user_login', methods=['GET', 'POST'])
 def user_login():
+    session_remove_if_not_verified()
     form = UserLoginForm()
 
     # If no users are logged in
@@ -92,7 +90,11 @@ def user_login():
 
                 # If given username exists in user list (induvidual account), then allow login
                 if user_ref.child(username).get() != None:
-                    try_login(form.username_or_email.data, form.password.data)
+                    if auth.get_user_by_email(form.username_or_email.data).email_verified:
+                        try_login(form.username_or_email.data, form.password.data)
+                    else:
+                        session['verify'] = auth.get_user_by_email(form.username_or_email.data).uid
+                        return redirect(url_for('auth.verify'))
 
                 # If given username exists in organization list (organization account), then prevent login from induvidual page
                 if org_ref.child(username).get() != None:
@@ -106,7 +108,12 @@ def user_login():
                     try:
                         user_email = user_ref.child(form.username_or_email.data).child("Email").get()
 
-                        try_login(user_email, form.password.data)
+                        if user_ref.child(username).get() != None:
+                            if auth.get_user_by_email(user_email).email_verified:
+                                try_login(user_email, form.password.data)
+                            else:
+                                session['verify'] = auth.get_user_by_email(user_email).uid
+                                return redirect(url_for('auth.verify'))
 
                     except:
                         print("An account with that email doesn't exist. Try logging in as an organization instead?", e)
@@ -120,7 +127,7 @@ def user_login():
     else:
         print(session.get("user_id"), "is already logged in.")
 
-        return redirect(url_for('index'))
+        return redirect(url_for('home'))
 
     return render_template("temp/user_login.html", form = form)
 
@@ -128,6 +135,7 @@ def user_login():
 # ---------- USER REGISTER ----------
 @auth_blueprint.route('/user_register', methods=['GET', 'POST'])
 def user_register():
+    session_remove_if_not_verified()
     form = UserRegistrationForm()
     # If no accounts are logged in
     if session.get("user_id") == None:
@@ -168,6 +176,13 @@ def user_register():
                     }
                     user_ref.update({form.username.data: user_data})
 
+                    generate_otp_for_email_verification(form.email.data, new_user.uid)
+
+                    # Temporarily logging in user
+                    session['verify'] = new_user.uid
+
+                    return redirect(url_for('auth.verify'))
+
                 # If email already exists
                 except EmailAlreadyExistsError:
                     print("Register Failed! An account linked to the email already exists.")
@@ -183,7 +198,7 @@ def user_register():
     else:
         print(session.get("user_id"), "is already logged in.")
 
-        return redirect(url_for('index'))
+        return redirect(url_for('home'))
 
     return render_template("temp/user_register.html", form = form)
 
@@ -192,6 +207,7 @@ def user_register():
 # ---------- ORGANIZATION LOGIN ----------
 @auth_blueprint.route("/org_login", methods = ["GET", "POST"])
 def org_login():
+    session_remove_if_not_verified()
     form = OrganizationLoginForm()
 
     # If no users are logged in
@@ -203,20 +219,24 @@ def org_login():
             # Check if email is valid and exists in database
             try:
                 validate_email(form.email.data)
-
+            
                 # Get org_name linked to email if it exists in the database
-                org_name = auth.get_user_by_email(form.email.data).display_name
+                org_id = auth.get_user_by_email(form.email.data).uid
 
                 # If given org_name doesnt exist in user list and organization list
-                if user_ref.child(org_name).get() == None and org_ref.child(org_name).get() == None:
+                if user_ref.child(org_id).get() == None and org_ref.child(org_id).get() == None:
                     print("An account with that email doesn't exist. Try logging in as an induvidual instead?")
 
                 # If given org_name exists in organization list (organization account), then allow login
-                if org_ref.child(org_name).get() != None:
-                    try_login(form.email.data, form.password.data)
+                if org_ref.child(org_id).get() != None:
+                    if auth.get_user_by_email(form.email.data).email_verified:
+                        try_login(form.email.data, form.password.data)
+                    else:
+                        session['verify'] = org_id
+                        return redirect(url_for('auth.verify'))
 
                 # If given org_name exists in user list (induvidual account), then prevent login from organization page
-                if user_ref.child(org_name).get() != None:
+                if user_ref.child(org_id).get() != None:
                     print("An account with that email doesn't exist. Try logging in as an induvidual instead?")
 
             # If organization account doesnt exist in database
@@ -230,16 +250,15 @@ def org_login():
     else:
         print(session.get("user_id"), "is already logged in.")
 
-        return redirect(url_for('index'))
+        return redirect(url_for('home'))
 
     return render_template("temp/org_login.html", form = form)
-
-
 
 
 # ---------- ORGANIZATION REGISTER ----------
 @auth_blueprint.route("/org_register", methods = ["GET", "POST"])
 def org_register():
+    session_remove_if_not_verified()
     form = OrganizationRegistrationForm()
     # If no accounts are logged in
     if session.get("user_id") == None:
@@ -270,10 +289,10 @@ def org_register():
                 org_ref.update({new_user.uid: dictionary})
 
                 generate_otp_for_email_verification(form.email.data, new_user.uid)
-                
-                session['email'] = form.email.data
 
-                print('Printing user id before redirecting to verify page: '+ new_user.uid)
+                # Temporarily logging in user
+                session['verify'] = new_user.uid
+
                 return redirect(url_for('auth.verify'))
 
             # If email already exists
@@ -287,61 +306,9 @@ def org_register():
     else:
         print(session.get("user_id"), "is already logged in.")
 
-        return redirect(url_for('index'))
+        return redirect(url_for('home'))
 
     return render_template("temp/org_register.html", form = form)
-
-#OTP handling
-@auth_blueprint.route('/verify',  methods = ["GET", "POST"])
-def verify():
-    email = session.get('email')
-
-    user_id = auth.get_user_by_email(email).uid
-    
-    if user_id:
-
-        # Get current local time (replace with your specific logic if needed)
-        local_time = datetime.datetime.now()
-
-        # Calculate target execution time with truncation (20 seconds from now in UTC)
-        otp_delete_timer = 1800 # Account should be verified within 30 minutes after getting redirected to verify page
-
-        delay = timedelta(seconds=otp_delete_timer)
-        utc_time = local_time.astimezone(pytz.utc)
-        target_time = utc_time + delay
-        target_time = target_time.replace(microsecond=0)
-
-        # Print the target execution time (for reference)
-        print("Target execution time (UTC):", target_time)
-
-        formatted_time = local_time.strftime("%Y-%m-%d %H:%M:%S")
-        print("Formatted Time:", formatted_time)
-
-
-        # Schedule the function using UTC time
-        scheduler.add_job(delete_otp, 'date', run_date=target_time, args=[user_id])
-
-        # await delay_task(user_id)
-
-        form = OTPForm()
-
-        otp_ref = db.reference("/otp")
-
-        if user_id != None:
-            user_otp = form.otp.data
-
-            if user_otp == otp_ref.child(user_id).get():
-                # Updating organization's account with organization name
-                auth.update_user(
-                    user_id,
-                    email_verified = True
-                )
-
-                session.pop('email', None)
-
-        return render_template("temp/otp_submission.html", form = form)
-    else:
-        print('Piss off cunt')
 
 def generate_otp_for_email_verification(email, user_id):
     otp_db = db.reference("/otp")
@@ -370,15 +337,144 @@ def generate_otp_for_email_verification(email, user_id):
     smtp.sendmail(sender, email, body)
     smtp.quit()
 
+
+
+@auth_blueprint.route('/temp')
+def temp():
+    print('before deleting', session.get('verify'))
+    session_remove_if_not_verified()
+    print(session.get('verify'))
+    return render_template('temp/verify.html')
+
+# Remove session if current user is unverified
+# use this in the beginning of every route function
+def session_remove_if_not_verified():
+    if session.get('verify'):
+        try:
+            user = auth.get_user(session.get('verify'))
+            if not user.email_verified:
+                print("deleting session verify of user", user.display_name)
+                session.pop('verify', None)
+        except UserNotFoundError:
+            session.pop('verify', None)
+
+    else:
+        print("No user logged in.")
+
+
+@auth_blueprint.route('/verify', methods=['GET', 'POST'])
+def verify():
+    if not session.get('verify'):
+        return redirect(url_for('home'))
+    
+    form = OTPForm()
+
+    user_id = session.get('verify')
+    otp_ref = db.reference('/otp').child(user_id).get()
+
+    # Call delete_otp with delay using threading
+    threading.Timer(1800, delete_otp, args=(user_id,)).start()
+
+    if form.validate_on_submit() and recaptcha.verify():
+        if form.otp.data == otp_ref:
+            # Updating organization's account with organization name
+            auth.update_user(
+                user_id,
+                email_verified = True
+            )
+
+            # Redirecting user to corresponding account login page
+            if not db.reference("/org_accounts").child(user_id).get():
+                return redirect(url_for('auth.user_login'))
+            else:
+                return redirect(url_for('auth.org_login'))
+        
+        else:
+            print("OTP not correct")
+    else:
+        print("Invalid form submission.")
+
+    return render_template('temp/verify.html', form = form)
+
+
 def delete_otp(user_id):
+    db.reference('/otp').child(user_id).delete()
+
     user = auth.get_user(user_id)
 
-    print("Inside delete_otp function")
-    db.reference("/otp").child(user_id).delete()
+    auth.delete_user(user_id)
 
     if not user.email_verified:
-        auth.delete_user(user_id)
-        if not db.reference("/org_accounts").child(user_id):
-            db.reference("/users").child(user_id).delete()
+        if not db.reference("/org_accounts").child(user.uid).get():
+            db.reference("/user_accounts").child(user.display_name).delete()
         else:
-            db.reference("/org_accounts").child(user_id).delete()
+            db.reference("/org_accounts").child(user.uid).delete()
+
+
+
+
+
+#OTP handling
+# @auth_blueprint.route('/verify',  methods = ["GET", "POST"])
+# def verify():
+#     email = session.get('email')
+#     try:
+#         user_id = auth.get_user_by_email(email).uid
+#     except ValueError:
+#         print("stop trying to verify when you haven't registered yet cunt")
+#         return redirect(url_for('home'))
+#     session.pop('email', None)
+    
+#     if user_id:
+
+#         # Get current local time (replace with your specific logic if needed)
+#         local_time = datetime.datetime.now()
+
+#         # Calculate target execution time with truncation (20 seconds from now in UTC)
+#         otp_delete_timer = 20 # Account should be verified within 30 minutes after getting redirected to verify page
+
+#         delay = timedelta(seconds=otp_delete_timer)
+#         utc_time = local_time.astimezone(pytz.utc)
+#         target_time = utc_time + delay
+#         target_time = target_time.replace(microsecond=0)
+
+#         formatted_time = local_time.strftime("%Y-%m-%d %H:%M:%S")
+#         print("Time when delay was started:", formatted_time)
+
+#         # Print the target execution time (for reference)
+#         print("Target execution time (UTC):", target_time)
+
+#         # Schedule the function using UTC time
+#         # scheduler.add_job(delete_otp, 'date', run_date=target_time, args=[user_id])
+#         curr_app = current_app
+#         delayed_execution(15, delete_otp, user_id)
+
+#         # await delay_task(user_id)
+
+#         form = OTPForm()
+
+#         otp_ref = db.reference("/otp")
+
+#         if user_id != None:
+#             user_otp = form.otp.data
+
+#             if user_otp == otp_ref.child(user_id).get() and user_otp == None:
+#                 # Updating organization's account with organization name
+#                 auth.update_user(
+#                     user_id,
+#                     email_verified = True
+#                 )
+
+#                 print('Your email has been verified')
+
+#                 if not db.reference("/org_accounts").child(user_id).get():
+#                     return redirect(url_for('auth.user_login'))
+#                 else:
+#                     return redirect(url_for('auth.org_login'))
+#             else:
+#                 print('OTP is wrong')
+#                 session['email'] = email
+#                 return render_template("temp/otp_submission.html", form = form)
+
+#     else:
+#         print('Piss off cunt')

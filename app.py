@@ -1,5 +1,5 @@
-from flask import Flask, render_template
-from auth_routes import auth_blueprint
+from flask import Flask, render_template, session
+from auth_routes import auth_blueprint, session_remove_if_not_verified
 from discover_routes import discover_blueprint
 from dashboard_routes import dashboard_blueprint
 
@@ -26,10 +26,12 @@ app.config['RECAPTCHA_PRIVATE_KEY'] = '6LcxaoEpAAAAAEOeRtpgYt_PDprYUmkVw_ryUl2p'
 # HOME
 @app.route('/')
 def home():
+    session_remove_if_not_verified()
     return render_template("home.html")
 
 @app.route('/home')
 def homecomp():
+    session_remove_if_not_verified()
     return render_template("homecomp.html")
 
 
