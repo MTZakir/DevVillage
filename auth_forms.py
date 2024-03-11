@@ -75,3 +75,10 @@ class OrganizationLoginForm(FlaskForm):
 class OTPForm(FlaskForm):
     otp = StringField('OTP', validators=[DataRequired()])
     recaptcha = RecaptchaField()
+
+class PasswordResetEmailForm(FlaskForm):
+    email = StringField('Email', validators=(DataRequired(), Email()))
+
+class PasswordResetForm(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired()])
+    confirm_pass = PasswordField('Confirm Password', validators=[DataRequired()])

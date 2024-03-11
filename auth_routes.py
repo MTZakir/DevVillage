@@ -1,11 +1,12 @@
+import re
 import threading
 import time
 from email_validator import validate_email
-from flask import Blueprint, render_template, session, redirect, url_for
+from flask import Blueprint, render_template, request, session, redirect, url_for
 from firebase_admin import db, auth
 from firebase_admin._auth_utils import EmailAlreadyExistsError, PhoneNumberAlreadyExistsError, UserNotFoundError
 from flask_recaptcha import ReCaptcha
-from auth_forms import OTPForm, OrganizationLoginForm, OrganizationRegistrationForm, UserLoginForm, UserRegistrationForm
+from auth_forms import OTPForm, OrganizationLoginForm, OrganizationRegistrationForm, PasswordResetEmailForm, UserLoginForm, UserRegistrationForm, PasswordResetForm
 import pyrebase, smtplib, string, random
 
 # Blueprint initialization
@@ -37,6 +38,7 @@ recaptcha = ReCaptcha()
 
 @auth_blueprint.route('/check')
 def check():
+    print('Is user', auth.get_user(session.get('user_id')).display_name ,'verified:', auth.get_user(session.get('user_id')).email_verified)
     session_remove_if_not_verified()
     print(session.get('user_id'))
     return render_template('home.html')
@@ -108,14 +110,14 @@ def user_login():
                     try:
                         user_email = user_ref.child(form.username_or_email.data).child("Email").get()
 
-                        if user_ref.child(username).get() != None:
+                        if user_ref.child(form.username_or_email.data).get() != None:
                             if auth.get_user_by_email(user_email).email_verified:
                                 try_login(user_email, form.password.data)
                             else:
                                 session['verify'] = auth.get_user_by_email(user_email).uid
                                 return redirect(url_for('auth.verify'))
 
-                    except:
+                    except Exception as e:
                         print("An account with that email doesn't exist. Try logging in as an organization instead?", e)
                 else:
                     print("User list is empty.")
@@ -176,12 +178,12 @@ def user_register():
                     }
                     user_ref.update({form.username.data: user_data})
 
-                    generate_otp_for_email_verification(form.email.data, new_user.uid)
+                    generate_otp_for_email_verification(form.email.data)
 
                     # Temporarily logging in user
                     session['verify'] = new_user.uid
 
-                    return redirect(url_for('auth.verify'))
+                    return redirect(url_for('auth.verify', source = 'register'))
 
                 # If email already exists
                 except EmailAlreadyExistsError:
@@ -288,12 +290,12 @@ def org_register():
 
                 org_ref.update({new_user.uid: dictionary})
 
-                generate_otp_for_email_verification(form.email.data, new_user.uid)
+                generate_otp_for_email_verification(form.email.data)
 
                 # Temporarily logging in user
                 session['verify'] = new_user.uid
 
-                return redirect(url_for('auth.verify'))
+                return redirect(url_for('auth.verify', source="register"))
 
             # If email already exists
             except EmailAlreadyExistsError:
@@ -310,7 +312,7 @@ def org_register():
 
     return render_template("temp/org_register.html", form = form)
 
-def generate_otp_for_email_verification(email, user_id):
+def generate_otp_for_email_verification(email):
     otp_db = db.reference("/otp")
 
     characters = string.ascii_letters + string.digits
@@ -320,7 +322,10 @@ def generate_otp_for_email_verification(email, user_id):
 
     print(otp)
 
-    otp_db.update({user_id: otp})
+    try:
+        otp_db.update({auth.get_user_by_email(email).uid: otp})
+    except UserNotFoundError:
+        print("User not found")
 
     subject = 'Email verification'
     message = 'Your OTP verification code is '+otp+"\nEnter your OTP in the website within 30 minutes to verify this email"
@@ -353,35 +358,47 @@ def session_remove_if_not_verified():
         try:
             user = auth.get_user(session.get('verify'))
             if not user.email_verified:
-                print("deleting session verify of user", user.display_name)
+                print("Deleting session verify of user", user.display_name)
                 session.pop('verify', None)
         except UserNotFoundError:
             session.pop('verify', None)
 
     else:
-        print("No user logged in.")
+        print("No session found.")
 
 
 @auth_blueprint.route('/verify', methods=['GET', 'POST'])
 def verify():
+    # The user might be redirected from either register page or password reset page.
+    source = request.args.get('source')
+
     if not session.get('verify'):
         return redirect(url_for('home'))
     
     form = OTPForm()
 
     user_id = session.get('verify')
+
     otp_ref = db.reference('/otp').child(user_id).get()
 
     # Call delete_otp with delay using threading
-    threading.Timer(1800, delete_otp, args=(user_id,)).start()
+    threading.Timer(30, delete_otp, args=(user_id,)).start()
 
     if form.validate_on_submit() and recaptcha.verify():
         if form.otp.data == otp_ref:
-            # Updating organization's account with organization name
-            auth.update_user(
-                user_id,
-                email_verified = True
-            )
+            print(source)
+
+            if source == "register":
+                # Updating organization's account with organization name
+                auth.update_user(
+                    user_id,
+                    email_verified = True
+                )
+                
+                session.pop('verify', None)
+
+            elif source == 'resetpass':
+                return redirect(url_for('auth.reset_pass', mode='show_password'))
 
             # Redirecting user to corresponding account login page
             if not db.reference("/org_accounts").child(user_id).get():
@@ -394,6 +411,7 @@ def verify():
     else:
         print("Invalid form submission.")
 
+
     return render_template('temp/verify.html', form = form)
 
 
@@ -402,79 +420,69 @@ def delete_otp(user_id):
 
     user = auth.get_user(user_id)
 
-    auth.delete_user(user_id)
-
     if not user.email_verified:
+        auth.delete_user(user_id)
         if not db.reference("/org_accounts").child(user.uid).get():
             db.reference("/user_accounts").child(user.display_name).delete()
         else:
             db.reference("/org_accounts").child(user.uid).delete()
 
+# Page for implementing password reset alongwith verifying email before resettin password
+@auth_blueprint.route('/resetpass', methods=['GET', 'POST'])
+def reset_pass():
+    # if user is redirected here from login page then the mode is None, then it shows Email text field for the user to verify that the account is theirs
+    # If user is redirected here from verify page then the mode is 'show_passowrd' then the display changes to password and confirm password fields
+    mode = request.args.get('mode')
 
+    form = PasswordResetEmailForm()
 
+    display = False
+    print(mode)
+    if mode == 'show_password':
+        form = PasswordResetForm()
+        display = True
 
+    user_id = session.get('verify')
 
-#OTP handling
-# @auth_blueprint.route('/verify',  methods = ["GET", "POST"])
-# def verify():
-#     email = session.get('email')
-#     try:
-#         user_id = auth.get_user_by_email(email).uid
-#     except ValueError:
-#         print("stop trying to verify when you haven't registered yet cunt")
-#         return redirect(url_for('home'))
-#     session.pop('email', None)
-    
-#     if user_id:
+    print(user_id)
 
-#         # Get current local time (replace with your specific logic if needed)
-#         local_time = datetime.datetime.now()
+    if form.validate_on_submit():
+        print(mode)
+        if mode == 'show_password':    
+            password = form.password.data
+            confpass = form.confirm_pass.data
 
-#         # Calculate target execution time with truncation (20 seconds from now in UTC)
-#         otp_delete_timer = 20 # Account should be verified within 30 minutes after getting redirected to verify page
+            if password == confpass:
+                # Update password
+                auth.update_user(user_id, password=password)
 
-#         delay = timedelta(seconds=otp_delete_timer)
-#         utc_time = local_time.astimezone(pytz.utc)
-#         target_time = utc_time + delay
-#         target_time = target_time.replace(microsecond=0)
+                # Redirecting user to corresponding account login page
+                if not db.reference("/org_accounts").child(user_id).get():
+                    return redirect(url_for('auth.user_login'))
+                else:
+                    return redirect(url_for('auth.org_login'))
+        else:
+            session['verify'] = auth.get_user_by_email(form.email.data).uid
+            generate_otp_for_email_verification(form.email.data)
+            return redirect(url_for('auth.verify', source = 'resetpass'))
+        
 
-#         formatted_time = local_time.strftime("%Y-%m-%d %H:%M:%S")
-#         print("Time when delay was started:", formatted_time)
+    return render_template('temp/reset_pass.html', form=form, show_password_fields=display)
 
-#         # Print the target execution time (for reference)
-#         print("Target execution time (UTC):", target_time)
+def is_password_valid(password):
+    # Length check
+    if len(password) < 8:
+        return False, "Password must be at least 8 characters long."
 
-#         # Schedule the function using UTC time
-#         # scheduler.add_job(delete_otp, 'date', run_date=target_time, args=[user_id])
-#         curr_app = current_app
-#         delayed_execution(15, delete_otp, user_id)
+    # Complexity check
+    if not re.search(r"[A-Z]", password):
+        return False, "Password must contain at least one uppercase letter."
+    if not re.search(r"[a-z]", password):
+        return False, "Password must contain at least one lowercase letter."
+    if not re.search(r"\d", password):
+        return False, "Password must contain at least one digit."
+    if not re.search(r"[!@#$%^&*()-_=+{};:,<.>]", password):
+        return False, "Password must contain at least one special character."
 
-#         # await delay_task(user_id)
-
-#         form = OTPForm()
-
-#         otp_ref = db.reference("/otp")
-
-#         if user_id != None:
-#             user_otp = form.otp.data
-
-#             if user_otp == otp_ref.child(user_id).get() and user_otp == None:
-#                 # Updating organization's account with organization name
-#                 auth.update_user(
-#                     user_id,
-#                     email_verified = True
-#                 )
-
-#                 print('Your email has been verified')
-
-#                 if not db.reference("/org_accounts").child(user_id).get():
-#                     return redirect(url_for('auth.user_login'))
-#                 else:
-#                     return redirect(url_for('auth.org_login'))
-#             else:
-#                 print('OTP is wrong')
-#                 session['email'] = email
-#                 return render_template("temp/otp_submission.html", form = form)
-
-#     else:
-#         print('Piss off cunt')
+    # All checks passed
+    return True

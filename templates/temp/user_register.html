@@ -11,22 +11,23 @@
     <form method = "post">
         {{ csrf_token }}
         {{ form.hidden_tag() }}
-        {{ form.first_name.label }} {{ form.first_name }}
+        
+        {{ form.first_name( placeholder = form.first_name.label.text ) }}
         <br>
-        {{ form.last_name.label }} {{ form.last_name }}
+        {{ form.last_name( placeholder = form.last_name.label.text) }}
         <br>
-        {{ form.username.label }} {{ form.username }}
+        {{ form.username( placeholder = form.username.label.text ) }}
         <br>
         <label for = "phone">Phone Number</label>
         <input type = "tel" id = "phone" name = "phone_number">
         <br>
-        {{ form.email.label }} {{ form.email }}
+        {{ form.email( placeholder = form.email.label.text ) }}
         <br>
-        {{ form.password.label }} {{ form.password }}
+        {{ form.password( placeholder = form.password.label.text ) }}
         <br>
-        {{ form.confirm_password.label }} {{ form.confirm_password }}
+        {{ form.confirm_password( placeholder = form.confirm_password.label.text ) }}
         <br>
-        {{ form.expertise.label }} {{ form.expertise }}
+        {{ form.expertise( placeholder = form.expertise.label.text) }}
         <br>
         {{ form.recaptcha }}
 

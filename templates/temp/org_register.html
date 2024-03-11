@@ -11,25 +11,25 @@
     <form method = "post">
         {{ csrf_token }}
         {{ form.hidden_tag() }}
-        {{ form.org_name.label }} {{ form.org_name }}
+        {{ form.org_name( placeholder = form.org_name.label.text ) }}
         <br>
-        {{ form.email.label }} {{ form.email }}
+        {{ form.email( placeholder = form.email.label.text ) }}
         <br>
-        {{ form.password.label }} {{ form.password }}
+        {{ form.password( placeholder = form.password.label.text ) }}
         <br>
-        {{ form.confirm_password.label }} {{ form.confirm_password }}
+        {{ form.confirm_password( placeholder = form.confirm_password.label.text) }}
         <br>
-        {{ form.industry.label }} {{ form.industry }}
+        {{ form.industry( placeholder = form.industry.label.text ) }}
         <br>
-        {{ form.company_website.label }} {{ form.company_website }}
+        {{ form.company_website( placeholder = form.company_website.label.text ) }}
         <br>
-        {{ form.contact_person_email.label }} {{ form.contact_person_email }}
+        {{ form.contact_person_email( placeholder = form.contact_person_email.label.text ) }}
         <br>
         {{ form.recaptcha }}
 
 
         <button type = "submit">Register</button>
-
+        <br>
         <a href = "{{ url_for('home') }}">Go back home</a>
 
     </form>

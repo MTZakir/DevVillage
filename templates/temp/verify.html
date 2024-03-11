@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    {{ csrf_token }}
-    {{ form.hidden_tag() }}
-
-    {{ form.otp.label }} {{ form.otp }}
-    {{ form.recaptcha }}
-
-    <button type = "submit">Submit</button>
+    <form method="post">
+        {{ csrf_token }}
+        {{ form.hidden_tag() }}
+    
+        {{ form.otp( placeholder = form.otp.label.text) }}
+        {{ form.recaptcha }}
+    
+        <button type = "submit">Submit</button>
+    </form>
 
 </body>
 </html>

@@ -4,17 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
+<body style="background-color: black; color: white;">
 
     <form method = "post">
         {{ csrf_token }}
         {{ form.hidden_tag() }}
-        {{ form.username_or_email.label }} {{ form.username_or_email }}
+        {{ form.username_or_email( placeholder = form.username_or_email.label.text ) }}
         <br>
-        {{ form.password.label }} {{ form.password }}
+        {{ form.password( placeholder = form.password.label.text ) }}
 
         <button type = "submit">Log in</button>
-    </form>
+        </form>
+        
+        <br><br>
+        <a href="{{ url_for('auth.reset_pass') }}" style="color: cyan;">Forgot Password? Do you have dementia?</a>
+        <br>
+        <pre>
+    Do you know who else has dementia?
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠋⠉⠄⠄⠄⠄⠄⠄⠈⠉⠙⠛⠿⣿⣿⣿⣿⣿⣿⣿ 
+⣿⣿⣿⠛⠿⠁⠘⠟⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⢿⣿⣿⣿⣿ 
+⣿⣿⡿⠆⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⣿⣿⣿ 
+⣿⠏⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠘⢿⣿ 
+⣿⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⢸⣿ 
+⡏⠄⠄⠄⠄⠄⠄⠄⢸⣦⣴⣷⣴⣷⣤⣴⣦⣴⣦⣤⣦⣴⣦⠄⠄⠄⠄⢀⣶⣾⣿ 
+⡇⠄⠄⠄⠄⠄⠄⠄⣸⣿⣿⣿⣻⠿⠿⣿⣛⣛⣛⣛⣿⣿⣿⠄⠄⠄⢸⣿⣿⣿⣿ 
+⡇⠄⠄⠄⠄⠄⠄⠄⣿⣿⣿⣿⢣⣾⣿⣶⣶⠐⣴⣶⣦⣰⣿⠄⠄⠄⢸⣿⣿⣿⣿ 
+⡇⠄⠄⠄⠄⠄⠄⠄⣿⣿⣿⣿⠸⠿⣿⠿⢿⡸⠿⣿⡿⢹⣿⠄⠄⠄⢾⣿⣿⣿⣿ 
+⡇⠄⠄⠄⠄⠄⠄⠄⣿⣿⣿⠿⣁⣀⣀⢺⣐⣏⣻⢆⣴⣾⣿⠄⠄⠄⣿⣿⣿⣿⣿ 
+⣇⠄⠄⠄⠄⠄⠄⠄⣿⣿⣯⣾⡁⠄⡀⠍⣛⢛⡛⠛⠻⡝⡏⠄⠄⠄⣿⣿⣿⣿⣿ 
+⣿⠄⠄⠄⠄⠄⠄⠄⣿⣿⣿⣿⣿⣤⣃⡺⠄⠤⢁⣀⣼⣿⡇⠄⠄⢀⣿⣿⣿⣿⣿ 
+⣿⠄⠄⠄⠄⠄⠄⢠⣿⣿⣿⣿⣿⣿⣷⣿⣭⣭⣿⣿⣿⣿⡇⠄⠄⢸⣿⣿⣿⣿⣿ 
+⢏⡀⢀⠄⠄⠄⠄⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢽⣿⣿⣿⠁⠄⠄⠸⢿⣿⣿⣿⣿ 
+⣿⣿⣿⣷⣶⣿⣇⠻⣿⣿⣿⣿⣿⣿⣷⣭⣭⣽⣿⣿⣿⡿⣀⣠⣶⣿⣆⢻⣿⣿⣿</pre>
 
     <br><br><br>
     
