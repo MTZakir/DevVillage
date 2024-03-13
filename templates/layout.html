@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/styles.css" id="css_file">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="static/js/render.js"></script>
+</head>
+<body>
+    <div class="container fadeinanimation">
+        
+        <!-- individuals -->
+        <div class="img", id="img-ind">
+            <img src="static/images/homepage1.jpg">
+            <a href="{{url_for('home')}}"><h1 id="logo">Dev-Village</h1></a>
+        </div>
+        <!-- endindividuals -->
+
+        <!-- companies -->
+        <div class="img", id="img-comp">
+            <img src="static/images/homecomp.jpg">
+            <a href="{{url_for('home')}}"><h1 id="logo">Dev-Village</h1></a>
+        </div>
+        <!-- endcompanies -->
+
+        {% block maincontent %}{% endblock %}
+    </div>
+</body>
+</html>

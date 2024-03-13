@@ -131,7 +131,7 @@ def user_login():
 
         return redirect(url_for('home'))
 
-    return render_template("temp/user_login.html", form = form)
+    return render_template("login.html", form = form)
 
 
 # ---------- USER REGISTER ----------
@@ -202,7 +202,7 @@ def user_register():
 
         return redirect(url_for('home'))
 
-    return render_template("temp/user_register.html", form = form)
+    return render_template("register.html", form = form)
 
 
 
@@ -254,7 +254,7 @@ def org_login():
 
         return redirect(url_for('home'))
 
-    return render_template("temp/org_login.html", form = form)
+    return render_template("login.html", form = form)
 
 
 # ---------- ORGANIZATION REGISTER ----------
@@ -310,7 +310,7 @@ def org_register():
 
         return redirect(url_for('home'))
 
-    return render_template("temp/org_register.html", form = form)
+    return render_template("register.html", form = form)
 
 def generate_otp_for_email_verification(email):
     otp_db = db.reference("/otp")
