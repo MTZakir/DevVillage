@@ -1,32 +1,33 @@
 {% extends "layout.html" %}
 
 {% block css_file %}
-    <link rel="stylesheet" href="static/css/styles.css" id="css_file">
+    <link rel="stylesheet" href="static/css/styles.css">
 {% endblock %}
 
 {% block image %}
-    <img src="static/images/homepage1.jpg">
+    <img src="static/images/homecomp.jpg">
 {% endblock %}
 
 {% block content %}
     <div class="navbar noto-sans" id="navbar">
         <div class="navlinks">
-            <a class="navitem" href="{{url_for('discover.main')}}">Find Contracts</a>
-            <a class="navitem" id="forCompanies" href="{{url_for('homecomp')}}">For Companies</a>
+            <a class="navitem" href="{{url_for('discover.main')}}">Find Contractors</a>
+            <a class="navitem" id="forIndividuals" href="{{url_for('home')}}">For Individuals</a>
         </div> 
         <div class="buttons">
             <button id="btn1" class="btns noto-sans">Sign in</button>
             <button id="btn2" class="btns noto-sans">Sign up</button>
         </div>
     </div>
-
+    
     <div class="explore noto-sans" id="mainexp">
-        <p id="sub1">Improve your portfolio</p>
-        <h1 id="maintext">Find Coding Contracts <br>The <span>Easy Way</span><br></h1>
-        <p id="sub2">Best place to discover and work on contracts as a programmer</p>
+        <p class="unselectable" id="sub1">Enhance your company's reputation</p>
+        <h1 id="maintext">Boost your bussiness<br>The<span> Efficient way</span><br></h1>
+        <p class="unselectable" id="sub2">Optimal platform for finding and collaborating with talented programmers</p>
         <form class="searchform">
             <input id="searchbar" type="text", placeholder="Search contracts">
             <button id="expbtn" type="submit">Explore</button>
         </form>
     </div>
 {% endblock %}
+    

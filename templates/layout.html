@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static/css/styles.css" id="css_file">
+    {% block css_file %}{% endblock %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
@@ -12,22 +12,26 @@
 </head>
 <body>
     <div class="container fadeinanimation">
-        
-        <!-- individuals -->
-        <div class="img", id="img-ind">
-            <img src="static/images/homepage1.jpg">
+        <div class="img", id="img">
+            {% block image %}{% endblock %}
             <a href="{{url_for('home')}}"><h1 id="logo">Dev-Village</h1></a>
         </div>
-        <!-- endindividuals -->
-
-        <!-- companies -->
-        <div class="img", id="img-comp">
-            <img src="static/images/homecomp.jpg">
-            <a href="{{url_for('home')}}"><h1 id="logo">Dev-Village</h1></a>
+        {% block maincontent %}
+        <div class="content">
+            {% block content %}{% endblock %}
+            
+            <div class="socials">
+                <li><P id="social">Social Media:</P></li>
+                <div class="compsvg">
+                    <li><a href="https://www.instagram.com"><img class="compimg" src="static/icons/instagram.svg"></a></li>
+                    <li><a href="https://www.twitter.com"><img class="compimg" src="static/icons/twitter-x.svg"></a></li>
+                    <li><a href="https://www.reddit.com"><img class="compimg" src="static/icons/reddit.svg"></a></li>
+                    <li><a href="https://www.discord.com"><img class="compimg" src="static/icons/discord.svg"></a></li>
+                    <li><a href="https://www.github.com"><img class="compimg" src="static/icons/github.svg"></a></li> 
+                </div>
+            </div>
         </div>
-        <!-- endcompanies -->
-
-        {% block maincontent %}{% endblock %}
+        {% endblock %}
     </div>
 </body>
 </html>

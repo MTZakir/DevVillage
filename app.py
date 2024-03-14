@@ -29,7 +29,7 @@ def home():
     session_remove_if_not_verified()
     return render_template("home.html")
 
-@app.route('/home')
+@app.route('/homecomp')
 def homecomp():
     session_remove_if_not_verified()
     return render_template("homecomp.html")

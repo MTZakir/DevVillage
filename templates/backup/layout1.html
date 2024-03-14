@@ -14,17 +14,21 @@
     <div class="container fadeinanimation">
         <div class="img", id="img">
             {% block image %}{% endblock %}
+            <a href="{{url_for('home')}}"><h1 id="logo">Dev-Village</h1></a>
         </div>
         {% block maincontent %}
         <div class="content">
-            <div class="navbar noto-sans" id="navbar">
-                {% block navbar %}{% endblock %}
-            </div>
-            <div class="explore noto-sans" id="mainexp">
-                {% block mainexp %}{% endblock %}
-            </div>
+            {% block content %}{% endblock %}
+            
             <div class="socials">
-                {% block socials %}{% endblock %}
+                <li><P id="social">Social Media:</P></li>
+                <div class="compsvg">
+                    <li><a href="https://www.instagram.com"><img class="compimg" src="static/icons/instagram.svg"></a></li>
+                    <li><a href="https://www.twitter.com"><img class="compimg" src="static/icons/twitter-x.svg"></a></li>
+                    <li><a href="https://www.reddit.com"><img class="compimg" src="static/icons/reddit.svg"></a></li>
+                    <li><a href="https://www.discord.com"><img class="compimg" src="static/icons/discord.svg"></a></li>
+                    <li><a href="https://www.github.com"><img class="compimg" src="static/icons/github.svg"></a></li> 
+                </div>
             </div>
         </div>
         {% endblock %}
