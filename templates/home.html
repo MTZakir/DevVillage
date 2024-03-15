@@ -11,7 +11,7 @@
             <a class="navitem" id="forCompanies" href="{{url_for('homecomp')}}">For Companies</a>
         </div> 
         <div class="buttons">
-            <button id="btn1" class="btns noto-sans">Sign in</button>
+            <button id="btn1" class="btns noto-sans" onclick="window.location.href = `{{url_for('auth.user_login')}}`">Sign in</button>
             <button id="btn2" class="btns noto-sans">Sign up</button>
         </div>
     </div>

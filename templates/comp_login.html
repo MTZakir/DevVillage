@@ -22,7 +22,7 @@
                     {{ csrf_token }}
                     {{ form.hidden_tag() }}
                     
-                    <input class="signinfield" name="username_or_email" type="text" id="username" placeholder="Username / Email">
+                    <input class="signinfield" name="username_or_email" type="text" id="username" placeholder="Email">
                     <br>
 
                     <input class="signinfield" name="password" type="password" id="password" placeholder="Password">
@@ -43,7 +43,7 @@
                 <hr class="line">
                 <hr class="line">
             </div>
-            <button class="loginswitchbtn" onclick="window.location.href = `{{url_for('auth.org_login')}}`">Sign in as a company</button>
+            <button class="loginswitchbtn" onclick="window.location.href = `{{url_for('auth.user_login')}}`">Sign in as a individual</button>
         </div>
         
 

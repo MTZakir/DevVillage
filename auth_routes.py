@@ -251,7 +251,7 @@ def org_login():
 
         return redirect(url_for('home'))
 
-    return render_template("login.html", form = form)
+    return render_template("comp_login.html", form = form)
 
 
 # ---------- ORGANIZATION REGISTER ----------
