@@ -128,7 +128,7 @@ def user_login():
 
         return redirect(url_for('home'))
 
-    return render_template("login.html", form = form)
+    return render_template("user_login.html", form = form)
 
 
 # ---------- USER REGISTER ----------
@@ -199,7 +199,7 @@ def user_register():
 
         return redirect(url_for('home'))
 
-    return render_template("register.html", form = form)
+    return render_template("user_register.html", form = form)
 
 
 
@@ -251,7 +251,7 @@ def org_login():
 
         return redirect(url_for('home'))
 
-    return render_template("comp_login.html", form = form)
+    return render_template("org_login.html", form = form)
 
 
 # ---------- ORGANIZATION REGISTER ----------

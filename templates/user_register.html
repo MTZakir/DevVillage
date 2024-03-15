@@ -1,0 +1,69 @@
+{% extends 'layout.html' %}
+
+{% block css_file %}
+<link rel="stylesheet" href="static/css/signup.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<script src="static/js/register.js" type="module"></script>
+{% endblock %}
+
+
+{% block image %}
+    <img src="static/images/homepage1.jpg">
+{% endblock %}
+
+
+{% block maincontent %}
+
+<div class="signup-content">
+
+    <div class="signup-card">
+        <p class="title">Sign up</p>
+
+        <form method="POST" class="signup-form">
+            {{ csrf_token }}
+            {{ form.hidden_tag() }}
+
+            <div class="input-name">
+                <input type="text" name="first_name" placeholder="First name" required>
+                <br>
+                <input type="text" name="last_name" placeholder="Last name" required>
+            </div>
+            <br>
+            <input type="text" name="username" placeholder="Username" required>
+            <br>
+            <input type = "tel" id="phone" name="phone_number">
+            <br>
+            <input type="email" name="email" placeholder="Email" required>
+            <br>
+            <input type="password" name="password1" placeholder="Password" required>
+            <br>
+            <input type="password" name="password2" placeholder="Re-enter password" required>
+            <br>
+            <select name="expertise" id="expertise">
+                <option value="" selected>Select Field of Proficiency</option>
+                {% for value, label in form.expertise.choices %}
+                    <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <button type="submit">Proceed to verification</button>
+        </form>
+        
+        <p class="acc-exists">Already have an account? <a href="{{ url_for('auth.user_login') }}">Sign in</a></p>
+
+    </div>
+    
+    <div class="or">
+        <span>Or</span>
+        <hr class="line">
+        <hr class="line">
+    </div>
+
+    <a class="other-signin" href="{{ url_for('auth.org_register') }}">Sign up as a company</a>
+
+</div>
+
+
+{% endblock %}
+
