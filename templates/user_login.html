@@ -22,12 +22,21 @@
                     {{ csrf_token }}
                     {{ form.hidden_tag() }}
                     
-                    <input class="signinfield" name="username_or_email" type="text" id="username" placeholder="Username / Email">
+                    <!-- <input class="signinfield" name="username_or_email" type="text" id="username" placeholder="Username / Email"> -->
+
+                    <div class="inpfields">
+                        <input class="signinfield" name="username_or_email" type="text" id="username" placeholder="Username / Email">
+                        <i class="bi bi-person person"></i>
+                    </div>
                     <br>
 
-                    <input class="signinfield" name="password" type="password" id="password" placeholder="Password">
+                    <!-- <input class="signinfield" name="password" type="password" id="password" placeholder="Password"> -->
+
+                    <div class="inpfields">
+                        <input class="signinfield" name="password" type="password" id="password" placeholder="Password">
+                        <i class="bi bi-lock lock"></i>
+                    </div>
                     <br>
-                    
                     <button class="loginbtn" type="submit">Log in</button>
                 </form>
 

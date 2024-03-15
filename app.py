@@ -22,6 +22,7 @@ app.config['SECRET_KEY'] = 'h#@hbJHB$@uygAHB!3137yugas_niGaJKH@#nlNAUBKJ~/AS,.69
 app.config['RECAPTCHA_ENABLED'] = True
 app.config['RECAPTCHA_PUBLIC_KEY'] = '6LcxaoEpAAAAAH92Ayj9QRJnLO8FRHDulED4OZOY'
 app.config['RECAPTCHA_PRIVATE_KEY'] = '6LcxaoEpAAAAAEOeRtpgYt_PDprYUmkVw_ryUl2p'
+app.config['RECAPTCHA_THEME'] = 'dark'
 
 # HOME
 @app.route('/')
