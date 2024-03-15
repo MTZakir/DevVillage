@@ -1,0 +1,141 @@
+/* Styles below are for login.html */
+
+.indsignin{
+    display: flex;
+    background-color: #0D1117;
+    width: 22vw;
+    height: 37vw;
+    justify-self: center;
+    align-self: center;
+
+    justify-content: space-around;
+    align-items: center;
+    
+    flex-direction: column;
+    padding: 30px;
+}
+
+.contentlogin{
+    color: rgb(255, 255, 255);
+    display: grid;
+}
+
+.logincard{
+    display: flex;
+    background-color: #0F0F0F;
+    height: 53vh;
+    width: 25vw;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 25px;
+}
+
+.signinhead{
+    font-size: 40px;
+}
+
+.othersigninoptions, .signinform{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.or{
+    width: 100%;
+    position: relative;
+}
+
+.or span{
+    color: white;
+    display: block;
+    width: max-content;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2; /* To ensure the text appears above lines */
+}
+
+.line {
+    position: absolute;
+    top: 17%;
+    width: 45%;
+    border: 1px solid rgb(255,255, 255, 0.75);
+    z-index: 1;
+}
+
+.line:first-of-type {
+    left: 0;
+}
+  
+.line:last-of-type {
+    right: 0;
+}
+
+.loginswitchbtn{
+    width: 15vw;
+    font-size: 1.042vw;
+    height: 5.4vh;
+    color: rgb(250,251,255);
+    background-color: #0078D7;
+    border: none;
+    border-radius: 7px;
+    cursor:pointer;
+}
+
+.loginswitchbtn:hover{
+    background-color: #2880ed;
+    color: rgb(250,251,255);
+}
+
+.loginswitchbtn:active{
+    background-color: rgb(0, 115, 203);
+    color: rgb(235, 235, 235);
+}
+
+.loginbtn{
+    width: 19.5vw;
+    font-size: 1.042vw;
+    height: 4.6vh;
+    color: rgb(250,251,255);
+    background-color: #733DF0;
+    border: none;
+    border-radius: 7px;
+    cursor:pointer;
+}
+
+.loginbtn:hover{
+    background-color: #7e47ff;
+    color: rgb(250,251,255);
+}
+
+.loginbtn:active{
+    background-color: rgb(95, 0, 203);
+    color: rgb(227, 227, 227);
+}
+
+
+.signinfield {
+    width: 18vw;
+    height: 4.6vh;
+    padding: 0 10px;
+
+    border-radius: 6px;
+
+    border: none;
+    outline: none;
+
+    background-color: #202124;
+    color: #fff;
+}
+
+.othersigninoptions{
+    font-size: 12px;
+}
+
+.othersigninoptions a{
+    color: #804bfc;
+}
+
+.container{
+    gap: 0%
+}

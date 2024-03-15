@@ -1,13 +1,10 @@
-import re
-import threading
-import time
 from email_validator import validate_email
 from flask import Blueprint, render_template, request, session, redirect, url_for
 from firebase_admin import db, auth
 from firebase_admin._auth_utils import EmailAlreadyExistsError, PhoneNumberAlreadyExistsError, UserNotFoundError
 from flask_recaptcha import ReCaptcha
 from auth_forms import OTPForm, OrganizationLoginForm, OrganizationRegistrationForm, PasswordResetEmailForm, UserLoginForm, UserRegistrationForm, PasswordResetForm
-import pyrebase, smtplib, string, random
+import pyrebase, smtplib, string, random, threading, re
 
 # Blueprint initialization
 auth_blueprint = Blueprint(
@@ -486,3 +483,7 @@ def is_password_valid(password):
 
     # All checks passed
     return True
+
+# @auth_blueprint.route('/login', methods=['GET', 'POST'])
+# def login():
+#     return render_template('login.html')
