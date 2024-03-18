@@ -14,8 +14,8 @@
     <div class="container">
         <div class="navbar">
             <ul class="navlinks-left">
-                <li><a href="{{url_for("home")}}">Home</a></li>
-                <li><a href="{{url_for("homecomp")}}">Discover as company</a></li>
+                <li><a href="{{url_for('home')}}">Home</a></li>
+                <li><a href="{{url_for('homecomp')}}">Discover as company</a></li>
             </ul>
             <ul class="navlinks-right">
                 <li>
@@ -41,7 +41,7 @@
                     </button> 
                 </div>
                 {% for ad in ad_details%}
-                <a href="{{url_for("discover.contractpage")}}">
+                <a href="{{url_for('discover.contractpage')}}">
                     <div class="ad-cards">
                         <div class="price-profile">
                             <h1 id="price"> $<span>{{ ad["price"] }}/USD</span></h2>
