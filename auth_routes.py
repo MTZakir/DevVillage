@@ -35,33 +35,14 @@ recaptcha = ReCaptcha()
 
 @auth_blueprint.route('/check')
 def check():
-    print('Is user', auth.get_user(session.get('user_id')).display_name ,'verified:', auth.get_user(session.get('user_id')).email_verified)
-    session_remove_if_not_verified()
     print(session.get('user_id'))
-    return render_template('home.html')
-
-@auth_blueprint.route('/logout')
-def logout():
+    print('Is user', auth.get_user(session.get('user_id')[2:]).display_name ,'verified:', auth.get_user(session.get('user_id')[2:]).email_verified)
     session_remove_if_not_verified()
-    session.pop('user_id', None)
-    print("User logged out")
-    return render_template('home.html')
+    return redirect(url_for('home'))
 
 # ------------------------------------------------
 
 
-# Function to authorize users with firebase
-def try_login(user_email, user_pass):
-    try:
-        pyre_auth.sign_in_with_email_and_password(user_email, user_pass)
-
-        user_id = auth.get_user_by_email(user_email).uid
-
-        session['user_id'] = user_id
-
-        print("SUCCESSFULLY LOGGED IN!")
-    except:
-        print("Incorrect username/email or password.")
 
 
 # ---------- USER LOGIN ----------
@@ -89,8 +70,13 @@ def user_login():
 
                 # If given username exists in user list (induvidual account), then allow login
                 if user_ref.child(username).get() != None:
+                    
                     if auth.get_user_by_email(form.username_or_email.data).email_verified:
-                        try_login(form.username_or_email.data, form.password.data)
+                        try_login(form.username_or_email.data, form.password.data, "I")
+                        # Check if user is logged in successfully, yes = redirect, no = error
+                        if session.get('user_id') != None:
+                            return redirect(url_for('home'))
+                        
                     else:
                         session['verify'] = auth.get_user_by_email(form.username_or_email.data).uid
                         return redirect(url_for('auth.verify'))
@@ -108,8 +94,14 @@ def user_login():
                         user_email = user_ref.child(form.username_or_email.data).child("Email").get()
 
                         if user_ref.child(form.username_or_email.data).get() != None:
+                            
                             if auth.get_user_by_email(user_email).email_verified:
-                                try_login(user_email, form.password.data)
+                                try_login(user_email, form.password.data, "I")
+
+                                # Check if user is logged in successfully, yes = redirect, no = error
+                                if session.get('user_id') != None:
+                                    return redirect(url_for('home'))
+                                
                             else:
                                 session['verify'] = auth.get_user_by_email(user_email).uid
                                 return redirect(url_for('auth.verify'))
@@ -129,6 +121,8 @@ def user_login():
         return redirect(url_for('home'))
 
     return render_template("user_login.html", form = form)
+
+
 
 
 # ---------- USER REGISTER ----------
@@ -203,6 +197,7 @@ def user_register():
 
 
 
+
 # ---------- ORGANIZATION LOGIN ----------
 @auth_blueprint.route("/org_login", methods = ["GET", "POST"])
 def org_login():
@@ -228,8 +223,14 @@ def org_login():
 
                 # If given org_name exists in organization list (organization account), then allow login
                 if org_ref.child(org_id).get() != None:
+
                     if auth.get_user_by_email(form.email.data).email_verified:
-                        try_login(form.email.data, form.password.data)
+                        try_login(form.email.data, form.password.data, "O")
+
+                        # Check if user is logged in successfully, yes = redirect, no = error
+                        if session.get('user_id') != None:
+                            return redirect(url_for('homecomp'))
+
                     else:
                         session['verify'] = org_id
                         return redirect(url_for('auth.verify'))
@@ -252,6 +253,8 @@ def org_login():
         return redirect(url_for('home'))
 
     return render_template("org_login.html", form = form)
+
+
 
 
 # ---------- ORGANIZATION REGISTER ----------
@@ -307,63 +310,23 @@ def org_register():
 
         return redirect(url_for('home'))
 
-    return render_template("register.html", form = form)
-
-def generate_otp_for_email_verification(email):
-    otp_db = db.reference("/otp")
-
-    characters = string.ascii_letters + string.digits
-    
-    # Generate OTP using random.choice
-    otp = ''.join(random.choice(characters) for _ in range(8))
-
-    print(otp)
-
-    try:
-        otp_db.update({auth.get_user_by_email(email).uid: otp})
-    except UserNotFoundError:
-        print("User not found")
-
-    subject = 'Email verification'
-    message = 'Your OTP verification code is '+otp+"\nEnter your OTP in the website within 30 minutes to verify this email"
-
-    sender = 'code.dev.village@gmail.com'
-
-    body = f"Subject: {subject}\n\n{message}"
-
-    smtp = smtplib.SMTP('smtp.gmail.com', 587)
-    smtp.starttls()
-
-    smtp.login(sender, 'jpjpoaxdwpjjoejc')
-
-    smtp.sendmail(sender, email, body)
-    smtp.quit()
+    return render_template("temp/org_register.html", form = form)
 
 
 
-@auth_blueprint.route('/temp')
-def temp():
-    print('before deleting', session.get('verify'))
+
+# ---------- ACCOUNT LOGOUT ----------
+@auth_blueprint.route('/logout')
+def logout():
     session_remove_if_not_verified()
-    print(session.get('verify'))
-    return render_template('temp/verify.html')
-
-# Remove session if current user is unverified
-# use this in the beginning of every route function
-def session_remove_if_not_verified():
-    if session.get('verify'):
-        try:
-            user = auth.get_user(session.get('verify'))
-            if not user.email_verified:
-                print("Deleting session verify of user", user.display_name)
-                session.pop('verify', None)
-        except UserNotFoundError:
-            session.pop('verify', None)
-
-    else:
-        print("No session found.")
+    session.pop('user_id', None)
+    print("User logged out")
+    return redirect(url_for('home'))
 
 
+
+
+# ---------- VERIFY ACCOUNT ----------
 @auth_blueprint.route('/verify', methods=['GET', 'POST'])
 def verify():
     # The user might be redirected from either register page or password reset page.
@@ -383,7 +346,6 @@ def verify():
 
     if form.validate_on_submit() and recaptcha.verify():
         if form.otp.data == otp_ref:
-            print(source)
 
             if source == "register":
                 # Updating organization's account with organization name
@@ -395,6 +357,8 @@ def verify():
                 session.pop('verify', None)
 
             elif source == 'resetpass':
+                session.pop('mode', None)
+                session['mode'] = "show_password"
                 return redirect(url_for('auth.reset_pass', mode='show_password'))
 
             # Redirecting user to corresponding account login page
@@ -412,23 +376,18 @@ def verify():
     return render_template('temp/verify.html', form = form)
 
 
-def delete_otp(user_id):
-    db.reference('/otp').child(user_id).delete()
-
-    user = auth.get_user(user_id)
-
-    if not user.email_verified:
-        auth.delete_user(user_id)
-        if not db.reference("/org_accounts").child(user.uid).get():
-            db.reference("/user_accounts").child(user.display_name).delete()
-        else:
-            db.reference("/org_accounts").child(user.uid).delete()
-
-# Page for implementing password reset alongwith verifying email before resettin password
+# ---------- RESET PASSWORD ----------
+# Page for implementing password reset along with verifying email before resetting password
 @auth_blueprint.route('/resetpass', methods=['GET', 'POST'])
 def reset_pass():
     # if user is redirected here from login page then the mode is None, then it shows Email text field for the user to verify that the account is theirs
     # If user is redirected here from verify page then the mode is 'show_passowrd' then the display changes to password and confirm password fields
+
+
+    # MAJOR ISSUE: User is able to go to password change page without needing verification
+    # SOLUTION: Either seperate email and password pages, OR use some shitty solution
+
+
     mode = request.args.get('mode')
 
     form = PasswordResetEmailForm()
@@ -444,6 +403,7 @@ def reset_pass():
     print(user_id)
 
     if form.validate_on_submit():
+        session.pop('verify', None)
         print(mode)
         if mode == 'show_password':    
             password = form.password.data
@@ -466,6 +426,99 @@ def reset_pass():
 
     return render_template('temp/reset_pass.html', form=form, show_password_fields=display)
 
+
+
+
+# ----------------------------------------------------------------
+#   Helper Functions
+# ----------------------------------------------------------------
+
+
+# Function to authorize users with firebase
+def try_login(user_email, user_pass, type):
+    try:
+        pyre_auth.sign_in_with_email_and_password(user_email, user_pass)
+
+        user_id = auth.get_user_by_email(user_email).uid
+
+        session['user_id'] = type + "-" + user_id
+
+        print("SUCCESSFULLY LOGGED IN!")
+
+    except:
+        print("Incorrect username/email or password.")
+
+
+
+
+
+def generate_otp_for_email_verification(email):
+    otp_db = db.reference("/otp")
+  
+    # Generate OTP using random.choice
+    otp = str(random.randint(10000000, 99999999))
+
+    print(otp)
+
+    try:
+        otp_db.update({auth.get_user_by_email(email).uid: otp})
+    except UserNotFoundError:
+        print("User not found")
+
+    subject = 'Email verification'
+    message = 'Your OTP verification code is '+ str(otp) +"\nEnter your OTP in the website within 30 minutes to verify this email"
+
+    sender = 'code.dev.village@gmail.com'
+
+    body = f"Subject: {subject}\n\n{message}"
+
+    smtp = smtplib.SMTP('smtp.gmail.com', 587)
+    smtp.starttls()
+
+    smtp.login(sender, 'jpjpoaxdwpjjoejc')
+
+    smtp.sendmail(sender, email, body)
+    smtp.quit()
+
+
+
+
+
+# Remove session if current user is unverified
+# use this in the beginning of every route function
+def session_remove_if_not_verified():
+    if session.get('verify'):
+        try:
+            user = auth.get_user(session.get('verify'))
+            if not user.email_verified:
+                print("Deleting session verify of user", user.display_name)
+                session.pop('verify', None)
+        except UserNotFoundError:
+            session.pop('verify', None)
+
+    else:
+        print("No session found.")
+
+
+
+
+
+def delete_otp(user_id):
+    db.reference('/otp').child(user_id).delete()
+
+    user = auth.get_user(user_id)
+
+    if not user.email_verified:
+        auth.delete_user(user_id)
+        if not db.reference("/org_accounts").child(user.uid).get():
+            db.reference("/user_accounts").child(user.display_name).delete()
+        else:
+            db.reference("/org_accounts").child(user.uid).delete()
+
+
+
+
+
 def is_password_valid(password):
     # Length check
     if len(password) < 8:
@@ -483,7 +536,3 @@ def is_password_valid(password):
 
     # All checks passed
     return True
-
-# @auth_blueprint.route('/login', methods=['GET', 'POST'])
-# def login():
-#     return render_template('login.html')

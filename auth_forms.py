@@ -104,7 +104,6 @@ class UserRegistrationForm(FlaskForm):
         render_kw={"class": "form-control"}  # Additional attributes for rendering the field in HTML
     )
 
-    recaptcha = RecaptchaField()
 
 # User login form
 class UserLoginForm(FlaskForm):

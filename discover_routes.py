@@ -10,7 +10,7 @@ discover_blueprint = Blueprint(
     "discover", __name__, static_folder="static", template_folder="templates"
 )
 
-# DISCOVER
+# ---------- MAIN DISCOVER PAGE ----------
 @discover_blueprint.route('/discover')
 def main():
     session_remove_if_not_verified()
@@ -61,6 +61,10 @@ def main():
 
     return render_template("discover.html", ad_details=ad_details)
 
+
+
+
+# ---------- CONTRACT PAGE ----------
 @discover_blueprint.route("/contract")
 def contractpage():
     session_remove_if_not_verified()
@@ -68,6 +72,9 @@ def contractpage():
     return render_template("contract.html")
 
 
+
+
+# ---------- CREATE CONTRACT ----------
 @discover_blueprint.route("/create_contract", methods = ["POST", "GET"])
 def create_contract():
     contract_ref = db.reference("/contracts")
@@ -77,14 +84,16 @@ def create_contract():
         form = CreateContract()
 
         if form.validate_on_submit():
-            contract_ref.update({
-                str(session.get('user_id')): {
+
+            contract_ref.push(
+                {
                     "Price": form.price.data,
                     "Title": form.title.data,
                     "Description": form.description.data,
-                    "Contract Image": form.contract_img.data
+                    "Contract Image": form.contract_img.data,
+                    "Author": session.get('user_id')[2:]
                 }
-            })
+            )
         
         else:
             print("Create contract form error: ", form.errors)
@@ -98,9 +107,43 @@ def create_contract():
 
 
 
-@discover_blueprint.route("/edit_contract", methods = ["POST", "GET"])
-def edit_contract():
-    pass
+@discover_blueprint.route("/edit_contract/<string:contract_id>", methods = ["POST", "GET"])
+def edit_contract(contract_id):
+    session_remove_if_not_verified()
+    contract_ref = db.reference("/contracts").child("-" + contract_id)
+
+    # Checking if user is an organization account AND if the current user is the author of the contract
+    if contract_ref.child("Author").get() == session.get('user_id')[2:] and check_if_user_is_company():
+        form = CreateContract()
+
+
+        # ISSUE HERE: Values are being overwritten by form.data while setting it and while updating it
+
+
+        form.price.data = contract_ref.child("Price").get()
+        form.title.data = contract_ref.child("Title").get()
+        form.description.data = contract_ref.child("Description").get()
+        form.contract_img.data = contract_ref.child("Contract Image").get()
+        
+        if form.validate_on_submit():
+            
+            contract_ref.update(
+                {
+                    "Price": form.price.data,
+                    "Title": form.title.data,
+                    "Description": form.description.data,
+                    "Contract Image": form.contract_img.data,
+                }
+            )
+        
+        else:
+            print("Edit contract form error: ", form.errors)
+
+    else:
+        print("You are not authorized to access this page.")
+        return redirect(url_for('discover.main'))
+
+    return render_template("temp/edit_contract.html", form = form)
 
 
 
@@ -114,7 +157,7 @@ def check_if_user_is_company():
     account_ref = db.reference("/")
 
     # If current user is org account
-    if account_ref.child("org_accounts").get(session.get('user_id')) != None:
+    if session.get('user_id')[0] == "O":
         return True
     
     # Any other account
