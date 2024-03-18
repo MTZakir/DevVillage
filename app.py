@@ -2,6 +2,7 @@ from flask import Flask, render_template, session
 from auth_routes import auth_blueprint, session_remove_if_not_verified
 from discover_routes import discover_blueprint
 from dashboard_routes import dashboard_blueprint
+from datetime import datetime
 
 # Database
 import firebase_admin
@@ -23,6 +24,8 @@ app.config['RECAPTCHA_ENABLED'] = True
 app.config['RECAPTCHA_PUBLIC_KEY'] = '6LcxaoEpAAAAAH92Ayj9QRJnLO8FRHDulED4OZOY'
 app.config['RECAPTCHA_PRIVATE_KEY'] = '6LcxaoEpAAAAAEOeRtpgYt_PDprYUmkVw_ryUl2p'
 app.config['RECAPTCHA_THEME'] = 'dark'
+
+# TEMP DICT VALUES FOR DISCOVER PAGE
 
 # HOME
 @app.route('/')
