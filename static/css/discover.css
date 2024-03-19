@@ -13,13 +13,13 @@ a{
 
 ul{
     display:flex;
-    gap: 40px;
+    gap: 2.083vw;
     height: min-content;
     /* border: 1px solid white; */
     align-items: center;
     list-style: none;
     
-    font-size: 20px;
+    font-size: 1.042vw;
     font-style: normal;
     font-weight: 300;
 }
@@ -31,7 +31,7 @@ li > a{
 
 li > a:hover{
     color: #733DF0;
-    font-size:22px;
+    font-size:1.146vw;
 }
 
 .container{
@@ -41,7 +41,11 @@ li > a:hover{
 }
 
 .navlinks-right{
-    padding: 0 40px 0 0;
+    padding: 0 2.083vw 0 0;
+    /* align-items: center; */
+}
+.navlinks-left{
+    padding: 0 0 0 2.083vw;
     /* align-items: center; */
 }
 
@@ -62,7 +66,7 @@ li > a:hover{
 }
 
 .search{
-    font-size: 18px;
+    font-size: 0.938vw;
     color: #a0a1a7;
 }
 
@@ -75,7 +79,7 @@ li > a:hover{
     display: flex;
     align-items: flex-end;
     justify-content: flex-start;
-    padding-left: 20px;
+    padding-left: 1.042vw;
     transition:0.6s;
     /* border: 1px solid white; */
 }
@@ -109,9 +113,9 @@ li > a:hover{
 .ad-box{
     /* border: 1px solid white; */
     display: flex;
-    padding-left:20px;
+    padding-left:1.042vw;
     gap: 35px;
-    row-gap: 20px;
+    row-gap: 1.042vw;
     flex-flow: row wrap;
 }
 
@@ -119,13 +123,12 @@ li > a:hover{
     display: grid;
     grid-template-columns: 75% 25%;
     align-items: center;
-    max-width: 600px;
+    max-width: 31.25vw;
     width: fit-content;
-    margin-top: 20px;
-    border-radius: 8px;
+    margin-top: 1.042vw;
+    border-radius: 0.417vw;
     border: none;
     background: #0D1117;
-    text-indent: 8px;
     transition: 0.6s;
 }
 
@@ -139,14 +142,14 @@ li > a:hover{
     background: rgb(26, 31, 37);
     border-radius: 6px;
     border: 2px solid #202124;
-    font-size: 18px;
+    font-size: 0.938vw;
     padding: 5px 14px 5px 14px;
     color: rgba(255, 255, 255, 0.70);
     transition:0.2s;
 }
 
 .content{
-    padding: 16px;
+    padding: 1.033vw;
 }
 
 .sort-by:hover{
@@ -164,12 +167,12 @@ li > a:hover{
 .desc-date > h3, p{
     color: white;
     margin: 0;
-    margin-bottom: 10px;;
+    margin-bottom: 0.521vw;
 }
 
 .bookmark{
     color: #2A282F;
-    font-size: 20px;
+    font-size: 1.042vw;
     font-style: normal;
     font-weight: 300;
     line-height: normal;
@@ -182,8 +185,8 @@ li > a:hover{
 
 #title{
     color: #fff;
-    margin-top:20px;
-    font-size: 16px;
+    margin-top:1.042vw;
+    font-size: 0.833vw;
     font-style: normal;
     font-weight: 400;
 }
@@ -194,14 +197,14 @@ li > a:hover{
     white-space: nowrap; /* Prevent wrapping */
     overflow: hidden; /* Hide overflow */
     text-overflow: ellipsis;
-    font-size: 16px;
+    font-size: 0.833vw;
     font-style: normal;
     font-weight: 300;
 
 }
 #company{
     color: #FFF;
-    font-size: 18px;
+    font-size: 0.938vw;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -210,7 +213,7 @@ li > a:hover{
 
 #price{
     color: #1A7229;
-    font-size: 16px;
+    font-size: 0.833vw;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -225,11 +228,10 @@ li > a:hover{
     height: 4vh;
     border-radius: 7px 0px 0px 7px;
     border: none;
-    text-indent: 20px;
+    text-indent: 1.042vw;
     font-size: 0.833vw;
     color: #b3b3b3;
     background-color: #202124;
-    transition: 3s;
 }
 
 #searchbtn:hover{
@@ -237,7 +239,7 @@ li > a:hover{
 }
 
 #searchbtn{
-    width: 42px;
+    width: 2.188vw;
     border-radius: 0px 7px 7px 0px;
     background: #424347;
     border: none;
@@ -256,13 +258,13 @@ li > a:hover{
 
 .profilepic > span{
     padding: 3px;
-    font-size: 18px;
+    font-size: 0.938vw;
     font-weight: 300;
     color: rgba(255, 255, 255, 0.70);
 }
 
 .clock{
-    font-size: 14px;
+    font-size: 0.729vw;
     font-style: normal;
     font-weight: 300;
     color: rgba(255, 255, 255, 0.50);;
@@ -281,11 +283,6 @@ li > a:hover{
 
 .fadeinanimation{
     animation: fadeInAnimation ease 1.5s;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-}
-.fadeinanimation2{
-    animation: fadeInAnimation ease 2s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
 }
