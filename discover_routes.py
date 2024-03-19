@@ -106,7 +106,7 @@ def create_contract():
 
 
 
-
+# ---------- EDIT CONTRACT ----------
 @discover_blueprint.route("/edit_contract/<string:contract_id>", methods = ["POST", "GET"])
 def edit_contract(contract_id):
     session_remove_if_not_verified()
@@ -116,15 +116,7 @@ def edit_contract(contract_id):
     if contract_ref.child("Author").get() == session.get('user_id')[2:] and check_if_user_is_company():
         form = CreateContract()
 
-
-        # ISSUE HERE: Values are being overwritten by form.data while setting it and while updating it
-
-
-        form.price.data = contract_ref.child("Price").get()
-        form.title.data = contract_ref.child("Title").get()
-        form.description.data = contract_ref.child("Description").get()
-        form.contract_img.data = contract_ref.child("Contract Image").get()
-        
+        # If form is submitted, apply changes
         if form.validate_on_submit():
             
             contract_ref.update(
@@ -136,7 +128,13 @@ def edit_contract(contract_id):
                 }
             )
         
+        # Else just display the contents
         else:
+            form.price.data = contract_ref.child("Price").get()
+            form.title.data = contract_ref.child("Title").get()
+            form.description.data = contract_ref.child("Description").get()
+            form.contract_img.data = contract_ref.child("Contract Image").get()
+            
             print("Edit contract form error: ", form.errors)
 
     else:
@@ -145,6 +143,13 @@ def edit_contract(contract_id):
 
     return render_template("temp/edit_contract.html", form = form)
 
+
+
+# ---------- DELETE CONTRACT ----------
+# Logic for deleting contract:
+# Only available in my contracts list/page
+# Display all contracts made by current user
+# On deleting a contract, get contract ID and pop or delete it from firebase real db
 
 
 
