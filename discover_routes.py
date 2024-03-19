@@ -15,189 +15,24 @@ discover_blueprint = Blueprint(
 def main():
     session_remove_if_not_verified()
 
+    contract_list = db.reference("/contracts").get()
 
-    today = date.today().strftime("%d-%m-%Y")
-    # LOGIC FOR DISCOVER
-    ad_details = [{
-    "minprice": 46.05,
-    "maxprice": 70.05,
-    "company": "Netflix",
-    "title": "Implement User Authentication using Firebase",
-    "desc": "Our business website is using Firebase as its primary database, therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
-    "time": today,
-    "profileimg": "static/icons/person.svg",
-    "profilename": "Victor Salazar"
-    },
-    {
-    "minprice": 46.05,
-    "maxprice": 70.05,
-    "company": "Netflix",
-    "title": "Implement User Authentication using Firebase",
-    "desc": "Our business website is using Firebase as its primary database, therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
-    "time": today,
-    "profileimg": "static/icons/person.svg",
-    "profilename": "Victor Salazar"
-    },
-    {
-    "minprice": 46.05,
-    "maxprice": 70.05,
-    "company": "Netflix",
-    "title": "Implement User Authentication using Firebase",
-    "desc": "Our business website is using Firebase as its primary database, therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
-    "time": today,
-    "profileimg": "static/icons/person.svg",
-    "profilename": "Victor Salazar"
-    },
-    {
-    "minprice": 46.05,
-    "maxprice": 70.05,
-    "company": "Netflix",
-    "title": "Implement User Authentication using Firebase",
-    "desc": "Our business website is using Firebase as its primary database, therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
-    "time": today,
-    "profileimg": "static/icons/person.svg",
-    "profilename": "Victor Salazar"
-    },]
-    # {
-    # "price": 46.05,
-    # "title": "Implement Firebase Authentication",
-    # "desc": "Our business website is using Firebase as its primary database; therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
-    # "time": today,
-    # "profileimg": "static/icons/person.svg",
-    # "profilename": "Victor Salazar"
-    # },
-    # {
-    # "price": 46.05,
-    # "title": "Implement Firebase Authentication",
-    # "desc": "Our business website is using Firebase as its primary database; therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
-    # "time": today,
-    # "profileimg": "static/icons/person.svg",
-    # "profilename": "Victor Salazar"
-    # },
-    # {
-    # "price": 46.05,
-    # "title": "Implement Firebase Authentication",
-    # "desc": "Our business website is using Firebase as its primary database; therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
-    # "time": today,
-    # "profileimg": "static/icons/person.svg",
-    # "profilename": "Victor Salazar"
-    # },
-    # {
-    # "price": 46.05,
-    # "title": "Implement Firebase Authentication",
-    # "desc": "Our business website is using Firebase as its primary database; therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
-    # "time": today,
-    # "profileimg": "static/icons/person.svg",
-    # "profilename": "Victor Salazar"
-    # },
-    # {
-    # "price": 46.05,
-    # "title": "Implement Firebase Authentication",
-    # "desc": "Our business website is using Firebase as its primary database; therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
-    # "time": today,
-    # "profileimg": "static/icons/person.svg",
-    # "profilename": "Victor Salazar"
-    # },
-    # {
-    # "price": 46.05,
-    # "title": "Implement Firebase Authentication",
-    # "desc": "Our business website is using Firebase as its primary database; therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
-    # "time": today,
-    # "profileimg": "static/icons/person.svg",
-    # "profilename": "Victor Salazar"
-    # },
-    # {
-    # "price": 46.05,
-    # "title": "Implement Firebase Authentication",
-    # "desc": "Our business website is using Firebase as its primary database; therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
-    # "time": today,
-    # "profileimg": "static/icons/person.svg",
-    # "profilename": "Victor Salazar"
-    # },
-    # {
-    # "price": 46.05,
-    # "title": "Implement Firebase Authentication",
-    # "desc": "Our business website is using Firebase as its primary database; therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
-    # "time": today,
-    # "profileimg": "static/icons/person.svg",
-    # "profilename": "Victor Salazar"
-    # },
-    # {
-    # "price": 46.05,
-    # "title": "Implement Firebase Authentication",
-    # "desc": "Our business website is using Firebase as its primary database; therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
-    # "time": today,
-    # "profileimg": "static/icons/person.svg",
-    # "profilename": "Victor Salazar"
-    # },
-    # {
-    # "price": 46.05,
-    # "title": "Implement Firebase Authentication",
-    # "desc": "Our business website is using Firebase as its primary database; therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
-    # "time": today,
-    # "profileimg": "static/icons/person.svg",
-    # "profilename": "Victor Salazar"
-    # },
-    # {
-    # "price": 46.05,
-    # "title": "Implement Firebase Authentication",
-    # "desc": "Our business website is using Firebase as its primary database; therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
-    # "time": today,
-    # "profileimg": "static/icons/person.svg",
-    # "profilename": "Victor Salazar"
-    # },
-    # {
-    # "price": 46.05,
-    # "title": "Implement Firebase Authentication",
-    # "desc": "Our business website is using Firebase as its primary database; therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
-    # "time": today,
-    # "profileimg": "static/icons/person.svg",
-    # "profilename": "Victor Salazar"
-    # },
-    # {
-    # "price": 46.05,
-    # "title": "Implement Firebase Authentication",
-    # "desc": "Our business website is using Firebase as its primary database; therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
-    # "time": today,
-    # "profileimg": "static/icons/person.svg",
-    # "profilename": "Victor Salazar"
-    # },
-    # {
-    # "price": 46.05,
-    # "title": "Implement Firebase Authentication",
-    # "desc": "Our business website is using Firebase as its primary database; therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
-    # "time": today,
-    # "profileimg": "static/icons/person.svg",
-    # "profilename": "Victor Salazar"
-    # },
-    # {
-    # "price": 46.05,
-    # "title": "Implement Firebase Authentication",
-    # "desc": "Our business website is using Firebase as its primary database; therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
-    # "time": today,
-    # "profileimg": "static/icons/person.svg",
-    # "profilename": "Victor Salazar"
-    # },
-    # {
-    # "price": 46.05,
-    # "title": "Implement Firebase Authentication",
-    # "desc": "Our business website is using Firebase as its primary database; therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
-    # "time": today,
-    # "profileimg": "static/icons/person.svg",
-    # "profilename": "Victor Salazar"
-    # }]
-
-    return render_template("discover.html", ad_details=ad_details)
+    return render_template("discover.html", contract_list = contract_list)
 
 
 
 
 # ---------- CONTRACT PAGE ----------
-@discover_blueprint.route("/contract")
-def contractpage():
+@discover_blueprint.route("/contract/<string:contract_id>")
+def contract(contract_id):
     session_remove_if_not_verified()
 
-    return render_template("contract.html")
+    # WORK IN PROGESS
+
+    contract_data = db.reference("/contracts").child(contract_id).get()
+
+
+    return render_template("contract.html", contract_data = contract_data)
 
 
 
@@ -213,13 +48,17 @@ def create_contract():
 
         if form.validate_on_submit():
 
+            today = date.today().strftime("%d-%m-%Y")
+
             contract_ref.push(
                 {
-                    "Price": form.price.data,
+                    "Min Price": form.min_price.data,
+                    "Max Price": form.max_price.data,
                     "Title": form.title.data,
                     "Description": form.description.data,
                     "Contract Image": form.contract_img.data,
-                    "Author": session.get('user_id')[2:]
+                    "Company": session.get('user_id')[2:],
+                    "Date Posted": today
                 }
             )
         
@@ -249,7 +88,8 @@ def edit_contract(contract_id):
             
             contract_ref.update(
                 {
-                    "Price": form.price.data,
+                    "Min Price": form.min_price.data,
+                    "Max Price": form.max_price.data,
                     "Title": form.title.data,
                     "Description": form.description.data,
                     "Contract Image": form.contract_img.data,
@@ -258,7 +98,8 @@ def edit_contract(contract_id):
         
         # Else just display the contents
         else:
-            form.price.data = contract_ref.child("Price").get()
+            form.min_price.data = contract_ref.child("Min Price").get()
+            form.max_price.data = contract_ref.child("Max Price").get()
             form.title.data = contract_ref.child("Title").get()
             form.description.data = contract_ref.child("Description").get()
             form.contract_img.data = contract_ref.child("Contract Image").get()

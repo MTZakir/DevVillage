@@ -10,7 +10,8 @@
         {{ csrf_token }}
         {{ form.hidden_tag() }}
 
-        {{ form.price( placeholder = form.price.label.text ) }}
+        {{ form.min_price( placeholder = form.min_price.label.text ) }}
+        {{ form.max_price( placeholder = form.max_price.label.text ) }}
         {{ form.title( placeholder = form.title.label.text ) }}
         {{ form.description( placeholder = form.description.label.text ) }}
         {{ form.contract_img( placeholder = form.contract_img.label.text ) }}
