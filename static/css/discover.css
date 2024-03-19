@@ -2,6 +2,7 @@ body, html{
     margin:0;
     padding:0;
     font-family: "Noto Sans JP", sans-serif;
+    background-color: #0A0D12;
     
 }
 
@@ -14,7 +15,7 @@ ul{
     display:flex;
     gap: 40px;
     height: min-content;
-    /* border: 1px solid white; */
+    border: 1px solid white;
     align-items: center;
     list-style: none;
     
@@ -28,11 +29,9 @@ li > a{
 }
 
 .container{
-    /* height: 100vh; */
-    width: 100vw;
+    width: 100%;
     display: grid;
     color: white;
-    background-color: #0A0D12;
 }
 
 .navlinks-right{
@@ -43,10 +42,12 @@ li > a{
 .navbar{
     border-bottom: 1px solid #2B3245;
     display:flex;
+    width:100%;
     height: 7vh;
     background-color: #0D1117;
     justify-content: space-between;
     align-items: center;
+    position: fixed;
 }
 
 .searchform{
@@ -60,7 +61,6 @@ li > a{
 
 .ads-filters{
     display: grid;
-    grid-template-columns: 0.9fr 2fr 0.9fr;
 }
 
 .filter-btns{
@@ -68,14 +68,15 @@ li > a{
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
-    /* border: 1px solid white; */
+    border: 1px solid white;
 }
 
 .ad-cards{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width:51.3vw;
+    width: 606px;
+    /* width:23.3vw; */
     margin-top: 20px;
     border-radius: 8px;
     border: 2px solid #202124;
@@ -98,46 +99,68 @@ li > a{
     cursor:pointer;
 }
 
+.ad-box{
+    border: 1px solid white;
+    display: flex;
+    gap: 20px;
+    flex-flow: row wrap;
+}
+
 .ads{
+    padding-top: 6vh;
     display: grid;
     width: 100%;
     grid-template-rows: 0.5fr 2fr;
-    /* border: 1px solid white; */
-}
-
-.desc-date > h3{
-    font-size: 24px;
-    margin:0;
-    margin-bottom: 10px;
-}
-
-.desc-date > p{
-    font-size: 20px;
-    margin: 0;
-    margin-bottom: 10px;
+    border: 1px solid white;
 }
 
 .desc-date > h3, p{
     color: white;
+    margin: 0;
+    margin-bottom: 10px;;
+}
 
+.bookmark{
+    color: #2A282F;
+    font-size: 20px;
     font-style: normal;
     font-weight: 300;
     line-height: normal;
 }
 
-.date{
+#title{
+    color: #fff;
+    margin-top:20px;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+#desc{
     color: rgba(255, 255, 255, 0.50);
-    font-size: 16px;
+    width: 100%; /* Ensure full width */
+    white-space: nowrap; /* Prevent wrapping */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis;
+    font-size: 20px;
     font-style: normal;
     font-weight: 300;
+
+}
+#company{
+    color: #FFF;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
     line-height: normal;
+    
 }
 
 #price{
-    color: #6CD97E;
-    font-size: 32px;
+    color: #1A7229;
+    font-size: 20px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     line-height: normal;
 }
 
@@ -175,17 +198,11 @@ li > a{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* border: 1px solid white; */
+    border: 1px solid white;
     padding: 0;
     height: 7vh;
 }
 
-.desc{
-    width: 100%; /* Ensure full width */
-    white-space: nowrap; /* Prevent wrapping */
-    overflow: hidden; /* Hide overflow */
-    text-overflow: ellipsis;
-}
 
 .profilepic > span{
     padding: 3px;
@@ -200,7 +217,7 @@ li > a{
     color: rgba(255, 255, 255, 0.70);
     font-size: 28px;
     font-style: normal;
-    /* border: 1px solid white; */
+    border: 1px solid white;
     padding-right:12px;
     color: white;
 }

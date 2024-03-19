@@ -28,11 +28,8 @@
                 <li><a href="{{url_for('auth.user_register')}}">Sign Up</a></li>
             </ul>
         </div>
-
+        
         <div class="ads-filters">
-            <div class="filters">
-                
-            </div>
             <div class="ads">
                 <div class="filter-btns">
                     <button class="sort-by">
@@ -40,25 +37,28 @@
                         <i class="bi bi-arrow-down-up sort-btn"></i>
                     </button> 
                 </div>
-                {% for ad in ad_details%}
-                <a href="{{url_for("discover.contractpage")}}">
-                    <div class="ad-cards">
-                        <div class="price-profile">
-                            <h1 id="price"> $<span>{{ ad["price"] }}/USD</span></h2>
-                            <i style="color: rgba(255, 255, 255, 0.70);" class="bi bi-person-circle profilepic"><span>{{ ad["profilename"] }}</span></i>
-                        </div>
-                        <div class="desc-date">
-                            <h3>{{ ad['title'] }}</h3>
-                            <p class="desc">{{ ad['desc'] }}</p>
-                            <i class="bi bi-clock-history date"><span style="padding: 8px;">Posted on {{ ad["time"] }}</span></i>
-                        </div>
+                <div class="ad-box">
+                    {% for ad in ad_details%}
+                        <a href="{{url_for("discover.contractpage")}}">
+                            <div class="ad-cards">
+                                <div class="desc-date">
+                                    <h3 id="company">{{ ad['company'] }}</h3>
+                                    <h3 id="title">{{ ad['title'] }}</h3>
+                                    <p id="desc">{{ ad['desc'] }}</p>
+                                </div>
+                                <div class="price-profile">
+                                    <h1 id="price"> $<span>{{ ad["minprice"] }} - {{ ad["maxprice"] }}</span></h2>
+                                    <i class="bi bi-bookmark bookmark"></i> 
+                                </div>
+                            </div>
+                        </a>
+                    {% endfor %}
                     </div>
-                </a>
-                {% endfor %}
-
+                    
+                </div>
+                
             </div>
-
         </div>
-    </div>
-</body>
-</html>
+
+    </body>
+    </html>

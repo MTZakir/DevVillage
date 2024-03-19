@@ -10,5 +10,4 @@ dashboard_blueprint = Blueprint(
 @dashboard_blueprint.route('/dashboard')
 def discover():
     session_remove_if_not_verified()
-
     return render_template("dashboard.html")
