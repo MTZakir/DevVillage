@@ -15,17 +15,23 @@ ul{
     display:flex;
     gap: 40px;
     height: min-content;
-    border: 1px solid white;
+    /* border: 1px solid white; */
     align-items: center;
     list-style: none;
     
-    font-size: 24px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 300;
 }
 
 li > a{
-    color: white;
+    color: rgba(255, 255, 255, 0.897);
+    transition: 0.4s;
+}
+
+li > a:hover{
+    color: #733DF0;
+    font-size:22px;
 }
 
 .container{
@@ -67,43 +73,82 @@ li > a{
     height: 12vh;
     display: flex;
     align-items: flex-end;
-    justify-content: flex-end;
-    border: 1px solid white;
+    justify-content: flex-start;
+    padding-left: 20px;
+    /* border: 1px solid white; */
+}
+
+.adimg-div{
+    position: relative; /* Required for absolute positioning */
+    width: 100%; /* Set width to 100% to fill the parent container */
+    height: 100%; /* Set height to 100% to fill the parent container */
+    overflow: hidden; /* Ensure the image is clipped to the container */
+    display: flex; /* Use flexbox for centering */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    background-color: rgba(255, 255, 255, 0.877); /* Background color */
+    border-radius: 0px 8px 8px 0px; /* Border radius */
+    
+}
+
+#ad-img{
+    position: absolute; /* Position the image absolutely */
+    top: 50%; /* Move image 50% from top */
+    left: 50%; /* Move image 50% from left */
+    transform: translate(-50%, -50%);
+    width: auto; /* Allow the width to adjust based on its content */
+    height: auto; /* Allow the height to adjust based on its content */
+    max-width: 50%; /* Ensure the image doesn't exceed the container's width */
+    max-height: 50%;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.ad-box{
+    /* border: 1px solid white; */
+    display: flex;
+    padding-left:20px;
+    gap: 35px;
+    row-gap: 20px;
+    flex-flow: row wrap;
 }
 
 .ad-cards{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 606px;
-    /* width:23.3vw; */
+    display: grid;
+    grid-template-columns: 75% 25%;
+    align-items: center;
+    max-width: 600px;
+    width: fit-content;
     margin-top: 20px;
     border-radius: 8px;
-    border: 2px solid #202124;
+    border: none;
     background: #0D1117;
-    height: fit-content;
     text-indent: 8px;
-    padding: 10px 10px 20px 10px;
+    transition: 0.6s;
 }
 
+.ad-cards:hover{
+    transform:translate(5px, -5px);
+    box-shadow: 0px 0px 50px rgba(0, 0, 0, 1);
+}
+
+
 .sort-by{
-    background: #202124;
+    background: rgb(26, 31, 37);
     border-radius: 6px;
     border: 2px solid #202124;
     font-size: 18px;
     padding: 5px 14px 5px 14px;
     color: rgba(255, 255, 255, 0.70);
+    transition:0.2s;
+}
+
+.content{
+    padding: 16px;
 }
 
 .sort-by:hover{
     cursor:pointer;
-}
-
-.ad-box{
-    border: 1px solid white;
-    display: flex;
-    gap: 20px;
-    flex-flow: row wrap;
 }
 
 .ads{
@@ -111,7 +156,7 @@ li > a{
     display: grid;
     width: 100%;
     grid-template-rows: 0.5fr 2fr;
-    border: 1px solid white;
+    /* border: 1px solid white; */
 }
 
 .desc-date > h3, p{
@@ -126,12 +171,17 @@ li > a{
     font-style: normal;
     font-weight: 300;
     line-height: normal;
+    transition: 0.23s;
+}
+
+.bookmark:hover{
+    color: white;
 }
 
 #title{
     color: #fff;
     margin-top:20px;
-    font-size: 20px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 400;
 }
@@ -142,14 +192,14 @@ li > a{
     white-space: nowrap; /* Prevent wrapping */
     overflow: hidden; /* Hide overflow */
     text-overflow: ellipsis;
-    font-size: 20px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 300;
 
 }
 #company{
     color: #FFF;
-    font-size: 20px;
+    font-size: 18px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -158,14 +208,10 @@ li > a{
 
 #price{
     color: #1A7229;
-    font-size: 20px;
+    font-size: 16px;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 700;
     line-height: normal;
-}
-
-#price > span:hover{
-    text-decoration: underline;
 }
 
 #searchbar:focus{
@@ -181,6 +227,7 @@ li > a{
     font-size: 0.833vw;
     color: #b3b3b3;
     background-color: #202124;
+    transition: 3s;
 }
 
 #searchbtn:hover{
@@ -198,9 +245,10 @@ li > a{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border: 1px solid white;
+    /* border: 1px solid white; */
     padding: 0;
-    height: 7vh;
+    padding-right: 10px;
+    height: 4vh;
 }
 
 
@@ -211,13 +259,20 @@ li > a{
     color: rgba(255, 255, 255, 0.70);
 }
 
+.clock{
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.50);;
+}
+
 .profilepic{
     display: flex;
     align-items: center;
     color: rgba(255, 255, 255, 0.70);
     font-size: 28px;
     font-style: normal;
-    border: 1px solid white;
+    /* border: 1px solid white; */
     padding-right:12px;
     color: white;
 }

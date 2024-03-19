@@ -19,48 +19,39 @@ def main():
     today = date.today().strftime("%d-%m-%Y")
     # LOGIC FOR DISCOVER
     ad_details = [{
-    "price": 46.05,
-    "title": "Implement Firebase Authentication",
-    "desc": "Our business website is using Firebase as its primary database; therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
-    "time": today,
-    "profileimg": "static/icons/person.svg",
-    "profilename": "Victor Salazar"
-    },
-    {
-    "price": 46.05,
-    "title": "Implement Firebase Authentication",
-    "desc": "Our business website is using Firebase as its primary database; therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
-    "time": today,
-    "profileimg": "static/icons/person.svg",
-    "profilename": "Victor Salazar"
-    },
-    {
-    "price": 46.05,
-    "title": "Implement Firebase Authentication",
-    "desc": "Our business website is using Firebase as its primary database; therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
-    "time": today,
-    "profileimg": "static/icons/person.svg",
-    "profilename": "Victor Salazar"
-    },
-    {
-    "price": 46.05,
-    "title": "Implement Firebase Authentication",
-    "desc": "Our business website is using Firebase as its primary database; therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
-    "time": today,
-    "profileimg": "static/icons/person.svg",
-    "profilename": "Victor Salazar"
-    },
-    {
-    "price": 46.05,
-    "title": "Implement Firebase Authentication",
-    "desc": "Our business website is using Firebase as its primary database; therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
-    "time": today,
-    "profileimg": "static/icons/person.svg",
-    "profilename": "Victor Salazar"
-    }]
     "minprice": 46.05,
     "maxprice": 70.05,
-    "company": "Google",
+    "company": "Netflix",
+    "title": "Implement User Authentication using Firebase",
+    "desc": "Our business website is using Firebase as its primary database, therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
+    "time": today,
+    "profileimg": "static/icons/person.svg",
+    "profilename": "Victor Salazar"
+    },
+    {
+    "minprice": 46.05,
+    "maxprice": 70.05,
+    "company": "Netflix",
+    "title": "Implement User Authentication using Firebase",
+    "desc": "Our business website is using Firebase as its primary database, therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
+    "time": today,
+    "profileimg": "static/icons/person.svg",
+    "profilename": "Victor Salazar"
+    },
+    {
+    "minprice": 46.05,
+    "maxprice": 70.05,
+    "company": "Netflix",
+    "title": "Implement User Authentication using Firebase",
+    "desc": "Our business website is using Firebase as its primary database, therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
+    "time": today,
+    "profileimg": "static/icons/person.svg",
+    "profilename": "Victor Salazar"
+    },
+    {
+    "minprice": 46.05,
+    "maxprice": 70.05,
+    "company": "Netflix",
     "title": "Implement User Authentication using Firebase",
     "desc": "Our business website is using Firebase as its primary database, therefore, we need to implement login and registration functionality using Firebase Authentication to securely manage user access and authentication processes.",
     "time": today,
