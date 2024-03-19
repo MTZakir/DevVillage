@@ -14,8 +14,8 @@
     <div class="container">
         <div class="navbar">
             <ul class="navlinks-left">
-                <li><a href="{{url_for("home")}}">Home</a></li>
-                <li><a href="{{url_for("homecomp")}}">Discover as company</a></li>
+                <li><a href="{{url_for('home')}}">Home</a></li>
+                <li><a href="{{url_for('homecomp')}}">Discover as company</a></li>
             </ul>
             <ul class="navlinks-right">
                 <li>
@@ -37,28 +37,25 @@
                         <i class="bi bi-arrow-down-up sort-btn"></i>
                     </button> 
                 </div>
-                <div class="ad-box">
-                    {% for ad in ad_details%}
-                        <a href="{{url_for("discover.contractpage")}}">
-                            <div class="ad-cards">
-                                <div class="desc-date">
-                                    <h3 id="company">{{ ad['company'] }}</h3>
-                                    <h3 id="title">{{ ad['title'] }}</h3>
-                                    <p id="desc">{{ ad['desc'] }}</p>
-                                </div>
-                                <div class="price-profile">
-                                    <h1 id="price"> $<span>{{ ad["minprice"] }} - {{ ad["maxprice"] }}</span></h2>
-                                    <i class="bi bi-bookmark bookmark"></i> 
-                                </div>
-                            </div>
-                        </a>
-                    {% endfor %}
+                {% for ad in ad_details%}
+                <a href="{{url_for("discover.contractpage")}}">
+                    <div class="ad-cards">
+                        <div class="price-profile">
+                            <h1 id="price"> $<span>{{ ad["price"] }}/USD</span></h2>
+                            <i style="color: rgba(255, 255, 255, 0.70);" class="bi bi-person-circle profilepic"><span>{{ ad["profilename"] }}</span></i>
+                        </div>
+                        <div class="desc-date">
+                            <h3>{{ ad['title'] }}</h3>
+                            <p class="desc">{{ ad['desc'] }}</p>
+                            <i class="bi bi-clock-history date"><span style="padding: 8px;">Posted on {{ ad["time"] }}</span></i>
+                        </div>
                     </div>
-                    
-                </div>
-                
-            </div>
-        </div>
+                </a>
+                {% endfor %}
 
-    </body>
-    </html>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

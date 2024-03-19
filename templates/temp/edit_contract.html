@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit contract</title>
+</head>
+<body>
+    <form method="POST" enctype="multipart/form-data">
+        {{ csrf_token }}
+        {{ form.hidden_tag() }}
+        
+        {{ form.price( placeholder = form.price.label.text ) }}
+        {{ form.title( placeholder = form.title.label.text ) }}
+        {{ form.description( placeholder = form.description.label.text ) }}
+        {{ form.contract_img( placeholder = form.contract_img.label.text ) }}
+
+        <button type="submit">Update</button>
+    </form>
+</body>
+</html>

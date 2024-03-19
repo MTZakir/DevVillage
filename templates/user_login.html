@@ -41,7 +41,7 @@
                 </form>
 
                 <div class="othersigninoptions">
-                    <a class="forgorpass" href="">Forgot Password?</a>
+                    <a class="forgorpass" href="{{ url_for('auth.reset_pass') }}">Forgot Password?</a>
                     <p>Don't have an account? <a href="{{ url_for('auth.user_register') }}">Sign Up</a></p>
                 </div>
                 
