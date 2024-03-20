@@ -124,6 +124,7 @@ li > a:hover{
     grid-template-columns: 75% 25%;
     align-items: center;
     min-width: 31.25vw;
+    max-width: 31.25vw;
     width: fit-content;
     margin-top: 1.042vw;
     border-radius: 0.417vw;

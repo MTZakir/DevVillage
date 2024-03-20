@@ -11,6 +11,7 @@ class CreateContract(FlaskForm):
     max_price = StringField('Maximum Price', validators=[DataRequired(), validators.Regexp(r'^[0-9]+(?:\.[0-9]+)?$', message = "Please enter a valid number")])
     title = StringField('Title', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
-    contract_img = StringField('Contract URL', validators=[DataRequired()])
+    contract_img = StringField('Contract Image URL', validators=[DataRequired()])
+    company_name = StringField('Company Name', validators=[DataRequired()])
     #contract_img = FileField('Contract Image', validators=[DataRequired(), FileAllowed(['jpg', 'jpeg', 'png'], message = 'Images only!')])
 
