@@ -31,7 +31,6 @@ def contract(contract_id):
 
     contract_data = db.reference("/contracts").child(contract_id).get()
 
-
     return render_template("contract.html", contract_data = contract_data)
 
 
@@ -57,7 +56,8 @@ def create_contract():
                     "Title": form.title.data,
                     "Description": form.description.data,
                     "Contract Image": form.contract_img.data,
-                    "Company": session.get('user_id')[2:],
+                    "Company Name": form.company_name.data,
+                    "Author": session.get('user_id')[2:],
                     "Date Posted": today
                 }
             )
@@ -93,6 +93,7 @@ def edit_contract(contract_id):
                     "Title": form.title.data,
                     "Description": form.description.data,
                     "Contract Image": form.contract_img.data,
+                    "Company Name": form.company_name.data
                 }
             )
         
@@ -103,6 +104,7 @@ def edit_contract(contract_id):
             form.title.data = contract_ref.child("Title").get()
             form.description.data = contract_ref.child("Description").get()
             form.contract_img.data = contract_ref.child("Contract Image").get()
+            form.company_name.data = contract_ref.child("Company Name").get()
             
             print("Edit contract form error: ", form.errors)
 
