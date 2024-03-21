@@ -11,6 +11,21 @@ auth_blueprint = Blueprint(
     "auth", __name__, static_folder="static", template_folder="templates"
 )
 
+# Remove session if current user is unverified
+# use this in the beginning of every route function
+@auth_blueprint.before_request
+def session_remove_if_not_verified():
+    if session.get('verify'):
+        try:
+            user = auth.get_user(session.get('verify'))
+            if not user.email_verified:
+                print("Deleting session verify of user", user.display_name)
+                session.pop('verify', None)
+        except UserNotFoundError:
+            session.pop('verify', None)
+
+    else:
+        print("No session found.")
 
 # Configuration for filipino firebase
 pyrebase_config = {
@@ -37,7 +52,6 @@ recaptcha = ReCaptcha()
 def check():
     print(session.get('user_id'))
     print('Is user', auth.get_user(session.get('user_id')[2:]).display_name ,'verified:', auth.get_user(session.get('user_id')[2:]).email_verified)
-    session_remove_if_not_verified()
     return redirect(url_for('home'))
 
 # ------------------------------------------------
@@ -48,7 +62,6 @@ def check():
 # ---------- USER LOGIN ----------
 @auth_blueprint.route('/user_login', methods=['GET', 'POST'])
 def user_login():
-    session_remove_if_not_verified()
     form = UserLoginForm()
 
     # If no users are logged in
@@ -128,7 +141,6 @@ def user_login():
 # ---------- USER REGISTER ----------
 @auth_blueprint.route('/user_register', methods=['GET', 'POST'])
 def user_register():
-    session_remove_if_not_verified()
     form = UserRegistrationForm()
     # If no accounts are logged in
     if session.get("user_id") == None:
@@ -201,7 +213,6 @@ def user_register():
 # ---------- ORGANIZATION LOGIN ----------
 @auth_blueprint.route("/org_login", methods = ["GET", "POST"])
 def org_login():
-    session_remove_if_not_verified()
     form = OrganizationLoginForm()
 
     # If no users are logged in
@@ -260,7 +271,6 @@ def org_login():
 # ---------- ORGANIZATION REGISTER ----------
 @auth_blueprint.route("/org_register", methods = ["GET", "POST"])
 def org_register():
-    session_remove_if_not_verified()
     form = OrganizationRegistrationForm()
     # If no accounts are logged in
     if session.get("user_id") == None:
@@ -318,7 +328,6 @@ def org_register():
 # ---------- ACCOUNT LOGOUT ----------
 @auth_blueprint.route('/logout')
 def logout():
-    session_remove_if_not_verified()
     session.pop('user_id', None)
     print("User logged out")
     return redirect(url_for('home'))
@@ -449,9 +458,6 @@ def try_login(user_email, user_pass, type):
         print("Incorrect username/email or password.")
 
 
-
-
-
 def generate_otp_for_email_verification(email):
     otp_db = db.reference("/otp")
   
@@ -479,28 +485,6 @@ def generate_otp_for_email_verification(email):
 
     smtp.sendmail(sender, email, body)
     smtp.quit()
-
-
-
-
-
-# Remove session if current user is unverified
-# use this in the beginning of every route function
-def session_remove_if_not_verified():
-    if session.get('verify'):
-        try:
-            user = auth.get_user(session.get('verify'))
-            if not user.email_verified:
-                print("Deleting session verify of user", user.display_name)
-                session.pop('verify', None)
-        except UserNotFoundError:
-            session.pop('verify', None)
-
-    else:
-        print("No session found.")
-
-
-
 
 
 def delete_otp(user_id):

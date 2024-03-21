@@ -1,8 +1,9 @@
-from auth_routes import session_remove_if_not_verified
 from flask import Blueprint, render_template, redirect, url_for, session
 from firebase_admin import db
 from datetime import date
 from discover_forms import CreateContract
+from firebase_admin import auth
+from firebase_admin._auth_utils import UserNotFoundError
 
 
 # Blueprint initialization
@@ -10,11 +11,25 @@ discover_blueprint = Blueprint(
     "discover", __name__, static_folder="static", template_folder="templates"
 )
 
+# Remove session if current user is unverified
+# use this in the beginning of every route function
+@discover_blueprint.before_request
+def session_remove_if_not_verified():
+    if session.get('verify'):
+        try:
+            user = auth.get_user(session.get('verify'))
+            if not user.email_verified:
+                print("Deleting session verify of user", user.display_name)
+                session.pop('verify', None)
+        except UserNotFoundError:
+            session.pop('verify', None)
+
+    else:
+        print("No session found.")
+
 # ---------- MAIN DISCOVER PAGE ----------
 @discover_blueprint.route('/discover')
 def main():
-    session_remove_if_not_verified()
-
     contract_list = db.reference("/contracts").get()
 
     return render_template("discover.html", contract_list = contract_list)
@@ -25,8 +40,6 @@ def main():
 # ---------- CONTRACT PAGE ----------
 @discover_blueprint.route("/contract/<string:contract_id>")
 def contract(contract_id):
-    session_remove_if_not_verified()
-
     # WORK IN PROGESS
 
     contract_data = db.reference("/contracts").child(contract_id).get()
@@ -40,7 +53,6 @@ def contract(contract_id):
 @discover_blueprint.route("/create_contract", methods = ["POST", "GET"])
 def create_contract():
     contract_ref = db.reference("/contracts")
-    session_remove_if_not_verified()
 
     if check_if_user_is_company():
         form = CreateContract()
@@ -76,7 +88,6 @@ def create_contract():
 # ---------- EDIT CONTRACT ----------
 @discover_blueprint.route("/edit_contract/<string:contract_id>", methods = ["POST", "GET"])
 def edit_contract(contract_id):
-    session_remove_if_not_verified()
     contract_ref = db.reference("/contracts").child("-" + contract_id)
 
     # Checking if user is an organization account AND if the current user is the author of the contract
