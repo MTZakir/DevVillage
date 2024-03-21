@@ -22,20 +22,33 @@
                     {{ csrf_token }}
                     {{ form.hidden_tag() }}
                     
-                    <!-- <input class="signinfield" name="username_or_email" type="text" id="username" placeholder="Email"> -->
 
-                    <div class="inpfields">
+                    <div class="inpfields {% if form.email.errors %}has-error{% endif %}">
                         <input class="signinfield" name="email" type="text" id="username" placeholder="Email">
                         <i class="bi bi-envelope envelope"></i>
+
+                        {% if form.email.errors %}
+                            {% set error_message = form.email.errors[0] %}
+                            {% if error_message.endswith('.') %}
+                                {% set error_message = error_message[:-1] %}
+                            {% endif %}
+                            <p class="error-msg">{{ error_message }}</p>
+                        {% endif %}
                     </div>
 
                     <br>
 
-                    <!-- <input class="signinfield" name="password" type="password" id="password" placeholder="Password"> -->
-
-                    <div class="inpfields">
+                    <div class="inpfields {% if form.password.errors %}has-error{% endif %}">
                         <input class="signinfield" name="password" type="password" id="password" placeholder="Password">
                         <i class="bi bi-lock lock"></i>
+
+                        {% if form.password.errors %}
+                            {% set error_message = form.password.errors[0] %}
+                            {% if error_message.endswith('.') %}
+                                {% set error_message = error_message[:-1] %}
+                            {% endif %}
+                            <p class="error-msg">{{ error_message }}</p>
+                        {% endif %}
                     </div>
 
                     <br>

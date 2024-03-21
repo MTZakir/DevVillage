@@ -1,7 +1,10 @@
+import re
 from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import SelectField, StringField, PasswordField, validators
 from wtforms.validators import DataRequired, Email, ValidationError, EqualTo
 import phonenumbers
+
+# from auth_routes import is_password_valid
 
 # Phone number validator
 class E164PhoneNumberValidator:
@@ -110,6 +113,12 @@ class UserLoginForm(FlaskForm):
     username_or_email = StringField('Username / Email', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
 
+    def validate_password(self, password):
+        password_valid, error_msg = is_password_valid(password.data)
+        if not password_valid:
+            self.password.errors.append(error_msg)
+        return password_valid
+
 # Organization registration form
 class OrganizationRegistrationForm(FlaskForm):
     org_name = StringField('Organization Name', validators=[DataRequired()])
@@ -143,3 +152,21 @@ class PasswordResetEmailForm(FlaskForm):
 class PasswordResetForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_pass = PasswordField('Confirm Password', validators=[DataRequired()])
+
+def is_password_valid(password):
+    # Length check
+    if len(password) < 8:
+        return False, "Password must be at least 8 characters long"
+
+    # Complexity check
+    if not re.search(r"[A-Z]", password):
+        return False, "Password must contain at least one uppercase letter"
+    if not re.search(r"[a-z]", password):
+        return False, "Password must contain at least one lowercase letter"
+    if not re.search(r"\d", password):
+        return False, "Password must contain at least one digit"
+    if not re.search(r"[!@#$%^&*()\[\]_\-+=~{}|:;\"'<>,.?/]", password):
+        return False, "Password must contain at least one special character"
+
+    # All checks passed
+    return True, ""

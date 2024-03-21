@@ -74,6 +74,7 @@ def user_login():
             try:
                 validate_email(form.username_or_email.data)
 
+
                 # Get username linked to email if it exists in the database
                 username = auth.get_user_by_email(form.username_or_email.data).display_name
 
@@ -506,17 +507,17 @@ def delete_otp(user_id):
 def is_password_valid(password):
     # Length check
     if len(password) < 8:
-        return False, "Password must be at least 8 characters long."
+        return False, "Password must be at least 8 characters long"
 
     # Complexity check
     if not re.search(r"[A-Z]", password):
-        return False, "Password must contain at least one uppercase letter."
+        return False, "Password must contain at least one uppercase letter"
     if not re.search(r"[a-z]", password):
-        return False, "Password must contain at least one lowercase letter."
+        return False, "Password must contain at least one lowercase letter"
     if not re.search(r"\d", password):
-        return False, "Password must contain at least one digit."
+        return False, "Password must contain at least one digit"
     if not re.search(r"[!@#$%^&*()-_=+{};:,<.>]", password):
-        return False, "Password must contain at least one special character."
+        return False, "Password must contain at least one special character"
 
     # All checks passed
-    return True
+    return True, ""
