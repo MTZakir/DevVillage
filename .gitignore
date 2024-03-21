@@ -1,4 +1,4 @@
-*.pyc
+__pychache__/
 codebase-secret.json
 __pycache__/app.cpython-312.pyc
 __pycache__/auth_forms.cpython-312.pyc
