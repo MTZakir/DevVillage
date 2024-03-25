@@ -1,5 +1,5 @@
 from flask import Flask, render_template, session
-from auth_routes import auth_blueprint, session_remove_if_not_verified
+from auth_routes import auth_blueprint
 from discover_routes import discover_blueprint
 from dashboard_routes import dashboard_blueprint
 from firebase_admin import auth
@@ -55,7 +55,4 @@ def homecomp():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-
 

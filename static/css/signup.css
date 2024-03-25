@@ -43,7 +43,6 @@
     justify-content: space-between;
 }
 
-
 /* Style for Phone number */
 #phone {
     width: 24.3vw;
@@ -67,7 +66,7 @@
 
     background-color: #202124;
     box-shadow: inset 0 8px 4px -4px rgba(0, 0, 0, 0.3);
-    color: #fff;
+    color: #ffffffc1;
 }
 
 /* Style for rest of the fields */
@@ -83,7 +82,7 @@
 
     background-color: #202124;
     box-shadow: inset 0 8px 4px -4px rgba(0, 0, 0, 0.3);
-    color: #fff;
+    color: #ffffffc1;
 }
 
 .signup-form select {
@@ -121,7 +120,7 @@
 
 
 .acc-exists {
-    color: #fff;
+    color: #ffffffc1;
     margin: 20px 0;
 
     font-size: 14px;
@@ -138,6 +137,7 @@
 .or{
     width: 100%;
     position: relative;
+    font-weight: 150;
 }
 
 .or span{
@@ -151,9 +151,8 @@
 
 .line {
     position: absolute;
-    top: 19%;
+    top: 17%;
     width: 42%;
-    border: 1px solid rgb(255,255, 255, 0.75);
     z-index: 1;
 
     margin: 20px 19px;
@@ -177,9 +176,28 @@
     background-color: #0078D7;
 
     width: 16vw;
-    height: 4.6vh;
+    height: auto;
 }
 
 .other-signin:hover {
     background-color: #2880edc1;
+}
+
+/* Displaying error messages */ 
+
+.has-error{
+    border: 0.12vw solid rgb(255, 55, 0) !important;
+}
+
+.error-msg{
+    position: absolute;
+    top: 1.5vw;
+    left: 0.65vw;
+    color: rgb(255, 55, 0);
+
+    font-size: 0.63vw;
+}
+
+.inpfields{
+    position: relative;
 }

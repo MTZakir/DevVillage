@@ -47,13 +47,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
 }
 
 .or{
     width: 100%;
     position: relative;
-    font-size: 1.2vw;
+    font-weight: 150;
 }
 
 .or span{
@@ -67,9 +66,8 @@
 
 .line {
     position: absolute;
-    top: 17%;
+    top: 16%;
     width: 45%;
-    border: 0.052vw solid rgb(255,255, 255, 0.75);
     z-index: 1;
 }
 
@@ -164,7 +162,7 @@
 
 .envelope{
     left: 0.9vw;
-    top: 0.50vh;
+    top: 0.57vh;
 }
 
 .lock{
@@ -185,10 +183,10 @@
     gap: 0%
 }
 
-/* Displaying error messages or styles */
+/* Displaying error messages */
 
-.has-error .signinfield {
-    border: 0.12vw solid rgb(255, 55, 0);
+.has-error{
+    border: 0.12vw solid rgb(255, 55, 0) !important;
 }
 
 .error-msg{

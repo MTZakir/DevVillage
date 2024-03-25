@@ -1,0 +1,119 @@
+{% extends 'layout.html' %}
+
+{% block css_file %}
+<link rel="stylesheet" href="static/css/signup.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<script src="static/js/register.js" type="module"></script>
+{% endblock %}
+
+
+{% block image %}
+    <img src="static/images/homecomp.jpg">
+{% endblock %}
+
+
+{% block maincontent %}
+
+<div class="signup-content">
+
+    <div class="signup-card">
+        <p class="title">Sign up</p>
+
+        <form method="POST" class="signup-form">
+            {{ csrf_token }}
+            {{ form.hidden_tag() }}
+            
+            <div class="inpfields">
+                <input class="{% if form.org_name.errors %}has-error{% endif %}" type="text" name="org_name" placeholder="Organization Name">
+                {% if form.org_name.errors %}
+                    {% set error_message = form.org_name.errors[0] %}
+                    {% if error_message.endswith('.') %}
+                        {% set error_message = error_message[:-1] %}
+                    {% endif %}
+                    <p class="error-msg">{{ error_message }}</p>
+                {% endif %}
+            </div>
+            <br>
+            <div class="inpfields">
+                <input class="{% if form.email.errors %}has-error{% endif %}" name="email" placeholder="Email">
+                {% if form.email.errors %}
+                    {% set error_message = form.email.errors[0] %}
+                    {% if error_message.endswith('.') %}
+                        {% set error_message = error_message[:-1] %}
+                    {% endif %}
+                    <p class="error-msg">{{ error_message }}</p>
+                {% endif %}
+            </div>
+            <br>
+            <div class="inpfields">
+                <input class="{% if form.password.errors %}has-error{% endif %}" type="password" name="password" placeholder="Password">
+                {% if form.password.errors %}
+                    {% set error_message = form.password.errors[0] %}
+                    {% if error_message.endswith('.') %}
+                        {% set error_message = error_message[:-1] %}
+                    {% endif %}
+                    <p class="error-msg">{{ error_message }}</p>
+                {% endif %}
+            </div>
+            <br>
+            <div class="inpfields">
+                <input class="{% if form.confirm_password.errors %}has-error{% endif %}" type="password" name="confirm_password" placeholder="Re-enter password">
+                {% if form.confirm_password.errors %}
+                    {% set error_message = form.confirm_password.errors[0] %}
+                    {% if error_message.endswith('.') %}
+                        {% set error_message = error_message[:-1] %}
+                    {% endif %}
+                    <p class="error-msg">{{ error_message }}</p>
+                {% endif %}
+            </div>
+            <br>
+            <select name="industry" id="expertise">
+                <option value="" selected>Select Industry Field (Optional)</option>
+                {% for value, label in form.industry.choices %}
+                    <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <div class="inpfields">
+                <input class="{% if form.company_website.errors %}has-error{% endif %}" name="company_website" placeholder="Company Website">
+                {% if form.company_website.errors %}
+                    {% set error_message = form.company_website.errors[0] %}
+                    {% if error_message.endswith('.') %}
+                        {% set error_message = error_message[:-1] %}
+                    {% endif %}
+                    <p class="error-msg">{{ error_message }}</p>
+                {% endif %}
+            </div>
+            <br>
+            <div class="inpfields">
+                <input class="{% if form.contact_person_email.errors %}has-error{% endif %}" name="contact_person_email" placeholder="Contact Person Email">
+                {% if form.contact_person_email.errors %}
+                    {% set error_message = form.contact_person_email.errors[0] %}
+                    {% if error_message.endswith('.') %}
+                        {% set error_message = error_message[:-1] %}
+                    {% endif %}
+                    <p class="error-msg">{{ error_message }}</p>
+                {% endif %}
+            </div>
+            <br>
+            <button type="submit">Proceed to verification</button>
+        </form>
+        
+        <p class="acc-exists">Already have an account? <a href="{{ url_for('auth.org_login') }}">Sign in</a></p>
+
+    </div>
+    
+    <div class="or">
+        <span>Or</span>
+        <hr class="line">
+        <hr class="line">
+    </div>
+
+    <a class="other-signin" href="{{ url_for('auth.user_register') }}">Sign up as an individual</a>
+
+</div>
+
+
+{% endblock %}
+

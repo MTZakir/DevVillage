@@ -1,7 +1,7 @@
 import re
 from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import SelectField, StringField, PasswordField, validators
-from wtforms.validators import DataRequired, Email, ValidationError, EqualTo
+from wtforms.validators import DataRequired, Email, ValidationError, EqualTo, URL, Optional
 import phonenumbers
 
 # from auth_routes import is_password_valid
@@ -36,11 +36,10 @@ class UserRegistrationForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     
     password = PasswordField('Password', validators=[DataRequired(), validators.length(min = 8)])
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('confirm_password', message = "Passwords do not match.")])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password', message = "Passwords do not match.")])
 
     expertise = SelectField(
         'Expertise',
-        validators=[validators.DataRequired()],
         choices = [
             ('computer_systems_manager', 'Computer Systems Manager'),
             ('network_architect', 'Network Architect'),
@@ -105,19 +104,19 @@ class UserRegistrationForm(FlaskForm):
             ('portfolio_manager', 'Portfolio Manager')
         ],
         render_kw={"class": "form-control"}  # Additional attributes for rendering the field in HTML
+    
     )
+    def validate_password(self, password):
+        password_valid, error_msg = is_password_valid(password.data)
+        if not password_valid:
+            self.password.errors.append(error_msg)
+        return password_valid
 
 
 # User login form
 class UserLoginForm(FlaskForm):
     username_or_email = StringField('Username / Email', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
-
-    def validate_password(self, password):
-        password_valid, error_msg = is_password_valid(password.data)
-        if not password_valid:
-            self.password.errors.append(error_msg)
-        return password_valid
 
 # Organization registration form
 class OrganizationRegistrationForm(FlaskForm):
@@ -130,12 +129,15 @@ class OrganizationRegistrationForm(FlaskForm):
         choices=[
             ('aircraft', 'Aircraft'),
             ('ecommerce', 'E-commerce'),
-            ('other', 'Other')],
-        validators=[DataRequired()])
-    company_website = StringField('Company Website')
+            ('other', 'Other')])
+    company_website = StringField('Company Website', validators=[Optional(), URL(require_tld=True, message='Invalid URL')])
     contact_person_email = StringField('Contact Person Email', validators=[DataRequired(), Email()])
 
-    recaptcha = RecaptchaField()
+    def validate_password(self, password):
+        password_valid, error_msg = is_password_valid(password.data)
+        if not password_valid:
+            self.password.errors.append(error_msg)
+        return password_valid
 
 # Organization login form
 class OrganizationLoginForm(FlaskForm):

@@ -1,5 +1,5 @@
 from email_validator import validate_email
-from flask import Blueprint, render_template, request, session, redirect, url_for
+from flask import Blueprint, flash, render_template, request, session, redirect, url_for
 from firebase_admin import db, auth
 from firebase_admin._auth_utils import EmailAlreadyExistsError, PhoneNumberAlreadyExistsError, UserNotFoundError
 from flask_recaptcha import ReCaptcha
@@ -127,6 +127,7 @@ def user_login():
 
         else:
             print("Login form incorrect: ", form.errors)
+
         
     # If a user is already logged in
     else:
@@ -321,7 +322,7 @@ def org_register():
 
         return redirect(url_for('home'))
 
-    return render_template("temp/org_register.html", form = form)
+    return render_template("org_register.html", form = form)
 
 
 
@@ -499,25 +500,3 @@ def delete_otp(user_id):
             db.reference("/user_accounts").child(user.display_name).delete()
         else:
             db.reference("/org_accounts").child(user.uid).delete()
-
-
-
-
-
-def is_password_valid(password):
-    # Length check
-    if len(password) < 8:
-        return False, "Password must be at least 8 characters long"
-
-    # Complexity check
-    if not re.search(r"[A-Z]", password):
-        return False, "Password must contain at least one uppercase letter"
-    if not re.search(r"[a-z]", password):
-        return False, "Password must contain at least one lowercase letter"
-    if not re.search(r"\d", password):
-        return False, "Password must contain at least one digit"
-    if not re.search(r"[!@#$%^&*()-_=+{};:,<.>]", password):
-        return False, "Password must contain at least one special character"
-
-    # All checks passed
-    return True, ""

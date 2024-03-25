@@ -9,7 +9,15 @@
 {% endblock %}
 
 {% block maincontent %}
-
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <div class="contentlogin">
 
         <!-- individuals -->
@@ -22,10 +30,8 @@
                     {{ csrf_token }}
                     {{ form.hidden_tag() }}
                     
-                    <!-- <input class="signinfield" name="username_or_email" type="text" id="username" placeholder="Username / Email"> -->
-
-                    <div class="inpfields {% if form.username_or_email.errors %}has-error{% endif %}">
-                        <input class="signinfield" name="username_or_email" type="text" id="username" placeholder="Username or Email">
+                    <div class="inpfields">
+                        <input class="signinfield {% if form.username_or_email.errors %}has-error{% endif %}" name="username_or_email" type="text" id="username" placeholder="Username or Email">
                         <i class="bi bi-person person"></i>
 
                         {% if form.username_or_email.errors %}
@@ -38,10 +44,8 @@
                     </div>
                     <br>
 
-                    <!-- <input class="signinfield" name="password" type="password" id="password" placeholder="Password"> -->
-
-                    <div class="inpfields {% if form.password.errors %}has-error{% endif %}">
-                        <input class="signinfield" name="password" type="password" id="password" placeholder="Password">
+                    <div class="inpfields">
+                        <input class="signinfield {% if form.password.errors %}has-error{% endif %}" name="password" type="password" id="password" placeholder="Password">
                         <i class="bi bi-lock lock"></i>
 
                         {% if form.password.errors %}

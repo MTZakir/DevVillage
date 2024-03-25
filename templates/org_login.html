@@ -23,8 +23,8 @@
                     {{ form.hidden_tag() }}
                     
 
-                    <div class="inpfields {% if form.email.errors %}has-error{% endif %}">
-                        <input class="signinfield" name="email" type="text" id="username" placeholder="Email">
+                    <div class="inpfields">
+                        <input class="signinfield {% if form.email.errors %}has-error{% endif %}" name="email" type="text" id="username" placeholder="Email">
                         <i class="bi bi-envelope envelope"></i>
 
                         {% if form.email.errors %}
@@ -38,8 +38,8 @@
 
                     <br>
 
-                    <div class="inpfields {% if form.password.errors %}has-error{% endif %}">
-                        <input class="signinfield" name="password" type="password" id="password" placeholder="Password">
+                    <div class="inpfields">
+                        <input class="signinfield {% if form.password.errors %}has-error{% endif %}" name="password" type="password" id="password" placeholder="Password">
                         <i class="bi bi-lock lock"></i>
 
                         {% if form.password.errors %}

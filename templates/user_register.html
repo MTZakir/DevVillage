@@ -25,23 +25,86 @@
             {{ form.hidden_tag() }}
 
             <div class="input-name">
-                <input type="text" name="first_name" placeholder="First name" required>
+                <div class="inpfields">
+                    <input class="{% if form.first_name.errors %}has-error{% endif %}" type="text" name="first_name" placeholder="First name">
+                    {% if form.first_name.errors %}
+                        {% set error_message = form.first_name.errors[0] %}
+                        {% if error_message.endswith('.') %}
+                            {% set error_message = error_message[:-1] %}
+                        {% endif %}
+                        <p class="error-msg">{{ error_message }}</p>
+                    {% endif %}
+                </div>
                 <br>
-                <input type="text" name="last_name" placeholder="Last name" required>
+                <div class="inpfields">
+                    <input class="{% if form.last_name.errors %}has-error{% endif %}" type="text" name="last_name" placeholder="Last name" >
+                    {% if form.last_name.errors %}
+                        {% set error_message = form.last_name.errors[0] %}
+                        {% if error_message.endswith('.') %}
+                            {% set error_message = error_message[:-1] %}
+                        {% endif %}
+                        <p class="error-msg">{{ error_message }}</p>
+                    {% endif %}
+                </div>
             </div>
             <br>
-            <input type="text" name="username" placeholder="Username" required>
+            <div class="inpfields">
+                <input class="{% if form.username.errors %}has-error{% endif %}" type="text" name="username" placeholder="Username" >
+                {% if form.username.errors %}
+                    {% set error_message = form.username.errors[0] %}
+                    {% if error_message.endswith('.') %}
+                        {% set error_message = error_message[:-1] %}
+                    {% endif %}
+                    <p class="error-msg">{{ error_message }}</p>
+                {% endif %}
+            </div>
             <br>
-            <input type = "tel" id="phone" name="phone_number">
+            <div class="inpfields">
+                <input class="{% if form.phone_number.errors %}has-error{% endif %}" type = "tel" id="phone" name="phone_number" placeholder="Phone number (Optional)">
+                {% if form.phone_number.errors %}
+                    {% set error_message = form.phone_number.errors[0] %}
+                    {% if error_message.endswith('.') %}
+                        {% set error_message = error_message[:-1] %}
+                    {% endif %}
+                    <p class="error-msg">{{ error_message }}</p>
+                {% endif %}
+            </div>
             <br>
-            <input type="email" name="email" placeholder="Email" required>
+            <div class="inpfields">
+                <input class="{% if form.email.errors %}has-error{% endif %}" name="email" placeholder="Email" >
+                {% if form.email.errors %}
+                    {% set error_message = form.email.errors[0] %}
+                    {% if error_message.endswith('.') %}
+                        {% set error_message = error_message[:-1] %}
+                    {% endif %}
+                    <p class="error-msg">{{ error_message }}</p>
+                {% endif %}
+            </div>
             <br>
-            <input type="password" name="password" placeholder="Password" required>
+            <div class="inpfields">
+                <input class="{% if form.password.errors %}has-error{% endif %}" type="password" name="password" placeholder="Password" >
+                {% if form.password.errors %}
+                    {% set error_message = form.password.errors[0] %}
+                    {% if error_message.endswith('.') %}
+                        {% set error_message = error_message[:-1] %}
+                    {% endif %}
+                    <p class="error-msg">{{ error_message }}</p>
+                {% endif %}
+            </div>
             <br>
-            <input type="password" name="confirm_password" placeholder="Re-enter password" required>
+            <div class="inpfields">
+                <input class="{% if form.confirm_password.errors %}has-error{% endif %}"type="password" name="confirm_password" placeholder="Re-enter password" >
+                {% if form.confirm_password.errors %}
+                    {% set error_message = form.confirm_password.errors[0] %}
+                    {% if error_message.endswith('.') %}
+                        {% set error_message = error_message[:-1] %}
+                    {% endif %}
+                    <p class="error-msg">{{ error_message }}</p>
+                {% endif %}
+            </div>
             <br>
             <select name="expertise" id="expertise">
-                <option value="" selected>Select Field of Proficiency</option>
+                <option value="" selected>Select Field of Proficiency (Optional)</option>
                 {% for value, label in form.expertise.choices %}
                     <option value="{{ value }}">{{ label }}</option>
                 {% endfor %}
