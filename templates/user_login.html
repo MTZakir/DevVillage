@@ -31,7 +31,7 @@
                     {{ form.hidden_tag() }}
                     
                     <div class="inpfields">
-                        <input class="signinfield {% if form.username_or_email.errors %}has-error{% endif %}" name="username_or_email" type="text" id="username" placeholder="Username or Email">
+                        <input class="signinfield {% if form.username_or_email.errors %}has-error{% endif %}" name="username_or_email" type="text" id="username" placeholder="Username or Email" value="{% if form.username_or_email.data %}{{ form.username_or_email.data }}{% endif %}">
                         <i class="bi bi-person person"></i>
 
                         {% if form.username_or_email.errors %}
@@ -61,7 +61,7 @@
                 </form>
 
                 <div class="othersigninoptions">
-                    <a class="forgorpass" href="{{ url_for('auth.reset_pass') }}">Forgot Password?</a>
+                    <a class="forgorpass" href="{{ url_for('verify.reset_pass') }}">Forgot Password?</a>
                     <p>Don't have an account? <a href="{{ url_for('auth.user_register') }}">Sign Up</a></p>
                 </div>
                 

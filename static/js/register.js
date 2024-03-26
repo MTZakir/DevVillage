@@ -21,6 +21,6 @@ selectElement.addEventListener('change', function() {
         selectElement.style.color = '#ffffff69';
     }
     else {
-        selectElement.style.color = '#fff';
+        selectElement.style.color = '#ffffffc1';
     }
 });

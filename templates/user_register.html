@@ -26,7 +26,7 @@
 
             <div class="input-name">
                 <div class="inpfields">
-                    <input class="{% if form.first_name.errors %}has-error{% endif %}" type="text" name="first_name" placeholder="First name">
+                    <input class="{% if form.first_name.errors %}has-error{% endif %}" type="text" name="first_name" placeholder="First name" value="{% if form.first_name.data %}{{ form.first_name.data }}{% endif %}">
                     {% if form.first_name.errors %}
                         {% set error_message = form.first_name.errors[0] %}
                         {% if error_message.endswith('.') %}
@@ -37,7 +37,7 @@
                 </div>
                 <br>
                 <div class="inpfields">
-                    <input class="{% if form.last_name.errors %}has-error{% endif %}" type="text" name="last_name" placeholder="Last name" >
+                    <input class="{% if form.last_name.errors %}has-error{% endif %}" type="text" name="last_name" placeholder="Last name" value="{% if form.last_name.data %}{{ form.last_name.data }}{% endif %}">
                     {% if form.last_name.errors %}
                         {% set error_message = form.last_name.errors[0] %}
                         {% if error_message.endswith('.') %}
@@ -49,7 +49,7 @@
             </div>
             <br>
             <div class="inpfields">
-                <input class="{% if form.username.errors %}has-error{% endif %}" type="text" name="username" placeholder="Username" >
+                <input class="{% if form.username.errors %}has-error{% endif %}" type="text" name="username" placeholder="Username" value="{% if form.username.data %}{{ form.username.data }}{% endif %}">
                 {% if form.username.errors %}
                     {% set error_message = form.username.errors[0] %}
                     {% if error_message.endswith('.') %}
@@ -60,7 +60,7 @@
             </div>
             <br>
             <div class="inpfields">
-                <input class="{% if form.phone_number.errors %}has-error{% endif %}" type = "tel" id="phone" name="phone_number" placeholder="Phone number (Optional)">
+                <input class="{% if form.phone_number.errors %}has-error{% endif %}" id="phone" name="phone_number" placeholder="Phone number (Optional)" value="{% if form.phone_number.data %}{{ form.phone_number.data }}{% endif %}">
                 {% if form.phone_number.errors %}
                     {% set error_message = form.phone_number.errors[0] %}
                     {% if error_message.endswith('.') %}
@@ -71,7 +71,7 @@
             </div>
             <br>
             <div class="inpfields">
-                <input class="{% if form.email.errors %}has-error{% endif %}" name="email" placeholder="Email" >
+                <input class="{% if form.email.errors %}has-error{% endif %}" name="email" placeholder="Email" value="{% if form.email.data %}{{ form.email.data }}{% endif %}">
                 {% if form.email.errors %}
                     {% set error_message = form.email.errors[0] %}
                     {% if error_message.endswith('.') %}
@@ -104,9 +104,9 @@
             </div>
             <br>
             <select name="expertise" id="expertise">
-                <option value="" selected>Select Field of Proficiency (Optional)</option>
+                <option value="">Select Field of Proficiency (Optional)</option>
                 {% for value, label in form.expertise.choices %}
-                    <option value="{{ value }}">{{ label }}</option>
+                  <option value="{{ value }}" {% if value == form.expertise.data %}selected{% endif %}>{{ label }}</option>
                 {% endfor %}
             </select>
             <br>

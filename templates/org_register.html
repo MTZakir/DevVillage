@@ -25,7 +25,7 @@
             {{ form.hidden_tag() }}
             
             <div class="inpfields">
-                <input class="{% if form.org_name.errors %}has-error{% endif %}" type="text" name="org_name" placeholder="Organization Name">
+                <input class="{% if form.org_name.errors %}has-error{% endif %}" type="text" name="org_name" placeholder="Organization Name" value="{% if form.org_name.data %}{{ form.org_name.data }}{% endif %}">
                 {% if form.org_name.errors %}
                     {% set error_message = form.org_name.errors[0] %}
                     {% if error_message.endswith('.') %}
@@ -36,7 +36,7 @@
             </div>
             <br>
             <div class="inpfields">
-                <input class="{% if form.email.errors %}has-error{% endif %}" name="email" placeholder="Email">
+                <input class="{% if form.email.errors %}has-error{% endif %}" name="email" placeholder="Email" value="{% if form.email.data %}{{ form.email.data }}{% endif %}">
                 {% if form.email.errors %}
                     {% set error_message = form.email.errors[0] %}
                     {% if error_message.endswith('.') %}
@@ -68,15 +68,15 @@
                 {% endif %}
             </div>
             <br>
-            <select name="industry" id="expertise">
+            <select name="industry" id="expertise" value>
                 <option value="" selected>Select Industry Field (Optional)</option>
                 {% for value, label in form.industry.choices %}
-                    <option value="{{ value }}">{{ label }}</option>
+                    <option value="{{ value }}" {% if value == form.industry.data %}selected{% endif %}>{{ label }}</option>
                 {% endfor %}
             </select>
             <br>
             <div class="inpfields">
-                <input class="{% if form.company_website.errors %}has-error{% endif %}" name="company_website" placeholder="Company Website">
+                <input class="{% if form.company_website.errors %}has-error{% endif %}" name="company_website" placeholder="Company Website" value="{% if form.company_website.data %}{{ form.company_website.data }}{% endif %}">
                 {% if form.company_website.errors %}
                     {% set error_message = form.company_website.errors[0] %}
                     {% if error_message.endswith('.') %}
@@ -87,7 +87,7 @@
             </div>
             <br>
             <div class="inpfields">
-                <input class="{% if form.contact_person_email.errors %}has-error{% endif %}" name="contact_person_email" placeholder="Contact Person Email">
+                <input class="{% if form.contact_person_email.errors %}has-error{% endif %}" name="contact_person_email" placeholder="Contact Person Email" value="{% if form.contact_person_email.data %}{{ form.contact_person_email.data }}{% endif %}">
                 {% if form.contact_person_email.errors %}
                     {% set error_message = form.contact_person_email.errors[0] %}
                     {% if error_message.endswith('.') %}

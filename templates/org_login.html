@@ -24,7 +24,7 @@
                     
 
                     <div class="inpfields">
-                        <input class="signinfield {% if form.email.errors %}has-error{% endif %}" name="email" type="text" id="username" placeholder="Email">
+                        <input class="signinfield {% if form.email.errors %}has-error{% endif %}" name="email" type="text" id="username" placeholder="Email" value="{% if form.email.data %}{{ form.email.data }}{% endif %}">
                         <i class="bi bi-envelope envelope"></i>
 
                         {% if form.email.errors %}
@@ -57,7 +57,7 @@
                 </form>
 
                 <div class="othersigninoptions">
-                    <a href="">Forgot Password?</a>
+                    <a href="{{ url_for('verify.reset_pass') }}">Forgot Password?</a>
                     <p>Don't have an account? <a href="{{ url_for('auth.org_register') }}">Sign Up</a></p>
                 </div>
                 

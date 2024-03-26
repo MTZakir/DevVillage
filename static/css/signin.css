@@ -125,13 +125,13 @@
 
 .loginbtn:active{
     background-color: var(--color);
-    color: rgb(227, 227, 227);
+    color: rgb(248, 248, 248);
 }
 
 .signinfield {
     font-size: 0.938vw;
 
-    width: 14.6vw;
+    width: 18.59vw;
     height: 5.5vh;
     padding: 0 0.833vw;
     padding-left: 3.15vw;
@@ -142,6 +142,7 @@
     background-color: #202124;
     color: #ffffffc1;
     box-shadow: 0.052vw 0.208vw 0.208vw 0.052vw rgba(0, 0, 0, 0.25) inset;
+    box-sizing: border-box;
 }
 
 .othersigninoptions{
@@ -191,9 +192,10 @@
 
 .error-msg{
     position: absolute;
-    top: 2.50vw;
+    top: 2.24vw;
     left: 0.65vw;
     color: rgb(255, 55, 0);
 
     font-size: 0.63vw;
+    font-weight: 300;
 }
