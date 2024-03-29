@@ -178,21 +178,27 @@
 
 .inpfields{
     position: relative;
+    margin: -0.27vw 0;
 }
 
 .container{
     gap: 0%
 }
 
+.iti__country-list {
+    background-color: #000000; /* Your custom background color */
+    color: #ffffffda;
+}
+
 /* Displaying error messages */
 
 .has-error{
-    border: 0.12vw solid rgb(255, 55, 0) !important;
+    border: 1px solid rgb(255, 55, 0) !important;
 }
 
 .error-msg{
     position: absolute;
-    top: 2.24vw;
+    top: 2.14vw;
     left: 0.65vw;
     color: rgb(255, 55, 0);
 

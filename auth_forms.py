@@ -111,6 +111,12 @@ class UserRegistrationForm(FlaskForm):
         if not password_valid:
             self.password.errors.append(error_msg)
         return password_valid
+    
+    def validate_email(self, email):
+        email_valid, error_msg = is_email_valid(email.data)
+        if not email_valid:
+            self.email.errors.append(error_msg)
+        return email_valid
 
 
 # User login form
@@ -172,3 +178,38 @@ def is_password_valid(password):
 
     # All checks passed
     return True, ""
+
+def is_email_valid(email):
+    # Regular expression pattern for validating email addresses
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    
+    # Check if email matches the pattern
+    if not re.match(pattern, email):
+        return False, "Invalid email address"
+    
+    # Split email address into local part and domain part
+    local_part, domain_part = email.split('@')
+
+    # Check length of local part
+    if len(local_part) > 64:
+        return False, "Local part exceeds maximum length (64 characters)"
+    
+    # Check length of domain part
+    if len(domain_part) > 255:
+        return False, "Domain part exceeds maximum length (255 characters)"
+    
+    # Check if domain has valid characters
+    if not re.match(r'^[a-zA-Z0-9.-]+$', domain_part):
+        return False, "Domain contains invalid characters"
+    
+    # Check if domain starts or ends with a dot
+    if domain_part.startswith('.') or domain_part.endswith('.'):
+        return False, "Domain cannot start or end with a dot"
+
+    # Split the domain into parts
+    domain_parts = domain_part.split('.')
+    # Check if the last part (TLD) has at least two characters
+    if len(domain_parts[-1]) < 2:
+        return False, "Invalid Top-Level Domain (TLD)"
+    
+    return True, "Email is valid"

@@ -118,6 +118,7 @@ def delete_otp(user_id):
     user = auth.get_user(user_id)
 
     if not user.email_verified:
+        print("Deleting user " + user.display_name)
         auth.delete_user(user_id)
         if not db.reference("/org_accounts").child(user.uid).get():
             db.reference("/user_accounts").child(user.display_name).delete()

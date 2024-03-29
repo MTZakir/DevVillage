@@ -2,9 +2,10 @@ from email_validator import validate_email
 from flask import Blueprint, flash, render_template, request, session, redirect, url_for
 from firebase_admin import db, auth
 from firebase_admin._auth_utils import EmailAlreadyExistsError, PhoneNumberAlreadyExistsError, UserNotFoundError
+from firebase_admin.exceptions import InvalidArgumentError
 from flask_recaptcha import ReCaptcha
-from auth_forms import OTPForm, OrganizationLoginForm, OrganizationRegistrationForm, PasswordResetEmailForm, UserLoginForm, UserRegistrationForm, PasswordResetForm
-import pyrebase, smtplib, random, threading
+from auth_forms import OrganizationLoginForm, OrganizationRegistrationForm, UserLoginForm, UserRegistrationForm
+import pyrebase, smtplib, random
 
 # Blueprint initialization
 auth_blueprint = Blueprint(
@@ -198,6 +199,9 @@ def user_register():
                 # If phone number already exists
                 except PhoneNumberAlreadyExistsError:
                     print("Register Failed! An account linked to the phone number already exists.")
+                
+                except InvalidArgumentError:
+                    print("Invalid email address.")
                     
         else:
             print("Register form incorrect: ", form.errors)
@@ -313,6 +317,9 @@ def org_register():
             # If email already exists
             except EmailAlreadyExistsError:
                 print("Register Failed! An account linked to the email already exists.")
+
+            except InvalidArgumentError:
+                    print("Invalid email address.")
 
         else:
             print("Register form incorrect: ", form.errors)

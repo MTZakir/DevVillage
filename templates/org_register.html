@@ -76,7 +76,7 @@
             </select>
             <br>
             <div class="inpfields">
-                <input class="{% if form.company_website.errors %}has-error{% endif %}" name="company_website" placeholder="Company Website" value="{% if form.company_website.data %}{{ form.company_website.data }}{% endif %}">
+                <input class="{% if form.company_website.errors %}has-error{% endif %}" name="company_website" placeholder="Company Website (Optional)" value="{% if form.company_website.data %}{{ form.company_website.data }}{% endif %}">
                 {% if form.company_website.errors %}
                     {% set error_message = form.company_website.errors[0] %}
                     {% if error_message.endswith('.') %}
