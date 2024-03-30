@@ -4,47 +4,45 @@
   list-style: none;
   text-align: left;
   padding: 0;
-  margin: 0 0 0 -1px;
-  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+  margin: 0 0 0 -0.052vw;
+  box-shadow: 0.052vw 0.052vw 0.208vw rgba(0, 0, 0, 0.2);
   background-color: #0D1117 !important;
   border: 1px solid #202124 !important;
   border-bottom-left-radius: 0.4vw;
   border-bottom-right-radius: 0.4vw;
   white-space: nowrap;
-  max-height: 200px;
+  width: 23.2vw;
+  max-height: 10.417vw;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 }
 
 .iti__country-list::-webkit-scrollbar {
-  width: 1.1vw;
+  width: 0.7vw;
   background-color: #0D1117;
   border-bottom-right-radius: 0.4vw;
+  cursor: default;
 }
 
 .iti__country-list::-webkit-scrollbar-thumb {
   height: 2vw;
-  background-color: #29374b;
-  border: 0.3vw solid #0D1117;
-  thumb:hover {
-      background-color: #e0e0e0 !important;
-  }
-}
-/* 
-.iti__country-list::-scrollbar {
-  width: 10px;
-  background-color: #0f0f0f;
+  background-color: #32435b;
+  border-radius: 0.23vw;
+  cursor: default;
 }
 
-.iti__country-list::-scrollbar-thumb {
-  thumb:hover {
-      background-color: #e0e0e0 !important;
-  }
-} */
+.iti__country-list::-webkit-scrollbar-thumb:hover {
+  background-color: #455a76 !important;
+}
+
+.iti__country-list::-webkit-scrollbar-thumb:active {
+  background-color: #32435b !important;
+}
 
 .iti__country-name{
   color: rgb(188, 188, 188);
   font-size: 0.696vw;
+  font-family: "Noto Sans JP", sans-serif;
 }
 
 .iti__country:hover{
@@ -57,4 +55,8 @@
 
 .iti__divider{
   border-bottom: 1px solid #44464d !important;
+}
+
+.iti__flag-box{
+  margin-left: -0.12vw !important;
 }
