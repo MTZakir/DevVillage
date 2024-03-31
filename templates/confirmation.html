@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+
+{% block css_file %}
+    <link rel="stylesheet" href="static/css/signup.css">
+{% endblock %}
+
+{% block image %}
+    <img id="leftimg" src="static/images/homepage1.jpg">
+{% endblock %}
+
+{% block maincontent %}
+    <div class="confcontainer">
+        <!-- individuals -->
+        <div class="confcard" onclick="checkRadio('#organization')">
+            <div class="checkbox-logo">
+                <i class="bi bi-buildings logo"> <input type="radio" id="organization" name="confirmation"></i>
+                <p>Sign up as an Organization searching for contractors</p>
+            </div>    
+        </div>
+
+        <div class="confcard" onclick="checkRadio('#individual')">
+            <div class="checkbox-logo">
+                <i class="bi bi-person logo"> <input type="radio" id="individual" name="confirmation"></i>
+                <p>Sign up as an individual exploring opportunities</p>
+            </div>
+        </div>
+
+        <div class="confbutton">
+            <button id="bttnconf">Create Account</button>
+        </div>
+        
+
+    </div>
+    <script>
+        var orgRegisterUrl = "{{ url_for('auth.org_register') }}";
+        var userRegisterUrl = "{{ url_for('auth.user_register') }}";
+    </script>
+{% endblock %}

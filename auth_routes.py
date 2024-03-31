@@ -141,6 +141,11 @@ def user_login():
 
 
 
+@auth_blueprint.route('/confirmation', methods=['GET', 'POST'])
+def confirmation():
+    return render_template("confirmation.html")
+
+
 # ---------- USER REGISTER ----------
 @auth_blueprint.route('/user_register', methods=['GET', 'POST'])
 def user_register():
