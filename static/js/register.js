@@ -24,3 +24,7 @@ selectElement.addEventListener('change', function() {
         selectElement.style.color = '#ffffffc1';
     }
 });
+
+var elements = document.getElementsByClassName("iti__country-list").addEventListener("change", function() {
+    var dialCode = document.querySelector(".iti__dial-code").textContent;
+});

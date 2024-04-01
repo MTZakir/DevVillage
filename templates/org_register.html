@@ -110,7 +110,11 @@
         <hr class="line">
     </div>
 
-    <a class="other-signin" href="{{ url_for('auth.user_register') }}">Sign up as an individual</a>
+    <a href="{{ url_for('auth.user_register') }}">
+        <button class="other-signin">
+            <span>Sign up as an individual</span>
+        </button>
+    </a>
 
 </div>
 

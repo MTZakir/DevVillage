@@ -186,22 +186,29 @@
 }
 
 .other-signin {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: relative;
     border: none;
     text-decoration: none;
     text-align: center;
     padding: 0.521vw;
     border-radius: 0.365vw;
     
-    color: #fff;
     background-color: var(--alt-color);
 
-    font-weight: 100;
-    font-size: 0.987vw;
     width: 15.7vw;
-    height: 4.8vh;
+    min-height: 4.8vh;
+}
+
+.other-signin span {
+    position: absolute;
+    top: 52%;
+    left: 50%;
+    
+    font-size: 1vw !important;
+
+    transform: translate(-50%, -50%);
+    color: #fff;
+    width: 17vw;
 }
 
 .other-signin:hover {
@@ -352,4 +359,3 @@ input[type="radio"]:not(:disabled):checked {
 #individual{
     margin-bottom:1px;
 }
-

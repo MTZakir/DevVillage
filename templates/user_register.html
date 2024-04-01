@@ -124,10 +124,13 @@
         <hr class="line">
     </div>
 
-    <button class="other-signin" onclick="window.location.href = `{{url_for('auth.org_login')}}`">Sign up as a company</button>
-
+    <a href="{{ url_for('auth.org_register') }}">
+        <button class="other-signin">
+            <span>Sign up as a company</span>
+        </button>
+    </a>
+    
 </div>
 
 
 {% endblock %}
-
