@@ -145,6 +145,10 @@ def user_login():
 def confirmation():
     return render_template("confirmation.html")
 
+@auth_blueprint.route('/otp', methods=['GET', 'POST'])
+def otp():
+    return render_template("otp.html")
+
 
 # ---------- USER REGISTER ----------
 @auth_blueprint.route('/user_register', methods=['GET', 'POST'])

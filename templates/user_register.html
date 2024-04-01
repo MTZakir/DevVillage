@@ -16,20 +16,43 @@
 
 {% block maincontent %}
 
-<div class="signup-content">
+    <div class="signup-content">
 
-    <div class="signup-card">
-        <p class="title">Sign up</p>
+        <div class="signup-card">
+            <p class="title">Sign up</p>
 
-        <form method="POST" class="signup-form">
-            {{ csrf_token }}
-            {{ form.hidden_tag() }}
+            <form method="POST" class="signup-form">
+                {{ csrf_token }}
+                {{ form.hidden_tag() }}
 
-            <div class="input-name">
+                <div class="input-name">
+                    <div class="inpfields">
+                        <input class="{% if form.first_name.errors %}has-error{% endif %}" type="text" name="first_name" placeholder="First name" value="{% if form.first_name.data %}{{ form.first_name.data }}{% endif %}">
+                        {% if form.first_name.errors %}
+                            {% set error_message = form.first_name.errors[0] %}
+                            {% if error_message.endswith('.') %}
+                                {% set error_message = error_message[:-1] %}
+                            {% endif %}
+                            <p class="error-msg">{{ error_message }}</p>
+                        {% endif %}
+                    </div>
+                    <br>
+                    <div class="inpfields">
+                        <input class="{% if form.last_name.errors %}has-error{% endif %}" type="text" name="last_name" placeholder="Last name" value="{% if form.last_name.data %}{{ form.last_name.data }}{% endif %}">
+                        {% if form.last_name.errors %}
+                            {% set error_message = form.last_name.errors[0] %}
+                            {% if error_message.endswith('.') %}
+                                {% set error_message = error_message[:-1] %}
+                            {% endif %}
+                            <p class="error-msg">{{ error_message }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <br>
                 <div class="inpfields">
-                    <input class="{% if form.first_name.errors %}has-error{% endif %}" type="text" name="first_name" placeholder="First name" value="{% if form.first_name.data %}{{ form.first_name.data }}{% endif %}">
-                    {% if form.first_name.errors %}
-                        {% set error_message = form.first_name.errors[0] %}
+                    <input class="{% if form.username.errors %}has-error{% endif %}" type="text" name="username" placeholder="Username" value="{% if form.username.data %}{{ form.username.data }}{% endif %}">
+                    {% if form.username.errors %}
+                        {% set error_message = form.username.errors[0] %}
                         {% if error_message.endswith('.') %}
                             {% set error_message = error_message[:-1] %}
                         {% endif %}
@@ -38,99 +61,74 @@
                 </div>
                 <br>
                 <div class="inpfields">
-                    <input class="{% if form.last_name.errors %}has-error{% endif %}" type="text" name="last_name" placeholder="Last name" value="{% if form.last_name.data %}{{ form.last_name.data }}{% endif %}">
-                    {% if form.last_name.errors %}
-                        {% set error_message = form.last_name.errors[0] %}
+                    <input class="{% if form.phone_number.errors %}has-error{% endif %}" id="phone" name="phone_number" placeholder="Phone number (Optional)" value="{% if form.phone_number.data %}{{ form.phone_number.data }}{% endif %}">
+                    {% if form.phone_number.errors %}
+                        {% set error_message = form.phone_number.errors[0] %}
                         {% if error_message.endswith('.') %}
                             {% set error_message = error_message[:-1] %}
                         {% endif %}
                         <p class="error-msg">{{ error_message }}</p>
                     {% endif %}
                 </div>
-            </div>
-            <br>
-            <div class="inpfields">
-                <input class="{% if form.username.errors %}has-error{% endif %}" type="text" name="username" placeholder="Username" value="{% if form.username.data %}{{ form.username.data }}{% endif %}">
-                {% if form.username.errors %}
-                    {% set error_message = form.username.errors[0] %}
-                    {% if error_message.endswith('.') %}
-                        {% set error_message = error_message[:-1] %}
+                <br>
+                <div class="inpfields">
+                    <input class="{% if form.email.errors %}has-error{% endif %}" name="email" placeholder="Email" value="{% if form.email.data %}{{ form.email.data }}{% endif %}">
+                    {% if form.email.errors %}
+                        {% set error_message = form.email.errors[0] %}
+                        {% if error_message.endswith('.') %}
+                            {% set error_message = error_message[:-1] %}
+                        {% endif %}
+                        <p class="error-msg">{{ error_message }}</p>
                     {% endif %}
-                    <p class="error-msg">{{ error_message }}</p>
-                {% endif %}
-            </div>
-            <br>
-            <div class="inpfields">
-                <input class="{% if form.phone_number.errors %}has-error{% endif %}" id="phone" name="phone_number" placeholder="Phone number (Optional)" value="{% if form.phone_number.data %}{{ form.phone_number.data }}{% endif %}">
-                {% if form.phone_number.errors %}
-                    {% set error_message = form.phone_number.errors[0] %}
-                    {% if error_message.endswith('.') %}
-                        {% set error_message = error_message[:-1] %}
+                </div>
+                <br>
+                <div class="inpfields">
+                    <input class="{% if form.password.errors %}has-error{% endif %}" type="password" name="password" placeholder="Password" >
+                    {% if form.password.errors %}
+                        {% set error_message = form.password.errors[0] %}
+                        {% if error_message.endswith('.') %}
+                            {% set error_message = error_message[:-1] %}
+                        {% endif %}
+                        <p class="error-msg">{{ error_message }}</p>
                     {% endif %}
-                    <p class="error-msg">{{ error_message }}</p>
-                {% endif %}
-            </div>
-            <br>
-            <div class="inpfields">
-                <input class="{% if form.email.errors %}has-error{% endif %}" name="email" placeholder="Email" value="{% if form.email.data %}{{ form.email.data }}{% endif %}">
-                {% if form.email.errors %}
-                    {% set error_message = form.email.errors[0] %}
-                    {% if error_message.endswith('.') %}
-                        {% set error_message = error_message[:-1] %}
+                </div>
+                <br>
+                <div class="inpfields">
+                    <input class="{% if form.confirm_password.errors %}has-error{% endif %}"type="password" name="confirm_password" placeholder="Re-enter password" >
+                    {% if form.confirm_password.errors %}
+                        {% set error_message = form.confirm_password.errors[0] %}
+                        {% if error_message.endswith('.') %}
+                            {% set error_message = error_message[:-1] %}
+                        {% endif %}
+                        <p class="error-msg">{{ error_message }}</p>
                     {% endif %}
-                    <p class="error-msg">{{ error_message }}</p>
-                {% endif %}
-            </div>
-            <br>
-            <div class="inpfields">
-                <input class="{% if form.password.errors %}has-error{% endif %}" type="password" name="password" placeholder="Password" >
-                {% if form.password.errors %}
-                    {% set error_message = form.password.errors[0] %}
-                    {% if error_message.endswith('.') %}
-                        {% set error_message = error_message[:-1] %}
-                    {% endif %}
-                    <p class="error-msg">{{ error_message }}</p>
-                {% endif %}
-            </div>
-            <br>
-            <div class="inpfields">
-                <input class="{% if form.confirm_password.errors %}has-error{% endif %}"type="password" name="confirm_password" placeholder="Re-enter password" >
-                {% if form.confirm_password.errors %}
-                    {% set error_message = form.confirm_password.errors[0] %}
-                    {% if error_message.endswith('.') %}
-                        {% set error_message = error_message[:-1] %}
-                    {% endif %}
-                    <p class="error-msg">{{ error_message }}</p>
-                {% endif %}
-            </div>
-            <br>
-            <select name="expertise" id="expertise">
-                <option value="">Select Field of Proficiency (Optional)</option>
-                {% for value, label in form.expertise.choices %}
-                  <option value="{{ value }}" {% if value == form.expertise.data %}selected{% endif %}>{{ label }}</option>
-                {% endfor %}
-            </select>
-            <br>
-            <button type="submit">Proceed to verification</button>
-        </form>
+                </div>
+                <br>
+                <select name="expertise" id="expertise">
+                    <option value="">Select Field of Proficiency (Optional)</option>
+                    {% for value, label in form.expertise.choices %}
+                    <option value="{{ value }}" {% if value == form.expertise.data %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <button id="proceed-verification" type="submit" onclick="window.location.href = `{{url_for('auth.otp')}}`">Proceed to verification</button>
+            </form>
+            
+            <p class="acc-exists">Already have an account? <a href="{{ url_for('auth.user_login') }}">Sign in</a></p>
+
+        </div>
         
-        <p class="acc-exists">Already have an account? <a href="{{ url_for('auth.user_login') }}">Sign in</a></p>
+        <div class="or">
+            <span>Or</span>
+            <hr class="line">
+            <hr class="line">
+        </div>
+
+        <a href="{{ url_for('auth.org_register') }}">
+            <button class="other-signin">
+                <span>Sign up as a company</span>
+            </button>
+        </a>
 
     </div>
-    
-    <div class="or">
-        <span>Or</span>
-        <hr class="line">
-        <hr class="line">
-    </div>
-
-    <a href="{{ url_for('auth.org_register') }}">
-        <button class="other-signin">
-            <span>Sign up as a company</span>
-        </button>
-    </a>
-    
-</div>
-
-
 {% endblock %}

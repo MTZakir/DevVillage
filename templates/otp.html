@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block css_file %}
+    <link rel="stylesheet" href="static/css/signup.css">
+{% endblock %}
+
+{% block image %}
+    <img id="leftimg" src="static/images/homepage1.jpg">
+{% endblock %}
+
+{% block maincontent %}
+    <div class="otpcontainer">
+        <!-- individuals -->
+        <div class="otpcard">
+            <div class="verification-text">
+                <h1 id="verification">Verification</h1>
+                <p>To complete your registration please enter the 6-digit verification code sent to 
+                    <span style="font-weight: 700; color: #fff;">xyz@example.com</span></p>
+            </div>
+            
+            <form class="otp-form" data-autosubmit="false" autocomplete="off">
+                <div class="otp-input">
+                    <input class="otpfield" type="text"
+                        inputmode="numeric" maxlength="1" />
+                    <input class="otpfield" type="text"
+                        inputmode="numeric" maxlength="1" />
+                    <input class="otpfield" type="text"
+                        inputmode="numeric" maxlength="1" />
+                    <input class="otpfield" type="text"
+                        inputmode="numeric" maxlength="1" />
+                    <input class="otpfield" type="text"
+                        inputmode="numeric" maxlength="1" />
+                    <input class="otpfield" type="text"
+                        inputmode="numeric" maxlength="1" />
+                </div>
+                <button id="verify-bttn" type="button">Verify</button>
+            </form>
+
+            <!-- The form that gonna get submitted with the otp as one combined variable -->
+            <form id="submit-form" method="post" hidden>
+                <input id="combinedotp" type="text" hidden>
+                <button type="submit" hidden></button>
+            </form>
+
+            <p id="return">Return to <a href="url_for{{"auth.user_register"}}">Sign Up</a></p>
+        </div>
+    </div>
+{% endblock %}

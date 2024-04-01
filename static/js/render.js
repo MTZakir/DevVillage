@@ -76,10 +76,48 @@ function updateButtonState() {
     }
 }
 
+function submitForm(){
+    var otp = "";
+    $("#verify-bttn").click(function(){
+        $('.otpfield').each(function(){
+            otp += $(this).val();
+        })
+        $('#combinedotp').val(otp);
+        $("#submit-form").submit();
+    })
+}
+
+function otpfields(){
+    $('.otpfield:not(:first)').prop('disabled', true);
+
+    $('.otpfield').keyup(function(e) {
+        var key = e.keyCode || e.which;
+        var maxLength = parseInt($(this).attr('maxlength'));
+        var currentLength = $(this).val().length;
+
+        // If a number is entered and the field is full, move focus to the next field
+        if (((key >= 48 && key <= 57) || (key >= 96 && key <= 105)) && currentLength >= maxLength) {
+            $(this).next('.otpfield').prop('disabled', false).focus();
+        }
+        // If backspace is pressed and the field is empty, move focus to the previous field
+        else if (key == 8 && currentLength == 0) {
+            $(this).prev('.otpfield').prop('disabled', false).focus();
+        }
+
+        // Disable next fields if the current field is empty
+        if (currentLength === 0) {
+            $(this).nextAll('.otpfield').prop('disabled', true).val('');
+        }
+    });
+}
+
 $(document).ready(function() {
     setColor();
     confColor();
     redirect();
+    otpfields();
+    submitForm();
+    verificationPage();
     $('#bttnconf').prop('disabled', true);
     $('#bttnconf').css('background-color', '#733DF0');
 });
