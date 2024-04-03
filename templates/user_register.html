@@ -61,7 +61,7 @@
                 </div>
                 <br>
                 <div class="inpfields">
-                    <input class="{% if form.phone_number.errors %}has-error{% endif %}" id="phone" name="phone_number" placeholder="Phone number (Optional)" value="{% if form.phone_number.data %}{{ form.phone_number.data }}{% endif %}">
+                    <input class="{% if form.phone_number.errors %}has-error{% endif %}" id="phone" name="phone_number" placeholder="Phone no. (Optional) Eg: +97150XXXXXXX" value="{% if form.phone_number.data %}{{ form.phone_number.data }}{% endif %}">
                     {% if form.phone_number.errors %}
                         {% set error_message = form.phone_number.errors[0] %}
                         {% if error_message.endswith('.') %}
