@@ -25,6 +25,14 @@ selectElement.addEventListener('change', function() {
     }
 });
 
-var elements = document.getElementsByClassName("iti__country-list").addEventListener("change", function() {
-    var dialCode = document.querySelector(".iti__dial-code").textContent;
+// Add a click event listener to each list item with the class "iti__country"
+$(".iti__country").on("click", function() {
+    // Get the dial code value from the clicked list item
+    var dialCode = $(this).find(".iti__dial-code").text();
+    
+    // Log the dial code value
+    console.log("Selected dial code:", dialCode);
+
+    // Set the dial code value to the phone field
+    $("#phone").val(dialCode);
 });

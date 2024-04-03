@@ -73,7 +73,13 @@
                 <hr class="line">
             </div>
             
-            <button class="loginswitchbtn" onclick="window.location.href = `{{url_for('auth.org_login')}}`">Sign in as a company</button>
+            <a href="{{url_for('auth.org_login')}}">
+                <button class="loginswitchbtn">
+                    <span>
+                        Sign in as a company
+                    </span>
+                </button>
+            </a>
         </div>
         
 
