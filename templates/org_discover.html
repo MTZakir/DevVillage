@@ -1,0 +1,31 @@
+{% extends 'layoutdiscover.html' %}
+
+{% block alt_discover %}<li><a href="{{url_for('discover.individuals')}}">Discover as an individual</a></li>{% endblock %}
+
+{% block maincontent %}
+    <div class="indi-ad-box">
+        {% for ads in ad_list %}
+        <a href="contract.html">
+            <div class="indi-ad-card">
+                <div class="indi-adimg">
+                    <div class="blurry-background"></div>
+                    <img id="indiad-img" src="/static/images/homepage2.jpg">
+                </div>
+                <div class="indi-content">
+                    <div class="title-desc-date">
+                        <h2 id="title">{{ ads['title'] }}</h3>
+                        <p id="indidesc">{{ ads['description']}}</p>
+                        <p id="indidate">Posted on {{ads['date']}}</p>
+                    </div>
+                    <div class="profile-rating">
+                        <i class="bi bi-person-circle indi-name"> <span>{{ads['name']}}</span></i>
+                        <div class="Stars" data-rating="{{ads['ratings']}}">
+                            <span>{{ads['ratings']}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+{% endblock %}

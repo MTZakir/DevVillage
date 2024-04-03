@@ -16,6 +16,13 @@ function setColor(){
     }
 }
 
+function ratingCalc(){
+    $('.Stars').each(function() {
+        var ratingValue = parseFloat($(this).data('rating'));
+        $(this).css("--rating", ratingValue);
+    });
+}
+
 function confColor(){
     $("#organization, .confcard:eq(0)").on("click", function() {
         $(":root").css("--color-conf", "#0276FA");
@@ -113,6 +120,7 @@ function otpfields(){
 
 $(document).ready(function() {
     setColor();
+    ratingCalc();
     confColor();
     redirect();
     otpfields();

@@ -4,7 +4,7 @@ from datetime import date
 from discover_forms import CreateContract
 from firebase_admin import auth
 from firebase_admin._auth_utils import UserNotFoundError
-
+from datetime import date
 
 # Blueprint initialization
 discover_blueprint = Blueprint(
@@ -28,11 +28,151 @@ def session_remove_if_not_verified():
         print("No session found.")
 
 # ---------- MAIN DISCOVER PAGE ----------
-@discover_blueprint.route('/discover')
-def main():
+@discover_blueprint.route('/discover/individual')
+def individuals():
     contract_list = db.reference("/contracts").get()
 
-    return render_template("discover.html", contract_list = contract_list)
+    return render_template("indidiscover.html", contract_list = contract_list)
+
+@discover_blueprint.route('/discover/companies')
+def companies():
+    posted_date = date.today()
+    ad_list=[
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 4.3
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 3.2
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 3.6
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 4.7
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 4.1
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 2.4
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 2.4
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 2.4
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 2.4
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 2.4
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 2.4
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 2.4
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 2.4
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 2.4
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 2.4
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 2.4
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 2.4
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 2.4
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 2.4
+        },
+    ]
+    return render_template("org_discover.html", ad_list=ad_list)
 
 
 
