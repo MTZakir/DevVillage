@@ -126,6 +126,5 @@ $(document).ready(function() {
     otpfields();
     submitForm();
     verificationPage();
-    $('#bttnconf').prop('disabled', true);
     $('#bttnconf').css('background-color', '#733DF0');
 });
