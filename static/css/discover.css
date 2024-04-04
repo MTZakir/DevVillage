@@ -295,6 +295,7 @@ li > a:hover{
 
 .indi-ad-box{
     margin: 0;
+    margin-bottom: 1.042vw;
     /* border: 1px solid white; */
     padding: 0;
     display: flex;
