@@ -88,7 +88,7 @@ li > a:hover{
     display: flex;
     align-items: flex-end;
     justify-content: flex-start;
-    padding-left: 1.042vw;
+    padding-left: 1.45vw;
     transition:0.6s;
     /* border: 1px solid white; */
 }
@@ -121,12 +121,11 @@ li > a:hover{
 
 .ad-box{
     /* border: 1px solid white; */
-    display: flex;
-    padding-left:1.042vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding-left:1.45vw;
     padding-bottom: 1.042vw;
-    gap: 1.823vw;
     row-gap: 1.042vh;
-    flex-flow: row wrap;
 }
 
 .ad-cards{
@@ -303,12 +302,9 @@ li > a:hover{
     margin-bottom: 1.042vw;
     /* border: 1px solid white; */
     padding: 0;
-    display: flex;
-    padding-left:1.042vw;
-    gap: 3.49vw;
-    row-gap: 1.563vw;
-    gap: 3.49vw;
-    row-gap: 1.563vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    row-gap: 1.663vw;
     flex-flow: row wrap;
 }
 
@@ -399,7 +395,6 @@ li > a:hover{
     height: 100%;
     background-image: url('/static/images/vscode.png');
     background-size: cover;
-    filter: blur(0.521vw); 
     filter: blur(0.521vw); 
     z-index: 0;
     border-radius: 0.417vw;
