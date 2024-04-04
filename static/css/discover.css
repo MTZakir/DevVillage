@@ -82,7 +82,7 @@ li > a:hover{
 }
 
 .filter-btns{
-    margin-bottom: 16px;
+    margin-bottom: 0.833vw;
     height: 12vh;
     display: flex;
     align-items: flex-end;
@@ -101,7 +101,7 @@ li > a:hover{
     align-items: center; /* Center vertically */
     justify-content: center; /* Center horizontally */
     background-color: rgba(255, 255, 255, 0.877); /* Background color */
-    border-radius: 0px 8px 8px 0px; /* Border radius */
+    border-radius: 0 0.417vw 0.417vw 0; /* Border radius */
     
 }
 
@@ -114,8 +114,8 @@ li > a:hover{
     height: auto; /* Allow the height to adjust based on its content */
     max-width: 50%; /* Ensure the image doesn't exceed the container's width */
     max-height: 50%;
-    border-radius: 6px;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    border-radius: 0.313vw;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 2.813vw 2.865vw, rgba(0, 0, 0, 0.12) 0 -0.625vw 1.563vw, rgba(0, 0, 0, 0.12) 0 0.208vw 0.313vw, rgba(0, 0, 0, 0.17) 0 0.625vw 0.677vw, rgba(0, 0, 0, 0.09) 0 -0.156vw 0.26vw;
 }
 
 .ad-box{
@@ -123,7 +123,7 @@ li > a:hover{
     display: flex;
     padding-left:1.042vw;
     padding-bottom: 1.042vw;
-    gap: 35px;
+    gap: 1.823vw;
     row-gap: 1.042vw;
     flex-flow: row wrap;
 }
@@ -143,17 +143,17 @@ li > a:hover{
 }
 
 .ad-cards:hover{
-    transform:translate(5px, -5px);
-    box-shadow: 0px 0px 50px rgba(0, 0, 0, 1);
+    transform:translate(0.26vw, -0.26vw);
+    box-shadow: 0 0 2.604vw rgba(0, 0, 0, 1);
 }
 
 
 .sort-by{
     background: rgb(26, 31, 37);
-    border-radius: 6px;
+    border-radius: 0.313vw;
     border: 2px solid #202124;
     font-size: 0.938vw;
-    padding: 5px 14px 5px 14px;
+    padding: 0.26vw 0.729vw 0.26vw 0.729vw;
     color: rgba(255, 255, 255, 0.70);
     transition:0.2s;
 }
@@ -236,7 +236,7 @@ li > a:hover{
 #searchbar{
     width:15vw;
     height: 4vh;
-    border-radius: 7px 0px 0px 7px;
+    border-radius: 0.365vw 0 0 0.365vw;
     border: none;
     text-indent: 1.042vw;
     font-size: 0.833vw;
@@ -250,7 +250,7 @@ li > a:hover{
 
 #searchbtn{
     width: 2.188vw;
-    border-radius: 0px 7px 7px 0px;
+    border-radius: 0 0.365vw 0.365vw 0;
     background: #424347;
     border: none;
 }
@@ -261,13 +261,13 @@ li > a:hover{
     justify-content: space-between;
     /* border: 1px solid white; */
     padding: 0;
-    padding-right: 10px;
+    padding-right: 0.521vw;
     height: 4vh;
 }
 
 
 .profilepic > span{
-    padding: 3px;
+    padding: 0.156vw;
     font-size: 0.938vw;
     font-weight: 300;
     color: rgba(255, 255, 255, 0.70);
@@ -284,10 +284,10 @@ li > a:hover{
     display: flex;
     align-items: center;
     color: rgba(255, 255, 255, 0.70);
-    font-size: 28px;
+    font-size: 1.458vw;
     font-style: normal;
     /* border: 1px solid white; */
-    padding-right:12px;
+    padding-right: 0.625vw;
     color: white;
 }
 
@@ -299,8 +299,8 @@ li > a:hover{
     padding: 0;
     display: flex;
     padding-left:1.042vw;
-    gap: 67px;
-    row-gap: 30px;
+    gap: 3.49vw;
+    row-gap: 1.563vw;
     flex-flow: row wrap;
 }
 
@@ -314,29 +314,29 @@ li > a:hover{
 
 .title-desc-date  *{
     margin:0;
-    margin-bottom: 10px;
+    margin-bottom: 0.521vw;
 }
 
 .indi-content{
     box-sizing: border-box;
-    border-radius: 0px 0px 8px 8px;
+    border-radius: 0 0 0.417vw 0.417vw;
     display: flex;
-    padding: 18px;
+    padding: 0.938vw;
     flex-direction: column;
     align-items: flex-start;
-    gap: 14px;
-    width: 420px;
+    gap: 0.729vw;
+    width: 21.875vw;
     background: #0D1117;
-    margin-top: -5px;
+    margin-top: -0.26vw;
 }
 
 .indi-name span{
-    margin-left:5px;
+    margin-left:0.26vw;
 }
 
 .indi-name{
     color: #8E8D91;
-    font-size: 16px;
+    font-size: 0.833vw;
     font-style: normal;
     font-weight: 400;
 }
@@ -344,14 +344,14 @@ li > a:hover{
 .profile-rating{
     display:flex;
     align-items:center;
-    gap:134px;
+    gap:6.979vw;
 }
 
 .indi-adimg {
     position: relative;
-    width: 420px;
-    height: 340px;
-    border-radius: 8px 8px 0px 0px;
+    width: 21.875vw;
+    height: 17.708vw;
+    border-radius: 0.417vw 0.417vw 0 0;
     overflow: hidden; /* Ensure the blurred background doesn't overflow */
 }
 
@@ -365,7 +365,7 @@ li > a:hover{
     width: auto;
     height: auto;
     display: block;
-    border-radius: 8px;
+    border-radius: 0.417vw;
     z-index: 1;
 }
 
@@ -377,27 +377,27 @@ li > a:hover{
     height: 100%;
     background-image: url('/static/images/homepage2.jpg');
     background-size: cover;
-    filter: blur(10px); 
+    filter: blur(0.521vw); 
     z-index: 0;
-    border-radius: 8px;
+    border-radius: 0.417vw;
 }
 
 #indidesc{
-    font-size: 16px;
+    font-size: 0.833vw;
     font-weight: 400;
     color: rgba(255, 255, 255, 0.70);
 }
 
 #indidate{
-    font-size: 16px;
+    font-size: 0.833vw;
     font-weight: 400;
     color: #625F68;
 }
 
 #title{
     margin: 0;
-    margin-bottom: 5px;
-    font-size: 24px;
+    margin-bottom: 0.26vw;
+    font-size: 1.25vw;
     font-weight: 600;
 }
 
@@ -411,9 +411,9 @@ li > a:hover{
     --percent: calc(var(--rating) / 5 * 100%);
     display: flex;
     flex-direction: row-reverse;
-    font-size: 16px;
+    font-size: 0.833vw;
     line-height: 1;
-    gap: 7px;
+    gap: 0.365vw;
 }
 
 .Stars::before {
