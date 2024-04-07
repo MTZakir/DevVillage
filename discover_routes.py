@@ -1,7 +1,8 @@
+import uuid
 from flask import Blueprint, render_template, redirect, url_for, session
 from firebase_admin import db
 from datetime import date
-from discover_forms import CreateContract
+from discover_forms import CreateContract, ApplyContract
 from firebase_admin import auth
 from firebase_admin._auth_utils import UserNotFoundError
 from datetime import date
@@ -31,8 +32,8 @@ def session_remove_if_not_verified():
 @discover_blueprint.route('/discover/individual')
 def individuals():
     contract_list = db.reference("/contracts").get()
-
-    return render_template("indidiscover.html", contract_list = contract_list)
+    print(contract_list.values())
+    return render_template("indidiscover.html", contract_list = contract_list) 
 
 @discover_blueprint.route('/discover/companies')
 def companies():
@@ -178,13 +179,36 @@ def companies():
 
 
 # ---------- CONTRACT PAGE ----------
-@discover_blueprint.route("/contract/<string:contract_id>")
+@discover_blueprint.route("/contract/<string:contract_id>", methods = ["POST", "GET"])
 def contract(contract_id):
     # WORK IN PROGESS
 
-    contract_data = db.reference("/contracts").child(contract_id).get()
+    # contract_data = db.reference("/contracts").child(contract_id).get()
 
-    return render_template("contract.html", contract_data = contract_data)
+    # Creating and loading the list of all applicants in the contract
+    applicants_list = []
+    if db.reference("/contracts/"+contract_id).child("Applied").get():
+        applicants_list = db.reference("/contracts/"+contract_id+"/Applied").get()
+
+    # Preventing reapplication of contract if already applied
+    if session.get("user_id")[2:] in applicants_list:
+        print("You have already applied for this contract")
+        return redirect(url_for('discover.individuals'))
+    
+    form = ApplyContract()
+
+    if form.validate_on_submit():
+        contract_ref = db.reference("/contracts")
+
+        # Adding new applicant to list of applicants
+        applicants_list.append(session.get("user_id")[2:])
+        contract_ref.child(contract_id).update(
+            {"Applied": applicants_list}
+        )
+
+        return redirect(url_for('discover.individuals'))
+
+    return render_template("temp/temp_contract.html", form = form)
 
 
 
@@ -200,19 +224,22 @@ def create_contract():
         if form.validate_on_submit():
 
             today = date.today().strftime("%d-%m-%Y")
+            org_name = auth.get_user(session.get('user_id')[2:]).display_name
 
-            contract_ref.push(
-                {
+            uid = str(uuid.uuid4())
+
+            contract_details = {
                     "Min Price": form.min_price.data,
                     "Max Price": form.max_price.data,
                     "Title": form.title.data,
                     "Description": form.description.data,
                     "Contract Image": form.contract_img.data,
-                    "Company Name": form.company_name.data,
+                    "Company Name": org_name,
                     "Author": session.get('user_id')[2:],
                     "Date Posted": today
                 }
-            )
+
+            contract_ref.update({uid: contract_details})
         
         else:
             print("Create contract form error: ", form.errors)
@@ -265,7 +292,7 @@ def edit_contract(contract_id):
 
     return render_template("temp/edit_contract.html", form = form)
 
-
+@discover_blueprint.route("/applicants", methods = ["POST", "GET"])
 
 # ---------- DELETE CONTRACT ----------
 # Logic for deleting contract:

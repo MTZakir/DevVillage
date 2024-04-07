@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, session
-from firebase_admin import auth
+from firebase_admin import db, auth
 from firebase_admin._auth_utils import UserNotFoundError
 
 dashboard_blueprint = Blueprint(
@@ -24,4 +24,140 @@ def session_remove_if_not_verified():
 # DISCOVER
 @dashboard_blueprint.route('/dashboard')
 def discover():
-    return render_template("dashboard.html")
+    org_name = db.reference("/org_accounts")
+    company_hires = [
+        {
+            'Organization': org_name.order_by_child('Org Website').equal_to('asd.com'),
+            'Contract Title': 'designer and developer needed to develop a homw page with react',
+            'Contract Time':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 4.3
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 3.2
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 3.6
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 4.7
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 4.1
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 2.4
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 2.4
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 2.4
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 2.4
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 2.4
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 2.4
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 2.4
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 2.4
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 2.4
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 2.4
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 2.4
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 2.4
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 2.4
+        },
+        {
+            'title': 'Design and develop a home page',
+            'description': 'designer and developer needed to develop a homw page with react',
+            'date':posted_date,
+            'name': 'Victor Salazaar',
+            'ratings': 2.4
+        },
+    ]
+    return render_template("temp/dashboard_temp.html")

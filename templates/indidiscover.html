@@ -4,8 +4,8 @@
 
 {% block maincontent %}
     <div class="ad-box">
-        {% for contract_data in contract_list.values() %}
-            <a href="{{ url_for('discover.contract', contract_id = contract_data['Company']) }}">
+        {% for key, contract_data in contract_list.items() %}
+            <a href="{{ url_for('discover.contract', contract_id = key) }}">
                 <div class="ad-cards">
                     <div class="content">
                         <div class="desc-date">
