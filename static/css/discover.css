@@ -9,7 +9,6 @@ body, html{
     padding:0;
     font-family: "Noto Sans JP", sans-serif;
     background-color: #0A0D12;
-    
 }
 
 a{
@@ -55,16 +54,16 @@ li > a:hover{
 }
 
 .navbar{
-    border-bottom: 1px solid #2B3245;
-    display:flex;
-    width:100%;
-    height: 7vh;
-    background-color: #0D1117;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    transition: 0.2s;
-    z-index: 100;
+border-bottom: 1px solid #2B3245;
+display:flex;
+width:100%;
+height: 7vh;
+background-color: #0D1117;
+justify-content: space-between;
+align-items: center;
+position: fixed;
+transition: 0.2s;
+z-index: 100;
 }
 
 .searchform{
@@ -83,12 +82,11 @@ li > a:hover{
 
 .filter-btns{
     margin-bottom: 0.833vw;
-    margin-bottom: 0.833vw;
     height: 12vh;
     display: flex;
     align-items: flex-end;
     justify-content: flex-start;
-    padding-left: 1.042vw;
+    padding-left: 1.45vw;
     transition:0.6s;
     /* border: 1px solid white; */
 }
@@ -121,12 +119,11 @@ li > a:hover{
 
 .ad-box{
     /* border: 1px solid white; */
-    display: flex;
-    padding-left:1.042vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding-left:1.45vw;
     padding-bottom: 1.042vw;
-    gap: 1.823vw;
     row-gap: 1.042vh;
-    flex-flow: row wrap;
 }
 
 .ad-cards{
@@ -144,7 +141,7 @@ li > a:hover{
 }
 
 .ad-cards:hover{
-    transform:translate(0.26vw, -0.26vw);
+    transform: translate(0.26vw, -0.26vw);
     box-shadow: 0px 0px 50px rgba(0, 0, 0, 1);
 }
 
@@ -154,7 +151,6 @@ li > a:hover{
     border-radius: 0.313vw;
     border: 0.104vw solid #202124;
     font-size: 0.938vw;
-    padding: 0.26vw 0.729vw 0.26vw 0.729vw;
     padding: 0.26vw 0.729vw 0.26vw 0.729vw;
     color: rgba(255, 255, 255, 0.70);
     transition:0.2s;
@@ -264,13 +260,11 @@ li > a:hover{
     /* border: 1px solid white; */
     padding: 0;
     padding-right: 0.521vw;
-    padding-right: 0.521vw;
     height: 4vh;
 }
 
 
 .profilepic > span{
-    padding: 0.156vw;
     padding: 0.156vw;
     font-size: 0.938vw;
     font-weight: 300;
@@ -289,7 +283,6 @@ li > a:hover{
     align-items: center;
     color: rgba(255, 255, 255, 0.70);
     font-size: 1.458vw;
-    font-size: 1.458vw;
     font-style: normal;
     /* border: 1px solid white; */
     padding-right:0.625vw;
@@ -303,12 +296,9 @@ li > a:hover{
     margin-bottom: 1.042vw;
     /* border: 1px solid white; */
     padding: 0;
-    display: flex;
-    padding-left:1.042vw;
-    gap: 3.49vw;
-    row-gap: 1.563vw;
-    gap: 3.49vw;
-    row-gap: 1.563vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    row-gap: 1.663vw;
     flex-flow: row wrap;
 }
 
@@ -328,7 +318,6 @@ li > a:hover{
 .title-desc-date  *{
     margin:0;
     margin-bottom: 0.521vw;
-    margin-bottom: 0.521vw;
 }
 
 .indi-content{
@@ -336,26 +325,20 @@ li > a:hover{
     border-radius: 0px 0px 0.417vw 0.417vw;
     display: flex;
     padding: 0.938vw;
-    padding: 0.938vw;
     flex-direction: column;
     align-items: flex-start;
     gap: 0.729vw;
     width: 21.875vw;
-    gap: 0.729vw;
-    width: 21.875vw;
     background: #0D1117;
-    margin-top: -0.26vw;
     margin-top: -0.26vw;
 }
 
 .indi-name span{
     margin-left:0.26vw;
-    margin-left:0.26vw;
 }
 
 .indi-name{
     color: #8E8D91;
-    font-size: 0.833vw;
     font-size: 0.833vw;
     font-style: normal;
     font-weight: 400;
@@ -364,7 +347,6 @@ li > a:hover{
 .profile-rating{
     display:flex;
     align-items:center;
-    gap:6.979vw;
     gap:6.979vw;
 }
 
@@ -387,7 +369,6 @@ li > a:hover{
     height: auto;
     display: block;
     border-radius: 0.417vw;
-    border-radius: 0.417vw;
     z-index: 1;
 }
 
@@ -400,9 +381,7 @@ li > a:hover{
     background-image: url('/static/images/vscode.png');
     background-size: cover;
     filter: blur(0.521vw); 
-    filter: blur(0.521vw); 
     z-index: 0;
-    border-radius: 0.417vw;
     border-radius: 0.417vw;
 }
 
@@ -438,9 +417,7 @@ li > a:hover{
     display: flex;
     flex-direction: row-reverse;
     font-size: 0.833vw;
-    font-size: 0.833vw;
     line-height: 1;
-    gap: 0.365vw;
     gap: 0.365vw;
 }
 

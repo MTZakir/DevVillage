@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/accountnavbar.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/static/js/render.js"></script>
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <div class="container fadeinanimation">
+        <div class="navbar">
+            <ul class="navlinks-left">
+                <li><a href="{{url_for('home')}}">Dashboard</a></li>
+                <li><a href="{{url_for('home')}}">Discover</a></li>
+                <li><a href="{{url_for('home')}}">Work</a></li>
+                <li><a href="{{url_for('home')}}">Payments</a></li>
+                <li><a href="{{url_for('home')}}">Invites</a></li>
+            </ul>
+            <ul class="navlinks-right">
+            </ul>
+        </div>
+
+
+    </div>
+    
+    {% block maincontent %}{% endblock %}
+
+</body>
+</html>

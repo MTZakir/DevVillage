@@ -52,7 +52,6 @@ recaptcha = ReCaptcha()
 @auth_blueprint.route('/check')
 def check():
     print(session.get('user_id'))
-    print('Is user', auth.get_user(session.get('user_id')[2:]).display_name ,'verified:', auth.get_user(session.get('user_id')[2:]).email_verified)
     return redirect(url_for('home'))
 
 # ------------------------------------------------
@@ -308,6 +307,7 @@ def org_register():
 
                 # Updating realtime database to link org name, org website, contact person and org industry
                 dictionary = {
+                    "Org name": form.org_name.data,
                     "Org Website": form.company_website.data,
                     "Email": form.email.data,
                     "Contact Person Email": form.contact_person_email.data,

@@ -12,6 +12,7 @@ class CreateContract(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
     contract_img = StringField('Contract Image URL', validators=[DataRequired()])
-    company_name = StringField('Company Name', validators=[DataRequired()])
     #contract_img = FileField('Contract Image', validators=[DataRequired(), FileAllowed(['jpg', 'jpeg', 'png'], message = 'Images only!')])
 
+class ApplyContract(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])

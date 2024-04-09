@@ -3,6 +3,7 @@ from auth_routes import auth_blueprint
 from discover_routes import discover_blueprint
 from dashboard_routes import dashboard_blueprint
 from verify_routes import verify_blueprint
+from profile_routes import prof_blueprint
 from firebase_admin import auth
 from firebase_admin._auth_utils import UserNotFoundError
 
@@ -20,6 +21,7 @@ app.register_blueprint(auth_blueprint)
 app.register_blueprint(discover_blueprint)
 app.register_blueprint(dashboard_blueprint)
 app.register_blueprint(verify_blueprint)
+app.register_blueprint(prof_blueprint)
 
 # Remove session if current user is unverified
 def session_remove_if_not_verified():
