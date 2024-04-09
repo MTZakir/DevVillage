@@ -54,16 +54,16 @@ li > a:hover{
 }
 
 .navbar{
-    border-bottom: 1px solid #2B3245;
-    display:flex;
-    width:100%;
-    height: 7vh;
-    background-color: #0D1117;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    transition: 0.2s;
-    z-index: 100;
+border-bottom: 1px solid #2B3245;
+display:flex;
+width:100%;
+height: 7vh;
+background-color: #0D1117;
+justify-content: space-between;
+align-items: center;
+position: fixed;
+transition: 0.2s;
+z-index: 100;
 }
 
 .searchform{
