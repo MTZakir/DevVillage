@@ -61,6 +61,7 @@
 }
 
 
+/* Style for first and last name fields only */
 .signup-form .input-name input {
     width: 10.7vw;
     height: 4.7vh;
@@ -77,12 +78,12 @@
     color: #ffffffc1;
 }
 
+
 /* Style for rest of the fields */
-.signup-form input:not(.input-name input){
+.signup-form input:not(.input-name input):not(.ms-search) {
     width: 23.2vw;
     height: 4.7vh;
     padding: 0 0.59vw;
-
     border-radius: 0.313vw;
 
     border: none;
@@ -94,24 +95,161 @@
     color: #ffffffc1;
 }
 
-.signup-form select {
-    width: 23.2vw;
-    height: 4.7vh;
-    border: none;
-    margin: -0.27vw 0;
-    outline: none;
 
-    padding: 0 0.4vw;
+/* Multi-Select dropdown style */
+
+.ms-holder {
+    position: relative;
+    height: auto;
+}
+
+.ms-input-field {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+
+    width: 23.2vw;
+    min-height: 4.7vh;
+    padding: 0.25vw;
+    margin: 0;
     border-radius: 0.313vw;
+
+    border: none;
+    outline: none;
 
     background-color: #202124;
     box-sizing: border-box;
     box-shadow: inset 0 0.417vw 0.208vw -0.208vw rgba(0, 0, 0, 0.3);
-    color: #ffffff69;
+    color: #ffffffc1;
+}
+
+.ms-tag-list {
+    position: absolute;
+    bottom: 4.7vh;
+
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+
+    margin: 0;
+    padding: 0;
+    width: calc(23.2vw - 2px);
+    max-height: 0;
+    border-radius: 0.4vw 0.4vw 0 0;
+
+    overflow-y: scroll;
+    background-color: #0D1117;
+    border: none;
+    z-index: 100;
+    transition: max-height .25s ease-in-out, border .25s ease-in-out;
+}
+.ms-tag-list.active {
+    max-height: 15vh;
+    border: 1px solid #202124;
+}
+
+.ms-tag-list .tag {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    height: 15px;
+    width: max-content;
+    text-overflow: ellipsis;
+    
+    list-style: none;
+    font-size: 12px;
+    
+    border: 1px solid #733DF0;
+    border-radius: 0.313vw;
+    
+    padding: 0.2vw 1.75vw 0.2vw 0.2vw;
+    margin: 5px;
+
+    color: #733DF0;
+    cursor: pointer;
+}
+.tag:hover {
+    background-color: #733DF0;
+    color: #fff;
+}
+.tag-close {
+    position: absolute;
+    right: 0;
+    
+    outline: none;
+    border: none;
+    margin: 0.15vw;
+    
+    color: #fff;
+    background-color: transparent;
+
+    pointer-events: none;
+
+    transition: .3s ease-in-out;
+}
+
+.ms-search {
+    background-color: transparent;
+    color: #fff;
+    
+    border: none;
+    outline: none;
+    margin: 0.35vh 0.2vw;
+    padding: 0.15vw;
+
+    width: 100%;
+}
+
+.ms-dropdown {
+    position: absolute;
+
+    width: calc(23.2vw - 2px);
+    height: 0;
+    border-radius: 0 0 0.4vw 0.4vw;
+
+    overflow-y: hidden;
+    background-color: #0D1117;
+    border: none;
+    z-index: 100;
+    transition: height .25s ease-in-out, border .25s ease-in-out;
+}
+.ms-dropdown.active {
+    height: 20vh;
+    border: 1px solid #202124;
+    border-top: none;
 }
 
 
-.signup-form button {
+.ms-list {
+    height: 19vh;
+    margin: 5px 0 5px 10px;
+    overflow-y: scroll;
+}
+
+.option {
+    color: rgba(255, 255, 255, 0.425);
+    font-size: 12px;
+    
+    padding: 5px;
+    margin-right: 10px;
+    border-radius: 0.313vw;
+}
+.option:hover {
+    color: #fff;
+    background-color: #5050509d;
+    cursor: pointer;
+}
+.option:focus {
+    color: #fff;
+    background-color: #5050509d;
+    cursor: pointer;
+}
+
+
+
+
+.signup-form button[type="submit"] {
     border: none;
     outline: none;
 
@@ -129,11 +267,11 @@
     font-size: 0.85vw;
 }
 
-.signup-form button:hover {
+.signup-form button[type="submit"]:hover {
     background-color: var(--hover-alt);
 }
 
-.signup-form button:active{
+.signup-form button[type="submit"]:active{
     background-color: var(--color);
     color: rgb(248, 248, 248);
 }

@@ -153,10 +153,10 @@ def otp():
 @auth_blueprint.route('/user_register', methods=['GET', 'POST'])
 def user_register():
     form = UserRegistrationForm()
-    print(form.expertise.data)
     # If no accounts are logged in
     if session.get("user_id") == None:
-        if form.validate_on_submit() and recaptcha.verify():
+        if form.validate_on_submit():
+            print(form.expertise.data)
             user_ref = db.reference("/user_accounts")
 
             # If user_accounts list is not empty AND username already exists in user_accounts list

@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="static/css/phone_number_styles.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
-<script src="static/js/register.js" type="module"></script>
+<script src="/static/js/register.js" type="module"></script>
 {% endblock %}
 
 
@@ -104,12 +104,29 @@
                     {% endif %}
                 </div>
                 <br>
-                <select name="expertise" id="expertise">
-                    <option value="">Select Field of Proficiency (Optional)</option>
-                    {% for value, label in form.expertise.choices %}
-                    <option value="{{ value }}" {% if value == form.expertise.data %}selected{% endif %}>{{ label }}</option>
+                
+                <!-- Hidden expertise field -->
+                <select name="expertise" id="ms-hidden-list" multiple hidden>
+                    {% for skill in form.expertise.choices %}
+                        <option value="{{ skill }}">{{ skill }}</option>
                     {% endfor %}
                 </select>
+                <!-- Visual expertise field -->
+                <div class="ms-holder">
+                    <ul class="ms-tag-list" id="ms-tag-list">
+                    </ul>
+                    <ul class="ms-input-field" id="ms-input-field">
+                        <input type="text" class="ms-search" id="ms-search" placeholder="Add Field of Proficiency tags (Optional)" autocomplete="off">
+                    </ul>
+                    <div class="ms-dropdown" id="ms-dropdown">
+                        <div class="ms-list">
+                            {% for skill in form.expertise.choices %}
+                                <div class="option" data-value="{{ skill }}">{{ skill }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
                 <br>
                 <button id="proceed-verification" type="submit" onclick="window.location.href = `{{url_for('auth.otp')}}`">Proceed to verification</button>
             </form>
@@ -131,4 +148,7 @@
         </a>
 
     </div>
+
 {% endblock %}
+
+
