@@ -1,0 +1,108 @@
+.account-options-card{
+    overflow: hidden;
+}
+
+.sidebar{
+    margin-top: 7vh;
+    background-color: #0F0F0F;
+    height: 93vh;
+    width: 25vw;
+    border-right: 1px solid #2B3245;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    align-items: center;
+    position: fixed;
+}
+
+.acc-info-display{
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    align-items: center;
+    /* margin-top: -8vw; */
+}
+
+.acc-info-display .profile-pic{
+    color: white !important;
+    font-size: 7.3vw;
+    margin-bottom: -1vw;
+}
+
+.fst-name-lst-name{
+    font-size: 2vw;
+    color: #FFFFFF;
+}
+
+.username{
+    color:rgba(255, 255, 255, 0.6);
+    font-size: 0.9vw;
+}
+
+.content{
+    margin-top: 7vh;
+    margin-left: 25vw;
+    min-height: 93vh;
+    width: 75vw;
+}
+
+.account-info-options{
+    margin-top: 2vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.acc-info-button{
+    position: relative;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.acc-info-button span{
+    position: absolute;
+    color: white;
+    font-weight: 200;
+    font-size: 1vw;
+
+    top: 0.925vw;
+    left: 3.7vw;
+
+    pointer-events: none;
+}
+
+.acc-info-button i{
+    position: absolute;
+    top: 0.57vw;
+    left: 1.5vw;
+    font-size: 1.45vw;
+    color: white;
+}
+
+.acc-info-button button{
+    margin: 0.2vw 0;
+    height: 2.9vw;
+    width: 95%;
+
+    background-color: #0F0F0F;
+    color: #FFFFFF;
+    
+    border: none;
+    outline: none;
+    
+    cursor: pointer;
+    text-align: left;
+
+    transition: background-color 0.2s;
+
+    border-radius: 4px;
+}
+
+.acc-info-button button:hover{
+    transition: 0.2s;
+    background-color: #48259A;
+}

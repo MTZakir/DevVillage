@@ -1,3 +1,61 @@
-{% extends "accountnavbar.html" %}
+{% extends "accountnavbarlayout.html" %}
+
+{% block import_files %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/accountinfo.css') }}">
+{% endblock %}
+
+{% block title %}Account Info{% endblock %}
+
 {% block maincontent %}
+<div class="account-options-card">
+    <div class="sidebar">
+        <div class="acc-info-display">
+            <i class="bi bi-person-circle profile-pic"></i>
+            <span class="fst-name-lst-name">Dave Batis</span>
+            <span class="username">@Ballsmasher69</span>
+        </div>
+
+        <div class="account-info-options">
+            <div class="acc-info-button">
+                <button></button>
+                <span>Profile</span>
+                <i class="bi bi-gear"></i>
+            </div>
+
+            <div class="acc-info-button">
+                <button></button>
+                <span>Account Settings</span>
+                <i class="bi bi-gear"></i>
+            </div>
+
+            <div class="acc-info-button">
+                <button></button>
+                <span>My Ads</span>
+                <i class="bi bi-gear"></i>
+            </div>
+
+            <div class="acc-info-button">
+                <button></button>
+                <span>Contract History</span>
+                <i class="bi bi-gear"></i>
+            </div>
+
+            <div class="acc-info-button">
+                <button></button>
+                <span>Payment Methods</span>
+                <i class="bi bi-gear"></i>
+            </div>
+
+            <div class="acc-info-button">
+                <button></button>
+                <span>Electronic Signature</span>
+                <i class="bi bi-gear"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        
+    </div>
+</div>
 {% endblock %}

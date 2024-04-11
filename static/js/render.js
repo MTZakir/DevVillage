@@ -125,6 +125,6 @@ $(document).ready(function() {
     redirect();
     otpfields();
     submitForm();
-    verificationPage();
+    // verificationPage();
     $('#bttnconf').css('background-color', '#733DF0');
 });
