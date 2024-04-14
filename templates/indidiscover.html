@@ -1,31 +1,52 @@
-{% extends 'layoutdiscover.html' %}
+{% if not session.get("user_id") %}
+    {% extends 'layoutdiscover.html' %}
+{% else %}
+    {% extends 'accountnavbarlayout.html' %}
+    {% block import_files %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/discover.css') }}">
+    {% endblock %}
+{% endif %}
 
 {% block alt_discover %}<li><a href="{{url_for('discover.companies')}}">Discover as company</a></li>{% endblock %}
 
 {% block maincontent %}
-    <div class="ad-box">
-        {% for key, contract_data in contract_list.items() %}
-            <a href="{{ url_for('discover.contract', contract_id = key) }}">
-                <div class="ad-cards">
-                    <div class="content">
-                        <div class="desc-date">
-                            <div class="price-profile">
-                                <h3 id="company">{{ contract_data["Company Name"] }}</h3>
-                                <i class="clock">Posted on {{ contract_data["Date Posted"] }}</i> 
+    <div class="ads-filters">
+        <div class="ads fadeinanimationcontent">
+            <div class="filter-btns">
+                <button class="sort-by">
+                    <span>Filter</span>
+                    <i class="bi bi-funnel sort-btn"></i>
+                </button> 
+            </div>
+            
+            <div class="ad-box">
+                {% for key, contract_data in contract_list.items() %}
+                    <a href="{{ url_for('discover.contract', contract_id = key) }}">
+                        <div class="ad-cards">
+                            <div class="content">
+                                <div class="desc-date">
+                                    <div class="price-profile">
+                                        <h3 id="company">{{ contract_data["Company Name"] }}</h3>
+                                        <i class="clock">Posted on {{ contract_data["Date Posted"] }}</i> 
+                                    </div>
+                                    <h3 id="title">{{ contract_data["Title"] }}</h3>
+                                    <p id="desc">{{ contract_data["Description"] }}</p>
+                                </div>
+                                <div class="price-profile">
+                                    <h1 id="price"> $<span>{{ contract_data["Min Price"] }} - ${{ contract_data["Max Price"] }}</span></h2>
+                                    <i class="bi bi-bookmark bookmark"></i> 
+                                </div>
                             </div>
-                            <h3 id="title">{{ contract_data["Title"] }}</h3>
-                            <p id="desc">{{ contract_data["Description"] }}</p>
+                            <div class="adimg-div">
+                                <img id="ad-img" src= "{{ contract_data['Contract Image'] }}">
+                            </div>
                         </div>
-                        <div class="price-profile">
-                            <h1 id="price"> $<span>{{ contract_data["Min Price"] }} - ${{ contract_data["Max Price"] }}</span></h2>
-                            <i class="bi bi-bookmark bookmark"></i> 
-                        </div>
-                    </div>
-                    <div class="adimg-div">
-                        <img id="ad-img" src= "{{ contract_data['Contract Image'] }}">
-                    </div>
-                </div>
-            </a>
-        {% endfor %}
+                    </a>
+                {% endfor %}
+            </div>
+
+        </div>
     </div>
+
+    
 {% endblock %}

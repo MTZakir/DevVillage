@@ -1,5 +1,6 @@
 .account-options-card{
     overflow: hidden;
+    background-image: linear-gradient(to top right, rgba(12, 18, 19, 1),rgb(2, 32, 41));
 }
 
 .sidebar{

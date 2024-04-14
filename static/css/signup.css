@@ -128,24 +128,53 @@
     bottom: 4.7vh;
 
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     list-style-type: none;
 
-    margin: 0;
-    padding: 0;
-    width: calc(23.2vw - 2px);
+    margin: 0 0 -5px 0;
+    padding: 0 0 0 0;
+    width: calc(23.2vw - 1px);
     max-height: 0;
     border-radius: 0.4vw 0.4vw 0 0;
 
-    overflow-y: scroll;
-    background-color: #0D1117;
+    overflow-x: scroll;
+    /* background-color: #0D1117; */
+    background-image: linear-gradient(to top, #202124,#0D1117);
     border: none;
     z-index: 100;
     transition: max-height .25s ease-in-out, border .25s ease-in-out;
 }
+
+.ms-tag-list::-webkit-scrollbar {
+    height: 0.6vw;
+    background-color: rgba(13, 17, 23, 0);
+    border-bottom-right-radius: 0.4vw;
+    cursor: default;
+}
+
+.ms-tag-list::-webkit-scrollbar-thumb {
+    height: 2vw;
+    background-color: #32435b;
+    border-radius: 0.23vw;
+    cursor: default;
+}
+  
+.ms-tag-list::-webkit-scrollbar-thumb:hover {
+    background-color: #455a76 !important;
+}
+
+.ms-tag-list::-webkit-scrollbar-thumb:active {
+    background-color: #32435b !important;
+}
+
 .ms-tag-list.active {
     max-height: 15vh;
-    border: 1px solid #202124;
+    border-top: 1px solid #202124;
+    border-left: 1px solid #202124;
+    border-right: 1px solid #202124;
+    padding: 0 0 3px 0;
+    overflow-x: scroll;
 }
 
 .ms-tag-list .tag {
@@ -204,12 +233,14 @@
 .ms-dropdown {
     position: absolute;
 
-    width: calc(23.2vw - 2px);
+    width: calc(23.2vw - 1px);
     height: 0;
     border-radius: 0 0 0.4vw 0.4vw;
+    margin-top: -3px;
 
     overflow-y: hidden;
-    background-color: #0D1117;
+    /* background-color: #0D1117; */
+    background-image: linear-gradient(to bottom, #202124,#0D1117);
     border: none;
     z-index: 100;
     transition: height .25s ease-in-out, border .25s ease-in-out;
@@ -225,6 +256,28 @@
     height: 19vh;
     margin: 5px 0 5px 10px;
     overflow-y: scroll;
+}
+
+.ms-list::-webkit-scrollbar {
+    width: 0.6vw;
+    background-color: #ffffff00;
+    border-bottom-right-radius: 0.4vw;
+    cursor: default;
+}
+
+.ms-list::-webkit-scrollbar-thumb {
+    height: 2vw;
+    background-color: #32435b;
+    border-radius: 0.23vw;
+    cursor: default;
+}
+  
+.ms-list::-webkit-scrollbar-thumb:hover {
+    background-color: #455a76 !important;
+}
+
+.ms-list::-webkit-scrollbar-thumb:active {
+    background-color: #32435b !important;
 }
 
 .option {

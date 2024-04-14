@@ -1,31 +1,51 @@
-{% extends 'layoutdiscover.html' %}
+{% if not session.get("user_id") %}
+    {% extends 'layoutdiscover.html' %}
+{% else %}
+    {% extends 'accountnavbarlayout.html' %}
+    {% block import_files %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/discover.css') }}">
+    {% endblock %}
+{% endif %}
 
 {% block alt_discover %}<li><a href="{{url_for('discover.individuals')}}">Discover as an individual</a></li>{% endblock %}
 
 {% block maincontent %}
-    <div class="indi-ad-box">
-        {% for ads in ad_list %}
-        <a href="contract.html">
-            <div class="indi-ad-card">
-                <div class="indi-adimg">
-                    <div class="blurry-background"></div>
-                    <img id="indiad-img" src="/static/images/vscode.png">
-                </div>
-                <div class="indi-content">
-                    <div class="title-desc-date">
-                        <h2 id="indi-title">{{ ads['title'] }}</h3>
-                        <p id="indi-desc">{{ ads['description']}}</p>
-                        <p id="indi-date">Posted on {{ads['date']}}</p>
-                    </div>
-                    <div class="profile-rating">
-                        <i class="bi bi-person-circle indi-name"> <span>{{ads['name']}}</span></i>
-                        <div class="Stars" data-rating="{{ads['ratings']}}">
-                            <span>{{ads['ratings']}}</span>
+
+    <div class="ads-filters">
+        <div class="ads fadeinanimationcontent">
+            <div class="filter-btns">
+                <button class="sort-by">
+                    <span>Filter</span>
+                    <i class="bi bi-funnel sort-btn"></i>
+                </button> 
+            </div>
+            
+            <div class="indi-ad-box">
+                {% for ads in ad_list %}
+                <a href="contract.html">
+                    <div class="indi-ad-card">
+                        <div class="indi-adimg">
+                            <div class="blurry-background"></div>
+                            <img id="indiad-img" src="/static/images/vscode.png">
+                        </div>
+                        <div class="indi-content">
+                            <div class="title-desc-date">
+                                <h2 id="indi-title">{{ ads['title'] }}</h3>
+                                <p id="indi-desc">{{ ads['description']}}</p>
+                                <p id="indi-date">Posted on {{ads['date']}}</p>
+                            </div>
+                            <div class="profile-rating">
+                                <i class="bi bi-person-circle indi-name"> <span>{{ads['name']}}</span></i>
+                                <div class="Stars" data-rating="{{ads['ratings']}}">
+                                    <span>{{ads['ratings']}}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
+                {% endfor %}
             </div>
-        </a>
-        {% endfor %}
+
+        </div>
     </div>
 {% endblock %}

@@ -4,8 +4,6 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/accountinfo.css') }}">
 {% endblock %}
 
-{% block title %}Account Info{% endblock %}
-
 {% block maincontent %}
 <div class="account-options-card">
     <div class="sidebar">
@@ -17,6 +15,7 @@
 
         <div class="account-info-options">
             <div class="acc-info-button">
+                <a href="url_for('')"></a>
                 <button></button>
                 <span>Profile</span>
                 <i class="bi bi-gear"></i>
@@ -55,7 +54,7 @@
     </div>
 
     <div class="content">
-        
+        {% block acc_info_options_display %}{% endblock %}
     </div>
 </div>
 {% endblock %}

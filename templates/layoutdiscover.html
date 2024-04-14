@@ -9,7 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/discover.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/static/js/render.js"></script>
+    <script src="/static/js/render.js" type="module"></script>
+    {% block import_files %}{% endblock %}
     <title>Discover</title>
 </head>
 <body>
@@ -31,17 +32,7 @@
             </ul>
         </div>
 
-        <div class="ads-filters">
-            <div class="ads fadeinanimationcontent">
-                <div class="filter-btns">
-                    <button class="sort-by">
-                        <span>Filter</span>
-                        <i class="bi bi-funnel sort-btn"></i>
-                    </button> 
-                </div>
-                {% block maincontent %}{% endblock %}
-            </div>
-        </div>
+        {% block maincontent %}{% endblock %}
     </div>
 </body>
 </html>

@@ -31,12 +31,16 @@ def session_remove_if_not_verified():
 # ---------- MAIN DISCOVER PAGE ----------
 @discover_blueprint.route('/discover/individual')
 def individuals():
+    if session.get('user_id')[:2] == 'O-':
+        return redirect(url_for('home'))
     contract_list = db.reference("/contracts").get()
     print(contract_list.values())
     return render_template("indidiscover.html", contract_list = contract_list) 
 
 @discover_blueprint.route('/discover/companies')
 def companies():
+    if session.get('user_id')[:2] == 'I-':
+        return redirect(url_for('home'))
     posted_date = date.today()
     ad_list=[
         {
