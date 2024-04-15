@@ -68,12 +68,29 @@
                 {% endif %}
             </div>
             <br>
-            <select name="industry" id="expertise" value>
-                <option value="" selected>Select Industry Field (Optional)</option>
-                {% for value, label in form.industry.choices %}
-                    <option value="{{ value }}" {% if value == form.industry.data %}selected{% endif %}>{{ label }}</option>
+            
+            <!-- Hidden industry field -->
+            <select name="industry" id="ms-hidden-list" multiple hidden>
+                {% for field in form.industry.choices %}
+                    <option value="{{ field }}">{{ field }}</option>
                 {% endfor %}
             </select>
+            <!-- Visual industry field -->
+            <div class="ms-holder">
+                <ul class="ms-tag-list" id="ms-tag-list">
+                </ul>
+                <ul class="ms-input-field" id="ms-input-field">
+                    <input type="text" class="ms-search" id="ms-search" placeholder="Add Field of Proficiency tags (Optional)" autocomplete="off">
+                </ul>
+                <div class="ms-dropdown" id="ms-dropdown">
+                    <div class="ms-list">
+                        {% for field in form.industry.choices %}
+                            <div class="option" data-value="{{ field }}">{{ field }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
             <br>
             <div class="inpfields">
                 <input class="{% if form.company_website.errors %}has-error{% endif %}" name="company_website" placeholder="Company Website (Optional)" value="{% if form.company_website.data %}{{ form.company_website.data }}{% endif %}">

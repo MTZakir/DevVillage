@@ -1,11 +1,12 @@
 // Phone script
 
 const phoneInputField = document.querySelector("#phone");
-const phoneInput = window.intlTelInput(phoneInputField, {
-    utilsScript:
-    "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-});
-
+if (phoneInputField) {
+    const phoneInput = window.intlTelInput(phoneInputField, {
+        utilsScript:
+        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+}
 
 // Add a click event listener to each list item with the class "iti__country"
 $(".iti__country").on("click", function() {
@@ -186,12 +187,3 @@ function deselectOption(deselectedOptionText) {
         }
     }
 };
-
-// Add a click event listener to each list item with the class "iti__country"
-$(".ms-list").on("click", function() {
-    // Get the dial code value from the clicked list item
-    var dialCode = $(this).find(".iti__dial-code").text();
-
-    // Set the dial code value to the phone field
-    $("#phone").val(dialCode);
-});
