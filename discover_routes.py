@@ -28,19 +28,32 @@ def session_remove_if_not_verified():
     else:
         print("No session found.")
 
+@discover_blueprint.before_request
+def is_correct_user():
+    if not session.get("user_id"):
+        return redirect(url_for("auth.org_login"))
+    
+def is_indi_or_org(acc_type):
+    if acc_type:
+        return redirect(url_for("homecomp"))
+    else:
+        return redirect(url_for("home"))
+
 # ---------- MAIN DISCOVER PAGE ----------
 @discover_blueprint.route('/discover/individual')
 def individuals():
-    if session.get('user_id')[:2] == 'O-':
-        return redirect(url_for('home'))
+    is_indi_or_org(True)
+
+    
     contract_list = db.reference("/contracts").get()
     print(contract_list.values())
     return render_template("indidiscover.html", contract_list = contract_list) 
 
 @discover_blueprint.route('/discover/companies')
 def companies():
-    if session.get('user_id')[:2] == 'I-':
-        return redirect(url_for('home'))
+    is_indi_or_org(False)
+
+    
     posted_date = date.today()
     ad_list=[
         {

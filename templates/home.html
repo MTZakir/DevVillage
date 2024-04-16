@@ -8,11 +8,17 @@
     <div class="navbar noto-sans" id="navbar">
         <div class="navlinks">
             <a class="navitem" href="{{url_for('discover.individuals')}}">Find Contracts</a>
-            <a class="navitem" id="forCompanies" href="{{url_for('homecomp')}}">For Companies</a>
+            {% if not session.get('user_id') %}
+                <a class="navitem" id="forCompanies" href="{{url_for('homecomp')}}">For Companies</a>
+            {% endif %}
         </div> 
         <div class="buttons">
-            <button id="btn1" class="btns noto-sans" onclick="window.location.href = `{{url_for('auth.user_login')}}`">Sign in</button>
-            <button id="btn2" class="btns noto-sans" onclick="window.location.href = `{{url_for('auth.confirmation')}}`">Sign up</button>
+            {% if session.get("user_id") %}
+                <a href="{{url_for('accinfo.individual_profile')}}"><i class="bi bi-person-circle account-info-icon"></i></a>
+            {% else %}
+                <button id="btn1" class="btns noto-sans" onclick="window.location.href = `{{url_for('auth.user_login')}}`">Sign in</button>
+                <button id="btn2" class="btns noto-sans" onclick="window.location.href = `{{url_for('auth.confirmation')}}`">Sign up</button>
+            {% endif %}
         </div>
     </div>
 

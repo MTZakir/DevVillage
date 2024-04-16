@@ -106,14 +106,26 @@
                 <br>
                 
                 <!-- Hidden expertise field -->
-                <select name="expertise" id="ms-hidden-list" multiple hidden>
+                <select name="expertise" id="ms-hidden-list" multiple>
                     {% for skill in form.expertise.choices %}
                         <option value="{{ skill }}">{{ skill }}</option>
                     {% endfor %}
                 </select>
+                {% if form.expertise.data %}
+                    <select id="user-expertise-data" multiple>
+                        {% for data in form.expertise.data %}
+                            <option value="{{ data }}" onsubmit="addTag({{ data }})">{{ data }}</option>
+                        {% endfor %}
+                    </select>
+                {% endif %}
                 <!-- Visual expertise field -->
                 <div class="ms-holder">
                     <ul class="ms-tag-list" id="ms-tag-list">
+                        <!-- {% if form.expertise.data %}
+                            {% for data in form.expertise.data %}
+                                <li class="tag">{{ data }}</li>
+                            {% endfor %}
+                        {% endif %} -->
                     </ul>
                     <ul class="ms-input-field" id="ms-input-field">
                         <input type="text" class="ms-search" id="ms-search" placeholder="Add Field of Proficiency tags (Optional)" autocomplete="off">

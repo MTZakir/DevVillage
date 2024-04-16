@@ -17,23 +17,32 @@
     <div class="container fadeinanimation">
         <div class="navbar">
             <ul class="navlinks-left">
-                <li><a href="{{url_for('home')}}">Dashboard</a></li>
-                <li><a href="{{url_for('home')}}">Discover</a></li>
-                <li><a href="{{url_for('home')}}">Work</a></li>
-                <li><a href="{{url_for('home')}}">Payments</a></li>
-                <li><a href="{{url_for('home')}}">Invites</a></li>
+                {% if session.get('user_id')[:2] == 'I-' %}
+                    {% set home_url = 'home' %}
+                    {% set dashboard_url = 'dashboard.individuals' %}
+                    {% set discover_url = 'discover.individuals' %}
+                    {% set acc_info_url = 'accinfo.individual_profile' %}
+                {% else %}
+                    {% set home_url = 'homecomp' %}
+                    {% set dashboard_url = 'dashboard.organization' %}
+                    {% set discover_url = 'discover.companies' %}
+                    {% set acc_info_url = 'accinfo.org_profile' %}
+                {% endif %}
+                <li><a href="{{url_for(dashboard_url)}}" class="dashboard-nav-option">Dashboard</a></li>
+                <li><a href="{{url_for(discover_url)}}" class="discover-nav-option">Discover</a></li>
+                <li><a href="{{url_for(home_url)}} " class="work-nav-option">Work</a></li>
+                <li><a href="{{url_for(home_url)}} " class="payments-nav-option">Payments</a></li>
+                <li><a href="{{url_for(home_url)}} " class="invites-nav-option">Invites</a></li>
             </ul>
             <ul class="navlinks-right">
-                <i class="bi bi-person-circle account-info-icon"></i>
+                <a href="{{url_for(acc_info_url)}}"><i class="bi bi-person-circle account-info-icon"></i></a>
             </ul>
         </div>
 
 
     </div>
 
-    <div class="maincontent">
-        {% block maincontent %}{% endblock %}
-    </div>
+    {% block maincontent %}{% endblock %}
 
 </body>
 </html>

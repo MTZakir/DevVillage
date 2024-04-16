@@ -139,6 +139,7 @@
     border-radius: 0.4vw 0.4vw 0 0;
 
     overflow-x: scroll;
+    overflow-y: hidden;
     /* background-color: #0D1117; */
     background-image: linear-gradient(to top, #202124,#0D1117);
     border: none;
@@ -148,13 +149,12 @@
 
 .ms-tag-list::-webkit-scrollbar {
     height: 0.6vw;
-    background-color: rgba(13, 17, 23, 0);
+    background-color: #ffffff00;
     border-bottom-right-radius: 0.4vw;
     cursor: default;
 }
 
 .ms-tag-list::-webkit-scrollbar-thumb {
-    height: 2vw;
     background-color: #32435b;
     border-radius: 0.23vw;
     cursor: default;
@@ -175,6 +175,10 @@
     border-right: 1px solid #202124;
     padding: 0 0 3px 0;
     overflow-x: scroll;
+
+    border: 1px solid #202124;
+    border-bottom: none;
+    padding: 0 0 2px 0;
 }
 
 .ms-tag-list .tag {
@@ -266,7 +270,6 @@
 }
 
 .ms-list::-webkit-scrollbar-thumb {
-    height: 2vw;
     background-color: #32435b;
     border-radius: 0.23vw;
     cursor: default;

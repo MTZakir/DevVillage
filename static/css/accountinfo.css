@@ -1,6 +1,6 @@
 .account-options-card{
     overflow: hidden;
-    background-image: linear-gradient(to top right, rgba(12, 18, 19, 1),rgb(2, 32, 41));
+    background-image: linear-gradient(to top right, rgb(9, 14, 17),rgb(11, 23, 41))
 }
 
 .sidebar{
@@ -12,7 +12,6 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    align-items: center;
     position: fixed;
 }
 
@@ -79,7 +78,7 @@
 .acc-info-button i{
     position: absolute;
     top: 0.57vw;
-    left: 1.5vw;
+    left: 1.4vw;
     font-size: 1.45vw;
     color: white;
 }
@@ -105,5 +104,59 @@
 
 .acc-info-button button:hover{
     transition: 0.2s;
-    background-color: #48259A;
+    background-color: #5823d3;
+}
+
+.logout{
+    margin-top: 9vw;
+
+    position: relative;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.logout button{
+    margin: 0.2vw 0 0 0.7vw;
+    height: 2.9vw;
+    width: 8vw;
+
+    background-color: #0F0F0F;
+    color: #FFFFFF;
+    
+    border: none;
+    outline: none;
+    
+    cursor: pointer;
+    text-align: left;
+
+    transition: background-color 0.2s;
+
+    border-radius: 4px;
+}
+
+.logout button:hover{
+    transition: 0.2s;
+    background-color: #2a2a2a;
+}
+
+.logout i{
+    position: absolute;
+    top: 0.57vw;
+    left: 1.5vw;
+    font-size: 1.45vw;
+    color: white;
+}
+
+.logout span{
+    position: absolute;
+    color: white;
+    font-weight: 200;
+    font-size: 1vw;
+
+    top: 0.925vw;
+    left: 3.7vw;
+
+    pointer-events: none;
 }

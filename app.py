@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, redirect, render_template, request, session, url_for
 from auth_routes import auth_blueprint
 from discover_routes import discover_blueprint
 from dashboard_routes import dashboard_blueprint

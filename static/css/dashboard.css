@@ -1,0 +1,9 @@
+:root {
+    --color: #733DF0;
+    --star-color: #696464;
+    --star-background: rgb(201, 186, 57);
+}
+
+.dashboard-nav-option{
+    color: var(--color) !important; 
+}

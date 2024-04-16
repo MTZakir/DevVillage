@@ -1,0 +1,11 @@
+{% extends "accountinfo.html" %}
+
+{% block import_files %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/acc_settings.css') }}">
+{% endblock %}
+
+{% block title %}Account Info{% endblock %}
+
+{% block acc_info_options_display %}
+{% endblock %}

@@ -153,6 +153,14 @@ def otp():
 @auth_blueprint.route('/user_register', methods=['GET', 'POST'])
 def user_register():
     form = UserRegistrationForm()
+
+    print('Expertise:', form.expertise.data)
+
+    if form.expertise.data:
+        expertise_data_length = len(form.expertise.data)
+    else:
+        expertise_data_length = []
+    
     # If no accounts are logged in
     if session.get("user_id") == None:
         if form.validate_on_submit():
@@ -220,7 +228,7 @@ def user_register():
 
         return redirect(url_for('home'))
 
-    return render_template("user_register.html", form = form)
+    return render_template("user_register.html", form = form, expertise_data_length = expertise_data_length)
 
 
 

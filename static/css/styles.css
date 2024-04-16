@@ -121,6 +121,12 @@ span{
     gap: 10px;
 }
 
+.buttons a {
+    font-size: 3vw !important;
+    color: white;
+    margin-left: 170px;
+}
+
 .btns{
     background: transparent;
     border: none;
