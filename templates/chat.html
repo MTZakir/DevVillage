@@ -1,0 +1,88 @@
+{% extends 'accountnavbarlayout.html' %}
+
+{% block title %} DevChat {% endblock %}
+
+{% block maincontent %}
+<div class="chat-box">
+    <div class="chats-panel">
+        {% for user_info in chat_info %}
+        <a href="accountnavbarlayout.html">
+            <div class="one-chat">
+                {% if user_info['type'] == 'individual' %}
+                <img id='prof-pic' src="{{ user_info['profile_pic'] }}">
+                <div class="name-recent-chat">
+                    <h2 id="name">{{ user_info['first_name'] }} {{ user_info['last_name'] }}</h2>
+                    <h3 id='chat'>{{ user_info['recent_chat'] }}</h3>
+                </div>
+                {% elif user_info['type'] == 'company' %}
+                <img id='prof-pic' src="{{ user_info['company_pic'] }}">
+                <div class="name-recent-chat">
+                    <h2 id="name">{{ user_info['company_name'] }}</h2>
+                    <h3 id='chat'>{{ user_info['recent_chat'] }}</h3>
+                </div>
+                {% endif %}
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+    <div class="chat-area">
+        <div class="user-chats" id="user-chats">
+            <!-- Stored chat history -->
+            {% for message in chat_history %}
+            <div class="message {% if message[0] == current_user_id %}message-right{% else %}message-left{% endif %}">
+                {% if message[0] == current_user_id %}
+                <!-- Your message -->
+                <span class="sender">You:</span> {{ message[1] }}
+                {% else %}
+                <!-- Other user's message -->
+                <span class="sender">{{ message[0] }}:</span> {{ message[1] }}
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="textbox">
+            <div id="attachments">
+                <i class="bi bi-paperclip paperclip"></i>
+            </div>
+            <div class="textbar-sendbtn">
+                <input id='text-bar' type="text" onkeydown="if (event.keyCode === 13) sendMessage()">
+                <div id="send-circle" onclick="sendMessage()">
+                    <i class="bi bi-cursor-fill send"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+<script>
+    var socket = io();
+
+    // Function to handle incoming messages
+    socket.on('message', function (message) {
+        var userChats = document.getElementById('user-chats');
+        var newMessage = document.createElement('div');
+        newMessage.classList.add('message', 'message-right');
+        newMessage.innerHTML = "<span class='sender'>You:</span> " + message;
+        userChats.appendChild(newMessage);
+        // Scroll to bottom of chat area
+        userChats.scrollTop = userChats.scrollHeight;
+    });
+
+    // Function to send message
+    function sendMessage() {
+        var input = document.getElementById('text-bar');
+        var message = input.value;
+        if (message.trim() !== '') {
+            input.value = '';
+            // Emit message via WebSocket
+            socket.emit('message', message);
+        }
+    }
+
+    // Establish WebSocket connection when the page loads
+    window.onload = function () {
+        socket.connect();
+    };
+</script>
+{% endblock %}
