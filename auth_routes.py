@@ -89,7 +89,7 @@ def user_login():
                         try_login(form.username_or_email.data, form.password.data, "I")
                         # Check if user is logged in successfully, yes = redirect, no = error
                         if session.get('user_id') != None:
-                            return redirect(url_for('chat'))
+                            return redirect(url_for('dashboard.individuals'))
                         
                     else:
                         session['verify'] = auth.get_user_by_email(form.username_or_email.data).uid
@@ -263,7 +263,7 @@ def org_login():
 
                         # Check if user is logged in successfully, yes = redirect, no = error
                         if session.get('user_id') != None:
-                            return redirect(url_for('homecomp'))
+                            return redirect(url_for('dashboard.organization'))
 
                     else:
                         session['verify'] = org_id

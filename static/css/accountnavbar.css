@@ -9,7 +9,7 @@ body {
 }
 
 a {
-    color: whitefffe5;
+    color: white;
     text-decoration: none;
 }
 
@@ -301,4 +301,203 @@ html {
     height: 4.167vw;
     width: 4.167vw;
     border-radius: 5.208vw;
+}
+
+.profile-picture{
+    font-size: 2vw !important;
+    cursor: pointer;
+}
+
+.acc-info-drop-down{
+    position: relative;
+}
+
+.tilted-container{
+    position: absolute;
+
+    left: 0.44vw;
+    top: 3.38vw;
+
+    height: 0%;
+    background-color: #0F0F0F;
+    transform: rotate(45deg);
+
+    border-top: 1px solid #2B3245;
+    border-left: 1px solid #2B3245;
+    z-index: 101;
+}
+
+.tilted-container.active{
+    width: 1vw;
+    height: 1vw;
+}
+
+.dropdown{
+    position: absolute;
+
+    left: -15.77vw;
+    top: 3.9vw;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    /* padding-top: 1vw; */
+
+    height: 0%;
+    width: 22vw;
+    background-color: #0F0F0F;
+    border-radius: 0.5vw;
+    border: 1px solid #2B3245;
+    z-index: 100;
+    opacity: 0;
+
+    transition: opacity 0.15s ease-in-out;
+}
+
+.dropdown.active{
+    opacity: 1;
+    width: 19vw;
+    height: 32vw;
+}
+
+.dropdown .acc-dropdown-display{
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    align-items: center;
+
+    margin-bottom: 2vw;
+}
+
+.acc-dropdown-display .profile-picture{
+    font-size: 5.6vw !important;
+    margin-bottom: -0.7vw;
+}
+
+.first-and-last-name{
+    font-size: 1.35vw;
+    color: #FFFFFF;
+}
+
+.user-name{
+    color:rgba(255, 255, 255, 0.6);
+    font-size: 0.85vw;
+}
+
+.account-dropdown-options{
+    margin-bottom: 2vw;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.acc-dropdown-button{
+    position: relative;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.acc-dropdown-button span{
+    position: absolute;
+    color: white;
+    font-weight: 200;
+    font-size: 0.8vw;
+
+    top: 0.63vw;
+    left: 2.65vw;
+
+    pointer-events: none;
+}
+
+.acc-dropdown-button i{
+    position: absolute;
+    top: 0.5vw;
+    left: 0.92vw;
+    font-size: 1vw;
+    color: white;
+
+    pointer-events: none;
+}
+
+.acc-dropdown-button button{
+    margin: 0.1vw 0;
+    height: 2.26vw;
+    width: 96%;
+
+    background-color: #0F0F0F;
+    color: #FFFFFF;
+    
+    border: none;
+    outline: none;
+    
+    cursor: pointer;
+    text-align: left;
+
+    transition: background-color 0.2s;
+
+    border-radius: 4px;
+}
+
+.acc-dropdown-button button:hover{
+    transition: 0.2s;
+    background-color: #5823d3;
+}
+
+.log-out{
+    position: relative;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.log-out button{
+    margin: 0.1vw 0 0 0.285vw;
+    height: 2.26vw;
+    width: 6.1vw;
+
+    background-color: #0F0F0F;
+    color: #FFFFFF;
+    
+    border: none;
+    outline: none;
+    
+    cursor: pointer;
+    text-align: left;
+
+    transition: background-color 0.2s;
+
+    border-radius: 4px;
+}
+
+.log-out button:hover{
+    transition: 0.2s;
+    background-color: #2a2a2a;
+}
+
+.log-out i{
+    position: absolute;
+    top: 0.5vw;
+    left: 0.92vw;
+    font-size: 1vw;
+    color: white;
+    pointer-events: none;
+}
+
+.log-out span{
+    position: absolute;
+    color: white;
+    font-weight: 200;
+    font-size: 0.8vw;
+
+    top: 0.63vw;
+    left: 2.65vw;
+
+    pointer-events: none;
 }

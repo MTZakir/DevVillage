@@ -28,17 +28,6 @@ var dropupMenu = document.getElementById("ms-tag-list");
 var dropdownList = document.querySelectorAll(".option");
 var hiddenList = document.getElementById("ms-hidden-list");
 
-// Function to save user input
-function saveUserInput() {
-    var user_data = document.getElementById("user-expertise-data");
-    if (user_data) {
-        for (var i = 0; i < user_data.options.length; i++) {
-            addTag(user_data.options[i]);
-        }
-    }
-}
-// saveUserInput();
-
 // Open dropdown when user types on search
 dropdownSearch.addEventListener("focus", function(event) {
     dropdownMenu.classList.add("active");

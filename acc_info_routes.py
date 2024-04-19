@@ -27,34 +27,39 @@ def session_remove_if_not_verified():
 def is_correct_user():
     if not session.get("user_id"):
         return redirect(url_for("auth.org_login"))
-    
+
+
 def is_indi_or_org(acc_type):
     if acc_type:
         return redirect(url_for("homecomp"))
     else:
         return redirect(url_for("home"))
 
-@acc_info_blueprint.route('/profile/individual')
+@acc_info_blueprint.route('/acc_info')
+def acc_info():
+    return render_template("accountinfo.html")
+
+@acc_info_blueprint.route('/acc_info/profile/individual')
 def individual_profile():
     is_indi_or_org(True)
 
     return render_template("indiprofile.html")
 
-@acc_info_blueprint.route('/profile/org')
+@acc_info_blueprint.route('/acc_info/profile/org')
 def org_profile():
     is_indi_or_org(False)
 
     
     return render_template("org_profile.html")
 
-@acc_info_blueprint.route('/acc_settings/individual')
+@acc_info_blueprint.route('/acc_info/acc_settings/individual')
 def individual_settings():
     is_indi_or_org(True)
 
 
     return render_template("indi_acc_settings.html")
 
-@acc_info_blueprint.route('/acc_settings/org')
+@acc_info_blueprint.route('/acc_info/acc_settings/org')
 def org_settings():
     is_indi_or_org(False)
 

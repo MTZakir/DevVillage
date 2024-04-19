@@ -53,11 +53,23 @@ app.config['RECAPTCHA_THEME'] = 'dark'
 @app.route('/')
 def home():
     session_remove_if_not_verified()
+    if session.get('user_id'):
+        if session.get('user_id')[:2] == 'I-':
+            return redirect(url_for('dashboard.individuals'))
+        else:
+            return redirect(url_for('dashboard.organization'))
+
     return render_template("home.html")
 
 @app.route('/homecomp')
 def homecomp():
     session_remove_if_not_verified()
+    if session.get('user_id'):
+        if session.get('user_id')[:2] == 'I-':
+            return redirect(url_for('dashboard.individuals'))
+        else:
+            return redirect(url_for('dashboard.organization'))
+        
     return render_template("homecomp.html")
 
 @app.route('/chat')

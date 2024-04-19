@@ -27,11 +27,6 @@ def session_remove_if_not_verified():
 
     else:
         print("No session found.")
-
-@discover_blueprint.before_request
-def is_correct_user():
-    if not session.get("user_id"):
-        return redirect(url_for("auth.org_login"))
     
 def is_indi_or_org(acc_type):
     if acc_type:

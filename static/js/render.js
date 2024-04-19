@@ -127,3 +127,19 @@ $(document).ready(function() {
     submitForm();
     $('#bttnconf').css('background-color', '#733DF0');
 });
+
+const dropdown = document.querySelector(".dropdown")
+const tilted_container = document.querySelector(".tilted-container")
+const icon = document.querySelector(".icon")
+
+icon.addEventListener("click", function(event){
+    dropdown.classList.add("active");
+    tilted_container.classList.add("active");
+});
+
+document.addEventListener("click", function(event){
+    if (!dropdown.contains(event.target) && !icon.contains(event.target)){
+        dropdown.classList.remove("active");
+        tilted_container.classList.remove("active");
+    }
+})

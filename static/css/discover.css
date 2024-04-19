@@ -29,6 +29,11 @@ ul{
     font-weight: 300;
 }
 
+li > a{
+    color: rgba(255, 255, 255, 0.897);
+    transition: 0.4s;
+}
+
 .navlinks-left a{
     color: rgba(255, 255, 255, 0.897);
     transition: 0.4s;
