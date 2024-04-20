@@ -15,7 +15,7 @@
             <div class="verification-text">
                 <h1 id="verification">Verification</h1>
                 <p>To complete your registration please enter the 6-digit verification code sent to 
-                    <span style="font-weight: 700; color: #fff;">xyz@example.com</span></p>
+                    <span style="font-weight: 700; color: #fff;">{{masked_email}}</span></p>
             </div>
             
             <form class="otp-form" data-autosubmit="false" autocomplete="off">
@@ -42,7 +42,7 @@
                 <button type="submit" hidden></button>
             </form>
 
-            <p id="return">Return to <a href="url_for{{"auth.user_register"}}">Sign Up</a></p>
+            <p id="return">Return to <a href="{{url_for('auth.user_register')}}">Sign Up</a></p>
         </div>
     </div>
 {% endblock %}

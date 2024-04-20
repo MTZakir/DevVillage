@@ -384,7 +384,7 @@ def generate_otp_for_email_verification(email):
     otp_db = db.reference("/otp")
   
     # Generate OTP using random.choice
-    otp = str(random.randint(10000000, 99999999))
+    otp = str(random.randint(100000, 999999))
 
     print(otp)
 

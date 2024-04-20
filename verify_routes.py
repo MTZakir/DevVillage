@@ -26,10 +26,12 @@ def verify():
 
     user_id = session.get('verify')
 
+    masked_email = mask_email(auth.get_user(user_id).email)
+
     otp_ref = db.reference('/otp').child(user_id).get()
 
     # Call delete_otp with delay using threading
-    threading.Timer(30, delete_otp, args=(user_id,)).start()
+    threading.Timer(300, delete_otp, args=(user_id,)).start()
 
     if form.validate_on_submit() and recaptcha.verify():
         if form.otp.data == otp_ref:
@@ -60,7 +62,7 @@ def verify():
         print("Invalid form submission.")
 
 
-    return render_template('temp/verify.html', form = form)
+    return render_template('otp.html', form = form, masked_email = masked_email)
 
 # ---------- RESET PASSWORD ----------
 # Page for implementing password reset along with verifying email before resetting password
@@ -112,6 +114,9 @@ def reset_pass():
 
     return render_template('temp/reset_pass.html', form=form, show_password_fields=display)
 
+
+#Helper functions
+
 def delete_otp(user_id):
     db.reference('/otp').child(user_id).delete()
 
@@ -124,3 +129,11 @@ def delete_otp(user_id):
             db.reference("/user_accounts").child(user.display_name).delete()
         else:
             db.reference("/org_accounts").child(user.uid).delete()
+
+def mask_email(email):
+    if "@" in email:
+        username, domain = email.split("@")
+        masked_username = username[0] + "***" + username[-1]
+        return masked_username + "@" + domain
+    else:
+        return email

@@ -445,21 +445,21 @@
     /* border: 2px solid white; */
     display: grid;
     grid-template-rows: 1fr 1fr;
-    padding: 150px 0px 150px 0px;
+    padding: 7.813vw 0px 7.813vw 0px;
     justify-content: center;
 }
 
 .checkbox-logo{
-    width: 320px;
+    width: 16.667vw;
 }
 
 .checkbox-logo p{
-    font-size:24px;
+    font-size: 1.25vw;
     font-weight: 200;
-    margin:0;
-    margin-top: 10px;
+    margin: 0;
+    margin-top: 0.521vw;
     color: var(--color-conf);
-    transition:0.6s;
+    transition: 0.6s;
 }
 
 .confcard{
@@ -470,12 +470,12 @@
     /* padding: 0px 50px 0px 50px; */
     
     
-    font-size: 35px;
+    font-size: 1.823vw;
     color: #fff;
     
     background-color: #0F0F0F;
-    height: 182px;
-    width: 385px;
+    height: 9.479vw;
+    width: 20.052vw;
     border-radius: 1.302vw;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     transition:0.6s;
@@ -483,7 +483,7 @@
 }
 
 .confcard:hover{
-    transform: translateY(-5px);
+    transform: translateY(-0.26vw);
     cursor: pointer;
 }
 
@@ -493,12 +493,12 @@
 }
 
 #bttnconf{
-    padding: 10px;
-    height: 50px;
+    padding: 0.521vw;
+    height: 2.604vw;
     border: none;
-    border-radius: 30px;
-    width: 230px;
-    font-size: 24px;
+    border-radius: 1.563vw;
+    width: 11.979vw;
+    font-size: 1.25vw;
     font-weight: 300;
     color: #fff;
     background-color: var(--color);
@@ -506,7 +506,7 @@
 }
 
 #bttnconf:hover{
-    transform: translateY(-5px);
+    transform: translateY(-0.26vw);
     cursor: pointer;
 }
 
@@ -518,8 +518,8 @@
 input[type="radio"] {
     cursor: pointer;
     box-sizing: border-box;
-    width: 20px;
-    height: 20px;
+    width: 1.042vw;
+    height: 1.042vw;
     padding: 0;
     border: 2px solid #fff;
     border-radius: 50%;
@@ -533,7 +533,7 @@ input[type="radio"]:not(:disabled):checked {
     border-color: var(--color-conf);
     background-color: var(--color-conf);
     background-clip: content-box;
-    padding: 3px;
+    padding: 0.156vw;
     background-image: radial-gradient(
       circle,
       var(--color-conf) 0%,
@@ -549,11 +549,13 @@ input[type="radio"]:not(:disabled):checked {
 }
 
 #individual{
-    margin-bottom:1px;
+    margin-bottom: 0.052vw;
 }
 
+/* OTP styles */
+
 #verification{
-    font-size: 36px;
+    font-size: 1.875vw;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -561,8 +563,8 @@ input[type="radio"]:not(:disabled):checked {
 
 .verification-text p{
     margin:0;
-    margin-top: 16px;
-    font-size: 18px;
+    margin-top: 0.833vw;
+    font-size: 0.938vw;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -571,12 +573,12 @@ input[type="radio"]:not(:disabled):checked {
 
 .verification-text h1{
     margin:0;
-    font-size: 38px;    
+    font-size: 1.979vw;    
 }
 
 .verification-text{
     text-align: center;
-    width: 460px;
+    width: 23.958vw;
 }
 
 .otpcontainer{
@@ -592,13 +594,13 @@ input[type="radio"]:not(:disabled):checked {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    padding: 30px 0px 10px 0px;
+    padding: 1.563vw 0px 0.52vw 0px;
     
     color: #fff;
 
     background-color: #0F0F0F;
-    height: 527px;
-    width: 544px;
+    height: 27.448vw;
+    width: 28.333vw;
     border-radius: 1.302vw;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     transition:0.6s;
@@ -608,11 +610,11 @@ input[type="radio"]:not(:disabled):checked {
 .otpfield{
     color: #fff;
     text-align: center;
-    font-size: 29px;
-    width: 56px;
-    height: 58px;
+    font-size: 1.51vw;
+    width: 2.917vw;
+    height: 3.021vw;
     border: none;
-    border-radius: 6px;
+    border-radius: 0.313vw;
     background: #202124;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
     transition: 0.2s;
@@ -620,45 +622,52 @@ input[type="radio"]:not(:disabled):checked {
 
 .otpfield:focus{
     outline: none;
-    transform: translateY(-3px);
+    transform: translateY(-0.156vw);
 }
 .otp-form{
-    margin-top: 40px;
+    margin-top: 2.083vw;
     display:flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap:40px;
+    gap: 2.083vw;
 }
 
 .otp-input{
     display: flex;
-    gap:14px;
+    gap: 0.729vw;
 }
 
 #verify-bttn{
-    width: 387px;
+    width: 20.156vw;
     text-align: center;
-    padding: 14px;
+    padding: 0.729vw;
 
     border:none;
-    border-radius: 6px;
+    border-radius: 0.313vw;
     background: #069E36;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
     color: #fff;
-    font-size: 22px;
+    font-size: 1.146vw;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+
+    transition: background 0.1s;
 }
 
 #verify-bttn:hover{
     cursor: pointer;
+    background: #09b53f;
+}
+
+#verify-bttn:active{
+    background: #069E36;
 }
 
 #return, #return a{
-    font-size: 18px;
+    font-size: 0.938vw;
     font-style: none;
     text-decoration: none;
 }

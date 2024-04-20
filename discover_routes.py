@@ -199,13 +199,15 @@ def contract(contract_id):
 
     # Creating and loading the list of all applicants in the contract
     applicants_list = []
+    applied = False
     if db.reference("/contracts/"+contract_id).child("Applied").get():
         applicants_list = db.reference("/contracts/"+contract_id+"/Applied").get()
 
-    # Preventing reapplication of contract if already applied
-    if session.get("user_id")[2:] in applicants_list:
-        print("You have already applied for this contract")
-        return redirect(url_for('discover.individuals'))
+    if session.get('user_id'):
+        # Preventing reapplication of contract if already applied
+        if session.get("user_id")[2:] in applicants_list:
+            print("You have already applied for this contract")
+            applied = True
     
     form = ApplyContract()
 
@@ -220,7 +222,7 @@ def contract(contract_id):
 
         return redirect(url_for('discover.individuals'))
 
-    return render_template("temp/temp_contract.html", form = form)
+    return render_template("temp/temp_contract.html", form = form, applied = applied)
 
 
 

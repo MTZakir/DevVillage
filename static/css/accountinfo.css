@@ -81,6 +81,8 @@
     left: 1.4vw;
     font-size: 1.45vw;
     color: white;
+
+    pointer-events: none;
 }
 
 .acc-info-button button{
@@ -147,6 +149,8 @@
     left: 1.5vw;
     font-size: 1.45vw;
     color: white;
+
+    pointer-events: none;
 }
 
 .logout span{
