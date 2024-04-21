@@ -84,7 +84,7 @@ def user_login():
 
                 # If given username exists in user list (induvidual account), then allow login
                 if user_ref.child(username).get() != None:
-                    
+
                     if auth.get_user_by_email(form.username_or_email.data).email_verified:
                         try_login(form.username_or_email.data, form.password.data, "I")
                         # Check if user is logged in successfully, yes = redirect, no = error
@@ -93,7 +93,7 @@ def user_login():
                         
                     else:
                         session['verify'] = auth.get_user_by_email(form.username_or_email.data).uid
-                        return redirect(url_for('auth.verify'))
+                        return redirect(url_for('verify.verify', source = 'login'))
 
                 # If given username exists in organization list (organization account), then prevent login from induvidual page
                 if org_ref.child(username).get() != None:
@@ -118,7 +118,7 @@ def user_login():
                                 
                             else:
                                 session['verify'] = auth.get_user_by_email(user_email).uid
-                                return redirect(url_for('auth.verify'))
+                                return redirect(url_for('verify.verify', source = 'login'))
 
                     except Exception as e:
                         print("An account with that email doesn't exist. Try logging in as an organization instead?", e)
@@ -136,8 +136,6 @@ def user_login():
         return redirect(url_for('home'))
 
     return render_template("user_login.html", form = form)
-
-
 
 
 @auth_blueprint.route('/confirmation', methods=['GET', 'POST'])
@@ -267,7 +265,7 @@ def org_login():
 
                     else:
                         session['verify'] = org_id
-                        return redirect(url_for('auth.verify'))
+                        return redirect(url_for('verify.verify', source = "login"))
 
                 # If given org_name exists in user list (induvidual account), then prevent login from organization page
                 if user_ref.child(org_id).get() != None:

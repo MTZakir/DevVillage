@@ -33,10 +33,12 @@ def verify():
     # Call delete_otp with delay using threading
     threading.Timer(300, delete_otp, args=(user_id,)).start()
 
-    if form.validate_on_submit() and recaptcha.verify():
+    print(form.otp.data)
+    if form.validate_on_submit():
+
         if form.otp.data == otp_ref:
 
-            if source == "register":
+            if source == "register" or source == "login":
                 # Updating organization's account with organization name
                 auth.update_user(
                     user_id,
@@ -60,6 +62,7 @@ def verify():
             print("OTP not correct")
     else:
         print("Invalid form submission.")
+    
 
 
     return render_template('otp.html', form = form, masked_email = masked_email)
