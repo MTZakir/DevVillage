@@ -26,11 +26,11 @@ h2{
 
 .left-content{
     border-right: 1px solid #2B3245;
-    padding: 20px 30px;
+    padding: 1.042vw 1.563vw;
 }
 
 .right-content{
-    padding: 20px 30px;
+    padding: 1.042vw 1.563vw;
     display: grid;
 }
 
@@ -43,19 +43,19 @@ h2{
 
 .summary-boxes{
     display: flex;
-    gap: 10px;
+    gap: 0.521vw;
 }
 
 #summary-type{
     margin: 0;
-    font-size: 16px;
+    font-size: 0.833vw;
     color: rgba(255, 255, 255, 0.60);
     font-weight: 300;
 }
 
 #summary-detail{
     margin: 0;
-    font-size: 32px;
+    font-size: 1.667vw;
     color: #FFF;
     font-weight: 350;
 }
@@ -67,32 +67,32 @@ h2{
 }
 
 .summary-icons{
-    font-size: 35px;
+    font-size: 1.823vw;
     color: #fff;
-    padding: 10px 20px;
+    padding: 0.521vw 1.042vw;
     background-color: #0D1117;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    border-radius: 7px;
+    box-shadow: 0px 0.208vw 0.208vw 0px rgba(0, 0, 0, 0.25);
+    border-radius: 0.365vw;
 }
 
 #summary-title{
     margin-top:0;
-    font-size: 32px;
+    font-size: 1.667vw;
     color: #FFF;
     font-weight: 500;
-    margin-bottom: 10px;
+    margin-bottom: 0.521vw;
 }
 
 .money-chart{
     display: flex;
     flex-direction: column;
-    margin-top: 50px;
+    margin-top: 2.604vw;
 }
 
 .chart{
-    width: 899px;
-    height: 309px;
-    border-radius: 8px;
+    width: 46.823vw;
+    height: 16.094vw;
+    border-radius: 0.417vw;
     background: #0D1117;
     display: flex;
     justify-content: center;
@@ -102,20 +102,20 @@ h2{
 .bttn-style{
     display: flex;
     justify-content: center;
-    padding: 8px 18px;
-    padding-top: 10px;
+    padding: 0.417vw 0.938vw;
+    padding-top: 0.521vw;
     align-items: center;
 }
 
 .view-bttn{
-    border-radius: 7px;
+    border-radius: 0.365vw;
     background: #121820;
-    /* padding: 7px 10px; */
+    /* padding: 0.365vw 0.521vw; */
     height: fit-content;
     width: fit-content;
     border: none;
 
-    font-size: 16px;
+    font-size: 0.833vw;
     font-style: normal;
     font-weight: 400;
 }
@@ -123,7 +123,7 @@ h2{
 #work-inprogress{
     color: #787676;
     text-align: center;
-    font-size: 20px;
+    font-size: 1.042vw;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -132,13 +132,13 @@ h2{
 .comp-img-name{
     display: flex;
     align-items: center;
-    gap:10px;
+    gap:0.521vw;
 }
 
 #comp-img{
-    width: 45px;
-    height: 45px;
-    border-radius: 7px;
+    width: 2.344vw;
+    height: 2.344vw;
+    border-radius: 0.365vw;
 }
 
 .transaction{
@@ -146,17 +146,17 @@ h2{
     align-items: center;
     justify-content: space-between;
     border-bottom: 2px solid #0D1117;
-    padding-bottom: 7px;
+    padding-bottom: 0.365vw;
 }
 
 .payments{
     display: grid;
-    row-gap: 7px;
-    margin-top: 15px;
+    row-gap: 0.365vw;
+    margin-top: 0.781vw;
 }
 
 .payments-summary{
-    margin-top: 20px;
+    margin-top: 1.042vw;
 }
 
 .payment-text{
@@ -165,16 +165,18 @@ h2{
 }
 
 .status{
-    font-size: 20px;
+    font-size: 1.042vw;
     font-weight: 300;
 }
 
 #comp-name{
     font-weight: 340;
+    font-size: 1.25vw;
 }
 
 #amount{
     font-weight: 540;
+    font-size: 1.25vw;
 }
 
 #hire-heading p{
@@ -183,23 +185,24 @@ h2{
 
 caption {
     background-color: #0D1117;
-    border-radius: 8px 8px 0px 0px;
-    padding: 10px 10px 10px 21px;
-    font-size: 24px;
+    border-radius: 0.417vw 0.417vw 0px 0px;
+    padding: 0.521vw 0.521vw 0.521vw 1.094vw;
+    font-size: 1.25vw;
     text-align: start;
 }
 
 .hire-details td{
-    padding: 8px 0px 8px 0px;
-    font-size: 16px;
-    width: 200px;
+    padding: 0.417vw 0px 0.417vw 0px;
+    font-size: 0.833vw;
+    width: 10.417vw;
     font-weight: 200;
 }
 
 .table-headings th{
     text-align: center;
-    padding: 10px 0px 10px 0px;
+    padding: 0.521vw 0px 0.521vw 0px;
     font-weight: 425;
+    font-size: 0.833vw;
 }
 
 .table-headings{
@@ -215,10 +218,10 @@ caption {
 .hire-details{
     display: grid;
     background-color: #0B0F15;
-    max-height: 322px; /* Set the maximum height */
+    max-height: 16.771vw; /* Set the maximum height */
     overflow-y: auto;
-    width: 898px;
-    border-radius: 0px 0px 8px 8px;
+    width: 46.771vw;
+    border-radius: 0px 0px 0.417vw 0.417vw;
 }
 
 .details-hire:hover{
@@ -244,21 +247,21 @@ caption {
 
 .scrollable-table{
     display: block;
-    max-height: 272px;
+    max-height: 14.167vw;
     overflow: auto;
 }
 
 .bank-paymethod-details{
     color: #FFF;
-    margin-top: 30px;
+    margin-top: 1.563vw;
     background-color: #0D1117;
-    border-radius: 8px 8px 0px 0px;
+    border-radius: 0.417vw 0.417vw 0px 0px;
 }
 
 .banking-title{
     margin: 0;
-    padding: 10px 10px 10px 21px;
-    font-size: 24px;
+    padding: 0.521vw 0.521vw 0.521vw 21px;
+    font-size: 1.25vw;
     text-align: start;
     font-weight: 400;
 }
@@ -267,28 +270,28 @@ caption {
     display: flex;
     flex-direction: column;
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 0.521vw;
 }
 
 .bankimg{
     color: #8B8585;
-    font-size: 55px;
+    font-size: 2.865vw;
 }
 
 #payment-redirect{
-    font-size: 16px;
+    font-size: 0.833vw;
     color: #72409b;
     font-weight: 600;
 }
 
 #bank-text{
-    font-size: 20px;
+    font-size: 1.042vw;
     font-weight: 600;
     color: #787676;
 }
 
 .banking-details{
-    height: 310px;
+    height: 16.146vw;
     display: flex;
     flex-direction: column;
     background-color: #0B0F15;
