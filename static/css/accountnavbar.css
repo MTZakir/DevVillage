@@ -313,6 +313,7 @@ html {
 }
 
 .tilted-container{
+    display: none;
     position: absolute;
 
     left: 0.44vw;
@@ -338,7 +339,7 @@ html {
     left: -15.77vw;
     top: 3.9vw;
 
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
 
@@ -349,7 +350,6 @@ html {
     background-color: #0F0F0F;
     border-radius: 0.5vw;
     border: 1px solid #2B3245;
-    z-index: 100;
     opacity: 0;
 
     transition: opacity 0.15s ease-in-out;

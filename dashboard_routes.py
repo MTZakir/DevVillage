@@ -36,9 +36,124 @@ def is_indi_or_org(acc_type):
 @dashboard_blueprint.route('/dashboard/individual')
 def individuals():
     is_indi_or_org(True)
+    dashcontent = {
+            'completed_contracts': 21,
+            'total_earned': 6203.23,
+            'tokens_owned': 34,
+        }
+    
+    recent_payments = [
+        {
+            'company_name': 'Netflix',
+            'company_pic': '/static/images/netflix.png',
+            'status': 'Completed',
+            'amount': 273,
+        },
+        {
+            'company_name': 'Netflix',
+            'company_pic': '/static/images/netflix.png',
+            'status': 'Ongoing',
+            'amount': 121,
+        },
+        {
+            'company_name': 'Netflix',
+            'company_pic': '/static/images/netflix.png',
+            'status': 'Completed',
+            'amount': 209,
+        },
+        {
+            'company_name': 'Netflix',
+            'company_pic': '/static/images/netflix.png',
+            'status': 'Ongoing',
+            'amount': 628,
+        },
+        {
+            'company_name': 'Netflix',
+            'company_pic': '/static/images/netflix.png',
+            'status': 'Ongoing',
+            'amount': 123,
+        },
+        {
+            'company_name': 'Netflix',
+            'company_pic': '/static/images/netflix.png',
+            'status': 'Completed',
+            'amount': 193,
+        }
+    ]
 
+    company_hires = [
+        {
+            'organization': 'QVParts', 
+            'title': 'build a website api for banking',
+            'duration': '30 days',
+            'expected_pay': (500, 700), 
+        },
+        {
+            'organization': 'QVParts', 
+            'title': 'build a website api for banking',
+            'duration': '30 days',
+            'expected_pay': (500, 700), 
+        },
+        {
+            'organization': 'QVParts', 
+            'title': 'build a website api for banking',
+            'duration': '30 days',
+            'expected_pay': (500, 700), 
+        },
+        {
+            'organization': 'QVParts', 
+            'title': 'build a website api for banking',
+            'duration': '30 days',
+            'expected_pay': (500, 700), 
+        },
+        {
+            'organization': 'QVParts', 
+            'title': 'build a website api for banking',
+            'duration': '30 days',
+            'expected_pay': (500, 700), 
+        },
+        {
+            'organization': 'QVParts', 
+            'title': 'build a website api for banking',
+            'duration': '30 days',
+            'expected_pay': (500, 700), 
+        },
+        {
+            'organization': 'QVParts', 
+            'title': 'build a website api for banking',
+            'duration': '30 days',
+            'expected_pay': (500, 700), 
+        },
+        {
+            'organization': 'QVParts', 
+            'title': 'build a website api for banking',
+            'duration': '30 days',
+            'expected_pay': (500, 700), 
+        },
+        {
+            'organization': 'QVParts', 
+            'title': 'build a website api for banking',
+            'duration': '30 days',
+            'expected_pay': (500, 700), 
+        },
+        {
+            'organization': 'QVParts', 
+            'title': 'build a website api for banking',
+            'duration': '30 days',
+            'expected_pay': (500, 700), 
+        },
+        {
+            'organization': 'QVParts', 
+            'title': 'build a website api for banking',
+            'duration': '30 days',
+            'expected_pay': (500, 700), 
+        },
+        
+    ]
 
-    return render_template("dashboard.html")
+    return render_template("dashboard.html", dashcontent=dashcontent, 
+                           company_hires=company_hires, 
+                           recent_payments=recent_payments)
 
 @dashboard_blueprint.route('/dashboard/org')
 def organization():

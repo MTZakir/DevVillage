@@ -101,7 +101,7 @@ function otpfields(){
         var key = e.keyCode || e.which;
         var maxLength = parseInt($(this).attr('maxlength'));
         var currentLength = $(this).val().length;
-
+    
         // If a number is entered and the field is full, move focus to the next field
         if (((key >= 48 && key <= 57) || (key >= 96 && key <= 105)) && currentLength >= maxLength) {
             $(this).next('.otpfield').prop('disabled', false).focus();
@@ -110,10 +110,52 @@ function otpfields(){
         else if (key == 8 && currentLength == 0) {
             $(this).prev('.otpfield').prop('disabled', false).focus();
         }
-
+    
         // Disable next fields if the current field is empty
         if (currentLength === 0) {
             $(this).nextAll('.otpfield').prop('disabled', true).val('');
+        }
+    });    
+}
+
+function dropDownClick() {
+    const $dropdown = $(".dropdown");
+    const $tilted_container = $(".tilted-container");
+    const $icon = $(".icon");
+
+    $icon.on("click", function() {
+        if ($dropdown.hasClass("active")) {
+            $dropdown.removeClass("active");
+            $dropdown.css("display", "none");
+            $tilted_container.removeClass("active");
+            $tilted_container.css('display', 'none')
+        } else {
+            $dropdown.addClass("active");
+            $dropdown.css("display", "flex");
+            $tilted_container.addClass("active");
+            $tilted_container.css('display', 'block')
+        }
+    });
+
+    $(document).on("click", function(event) {
+        if (!($dropdown.is(event.target) || $dropdown.has(event.target).length || $icon.is(event.target) || $icon.has(event.target).length)) {
+            $dropdown.css('display', 'none')
+            $dropdown.removeClass("active");
+            $tilted_container.removeClass("active");
+            $tilted_container.css('display', 'none')
+        }
+    });
+}
+
+function statusColor(){
+    $('.status').each(function() {
+        var status = $(this).text().trim();
+        if (status === 'Completed') {
+            // Set the color of the text to green for completed status
+            $(this).css('color', '#1A7229');
+        } else if (status === 'Ongoing') {
+            // Set the color of the text to the specified rgba color for ongoing status
+            $(this).css('color', 'rgba(255, 255, 255, 0.70)');
         }
     });
 }
@@ -125,21 +167,7 @@ $(document).ready(function() {
     redirect();
     otpfields();
     submitForm();
+    dropDownClick();
+    statusColor();
     $('#bttnconf').css('background-color', '#733DF0');
 });
-
-const dropdown = document.querySelector(".dropdown")
-const tilted_container = document.querySelector(".tilted-container")
-const icon = document.querySelector(".icon")
-
-icon.addEventListener("click", function(event){
-    dropdown.classList.add("active");
-    tilted_container.classList.add("active");
-});
-
-document.addEventListener("click", function(event){
-    if (!dropdown.contains(event.target) && !icon.contains(event.target)){
-        dropdown.classList.remove("active");
-        tilted_container.classList.remove("active");
-    }
-})

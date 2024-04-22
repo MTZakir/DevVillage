@@ -4,6 +4,294 @@
     --star-background: rgb(201, 186, 57);
 }
 
+p{
+    margin:0;
+}
+
+h2{
+    margin:0;
+}
+
 .dashboard-nav-option{
     color: var(--color) !important; 
+}
+
+.dashboard-content{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    /* border: 1px solid rgb(255, 5, 5); */
+    height: 93vh;
+    margin-top: 7vh;
+}
+
+.left-content{
+    border-right: 1px solid #2B3245;
+    padding: 20px 30px;
+}
+
+.right-content{
+    padding: 20px 30px;
+    display: grid;
+}
+
+.base-summary{
+    /* border: 1px solid white; */
+    display: flex;
+    justify-content: space-between;
+    height: fit-content;
+}
+
+.summary-boxes{
+    display: flex;
+    gap: 10px;
+}
+
+#summary-type{
+    margin: 0;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.60);
+    font-weight: 300;
+}
+
+#summary-detail{
+    margin: 0;
+    font-size: 32px;
+    color: #FFF;
+    font-weight: 350;
+}
+
+.title-button{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.summary-icons{
+    font-size: 35px;
+    color: #fff;
+    padding: 10px 20px;
+    background-color: #0D1117;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 7px;
+}
+
+#summary-title{
+    margin-top:0;
+    font-size: 32px;
+    color: #FFF;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.money-chart{
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.chart{
+    width: 899px;
+    height: 309px;
+    border-radius: 8px;
+    background: #0D1117;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bttn-style{
+    display: flex;
+    justify-content: center;
+    padding: 8px 18px;
+    padding-top: 10px;
+    align-items: center;
+}
+
+.view-bttn{
+    border-radius: 7px;
+    background: #121820;
+    /* padding: 7px 10px; */
+    height: fit-content;
+    width: fit-content;
+    border: none;
+
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+#work-inprogress{
+    color: #787676;
+    text-align: center;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.comp-img-name{
+    display: flex;
+    align-items: center;
+    gap:10px;
+}
+
+#comp-img{
+    width: 45px;
+    height: 45px;
+    border-radius: 7px;
+}
+
+.transaction{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #0D1117;
+    padding-bottom: 7px;
+}
+
+.payments{
+    display: grid;
+    row-gap: 7px;
+    margin-top: 15px;
+}
+
+.payments-summary{
+    margin-top: 20px;
+}
+
+.payment-text{
+    margin: 0;
+    color: #FFF;
+}
+
+.status{
+    font-size: 20px;
+    font-weight: 300;
+}
+
+#comp-name{
+    font-weight: 340;
+}
+
+#amount{
+    font-weight: 540;
+}
+
+#hire-heading p{
+    margin: 0;
+}
+
+caption {
+    background-color: #0D1117;
+    border-radius: 8px 8px 0px 0px;
+    padding: 10px 10px 10px 21px;
+    font-size: 24px;
+    text-align: start;
+}
+
+.hire-details td{
+    padding: 8px 0px 8px 0px;
+    font-size: 16px;
+    width: 200px;
+    font-weight: 200;
+}
+
+.table-headings th{
+    text-align: center;
+    padding: 10px 0px 10px 0px;
+    font-weight: 425;
+}
+
+.table-headings{
+    background-color: #0B1018;
+    border-bottom: 1px solid #151A26;
+}
+
+.table_component {
+    width: 100%;
+    color: #FFF;
+}
+
+.hire-details{
+    display: grid;
+    background-color: #0B0F15;
+    max-height: 322px; /* Set the maximum height */
+    overflow-y: auto;
+    width: 898px;
+    border-radius: 0px 0px 8px 8px;
+}
+
+.details-hire:hover{
+    background-color: #0F141B;
+}
+
+.details-hire{
+    display: table;
+    transition: 0.3s;
+    /* padding: 0px 84px;
+    justify-content: space-between; */
+}
+
+.table_component table {
+    /* border: 1px solid #dededf; */
+    height: 100%;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    text-align: center;
+ 
+}
+
+.scrollable-table{
+    display: block;
+    max-height: 272px;
+    overflow: auto;
+}
+
+.bank-paymethod-details{
+    color: #FFF;
+    margin-top: 30px;
+    background-color: #0D1117;
+    border-radius: 8px 8px 0px 0px;
+}
+
+.banking-title{
+    margin: 0;
+    padding: 10px 10px 10px 21px;
+    font-size: 24px;
+    text-align: start;
+    font-weight: 400;
+}
+
+.bank-img-text{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.bankimg{
+    color: #8B8585;
+    font-size: 55px;
+}
+
+#payment-redirect{
+    font-size: 16px;
+    color: #72409b;
+    font-weight: 600;
+}
+
+#bank-text{
+    font-size: 20px;
+    font-weight: 600;
+    color: #787676;
+}
+
+.banking-details{
+    height: 310px;
+    display: flex;
+    flex-direction: column;
+    background-color: #0B0F15;
+    justify-content: center;
+    align-items: center;
 }

@@ -4,4 +4,102 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
 {% endblock %}
 
-{% block maincontent %}{% endblock %}
+{% block maincontent %}
+    <div class="dashboard-content">
+        <div class="left-content">
+            <div class="table_component" role="region" tabindex="0">
+                <table>
+                    <caption id="hire-heading">Company Hires</caption>
+                    <thead>
+                        <tr class="table-headings">
+                            <th id="org-head">Organization</th>
+                            <th id="title-head">Contract Title</th>
+                            <th id="duration_head">Contract Duration</th>
+                            <th id="pay_head">Expected Pay</th>
+                        </tr>
+                    </thead>
+                    <tbody class="hire-details">
+                        {% for invites in company_hires %}
+                            <tr class="details-hire">
+                                <td>{{invites['organization']}}</td>
+                                <td>{{invites['title']}}</td>
+                                <td>{{invites['duration']}}</td>
+                                <td>${{invites['expected_pay'][0]}} - ${{invites['expected_pay'][1]}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bank-paymethod-details">
+                <h2 class="banking-title">Banking details</h2>
+                <div class="banking-details">
+                    <div class="bank-img-text">
+                        <i class="bi bi-bank bankimg"></i>
+                        <p id="bank-text">No Bank Account/Payment method<br>added in this profile yet</p>
+                    </div>
+                    <a id="payment-redirect">Add Payment Method</a>
+                </div>
+            </div>
+        </div>
+        <div class="right-content">
+            <div class="base-summary">
+                <div class="summary-boxes">
+                    <div class="summary-icons">
+                        <i class="bi bi-arrow-left-right"></i>
+                    </div>
+                    <div class="summary-text">
+                        <p id="summary-type">Contracts Completed</p>
+                        <h2 id="summary-detail">{{dashcontent['completed_contracts']}}</h2>
+                    </div>
+                </div>
+                <div class="summary-boxes">
+                    <div class="summary-icons">
+                        <i class="bi bi-cash"></i>
+                    </div>
+                    <div class="summary-text">
+                        <p id="summary-type">Total Earned</p>
+                        <h2 id="summary-detail">${{dashcontent['total_earned']}}</h2>
+                    </div>
+                </div>
+                <div class="summary-boxes">
+                    <div class="summary-icons">
+                        <i class="bi bi-coin"></i>
+                    </div>
+                    <div class="summary-text">
+                        <p id="summary-type">Tokens owned</p>
+                        <h2 id="summary-detail">{{dashcontent['tokens_owned']}}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="money-chart">
+                <h2 id="summary-title">Money Flow</h2>
+                <div class="chart">
+                    <h2 id="work-inprogress">Not implemented yet<br>work in progress</h2>
+                </div>
+            </div>
+            <div class="payments-summary">
+                <div class="title-button">
+                    <h2 id="summary-title">Recent payments</h2>
+                    <button class="view-bttn bttn-style">
+                        <a class='view-bttn' href="{{url_for['home']}}">View All</a>
+                    </button>
+                </div>
+                <div class="payments">
+                    {% for transaction in recent_payments %}
+                        {% if loop.index <= 4 %}
+                            <div class="transaction">
+                                <div class="comp-img-name">
+                                    <img id='comp-img' src="/static/images/netflix.png">
+                                    <h2 class='payment-text' id="comp-name">{{ transaction['company_name'] }}</h2>
+                                </div>
+                                <p class='payment-text status'>{{ transaction['status'] }}</p>
+                                <h2 class='payment-text' id="amount">${{ transaction['amount'] }}</h2>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

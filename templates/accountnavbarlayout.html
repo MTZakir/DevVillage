@@ -36,10 +36,10 @@
                 {% endif %}
                 <li><a href="{{url_for(dashboard_url)}}" class="dashboard-nav-option">Dashboard</a></li>
                 <li><a href="{{url_for(discover_url)}}" class="discover-nav-option">Discover</a></li>
-                <li><a href="{{url_for(home_url)}} " class="work-nav-option">Work</a></li>
                 <li><a href="{{url_for(home_url)}} " class="payments-nav-option">Payments</a></li>
                 <li><a href="{{url_for(home_url)}} " class="invites-nav-option">Invites</a></li>
-                <li><a href="">Chat</a></li>
+                <li><a href="{{url_for(home_url)}} " class="invites-nav-option">DevChat</a></li>
+                <li><a href="{{url_for(home_url)}} " class="invites-nav-option">Buy Tokens</a></li>
             </ul>
             <ul class="navlinks-right">
                 {% if url_for('accinfo.acc_info') not in request.url %}
@@ -48,7 +48,7 @@
                             <i class="bi bi-person-circle profile-picture"></i>
                         </div>
                         <div class="tilted-container"></div>
-                        <div class="dropdown">
+                        <div class="dropdown" style>
 
                             <div class="acc-dropdown-display">
                                 <i class="bi bi-person-circle profile-picture"></i>
