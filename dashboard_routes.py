@@ -33,7 +33,79 @@ def is_indi_or_org(acc_type):
         return redirect(url_for("home"))
 
 # DISCOVER
-@dashboard_blueprint.route('/dashboard/individual')
+@dashboard_blueprint.route('/individual/invites')
+def invites():
+    company_hires = [
+        {
+            'organization': 'QVParts', 
+            'title': 'build a website api for banking',
+            'duration': '30 days',
+            'expected_pay': (500, 700), 
+        },
+        {
+            'organization': 'QVParts', 
+            'title': 'build a website api for banking',
+            'duration': '30 days',
+            'expected_pay': (500, 700), 
+        },
+        {
+            'organization': 'QVParts', 
+            'title': 'build a website api for banking',
+            'duration': '30 days',
+            'expected_pay': (500, 700), 
+        },
+        {
+            'organization': 'QVParts', 
+            'title': 'build a website api for banking',
+            'duration': '30 days',
+            'expected_pay': (500, 700), 
+        },
+        {
+            'organization': 'QVParts', 
+            'title': 'build a website api for banking',
+            'duration': '30 days',
+            'expected_pay': (500, 700), 
+        },
+        {
+            'organization': 'QVParts', 
+            'title': 'build a website api for banking',
+            'duration': '30 days',
+            'expected_pay': (500, 700), 
+        },
+        {
+            'organization': 'QVParts', 
+            'title': 'build a website api for banking',
+            'duration': '30 days',
+            'expected_pay': (500, 700), 
+        },
+        {
+            'organization': 'QVParts', 
+            'title': 'build a website api for banking',
+            'duration': '30 days',
+            'expected_pay': (500, 700), 
+        },
+        {
+            'organization': 'QVParts', 
+            'title': 'build a website api for banking',
+            'duration': '30 days',
+            'expected_pay': (500, 700), 
+        },
+        {
+            'organization': 'QVParts', 
+            'title': 'build a website api for banking',
+            'duration': '30 days',
+            'expected_pay': (500, 700), 
+        },
+        {
+            'organization': 'QVParts', 
+            'title': 'build a website api for banking',
+            'duration': '30 days',
+            'expected_pay': (500, 700), 
+        },
+    ]
+    return render_template("invites.html", company_hires=company_hires, )
+
+@dashboard_blueprint.route('/individual/dashboard')
 def individuals():
     is_indi_or_org(True)
     dashcontent = {
@@ -155,7 +227,110 @@ def individuals():
                            company_hires=company_hires, 
                            recent_payments=recent_payments)
 
-@dashboard_blueprint.route('/dashboard/org')
+@dashboard_blueprint.route('/individual/payments')
+def payment_history():
+    is_indi_or_org(False)
+    payments = [
+        {
+            'comp_pic': '/static/images/netflix.png',
+            'comp_name': 'Netflix',
+            'status': 'Completed',
+            'amount': 274,
+            'date': '2018-07-05'
+        },
+        {
+            'comp_pic': '/static/images/netflix.png',
+            'comp_name': 'Netflix',
+            'status': 'Completed',
+            'amount': 534,
+            'date': '2018-07-05'
+        },
+        {
+            'comp_pic': '/static/images/netflix.png',
+            'comp_name': 'Netflix',
+            'status': 'Completed',
+            'amount': 211,
+            'date': '2018-07-05'
+        },
+        {
+            'comp_pic': '/static/images/netflix.png',
+            'comp_name': 'Netflix',
+            'status': 'Completed',
+            'amount': 114,
+            'date': '2018-07-05'
+        },
+        {
+            'comp_pic': '/static/images/netflix.png',
+            'comp_name': 'Netflix',
+            'status': 'Completed',
+            'amount': 674,
+            'date': '2018-07-05'
+        },
+        {
+            'comp_pic': '/static/images/netflix.png',
+            'comp_name': 'Netflix',
+            'status': 'Completed',
+            'amount': 904,
+            'date': '2018-07-05'
+        },
+        {
+            'comp_pic': '/static/images/netflix.png',
+            'comp_name': 'Netflix',
+            'status': 'Completed',
+            'amount': 304,
+            'date': '2018-07-05'
+        },
+        {
+            'comp_pic': '/static/images/netflix.png',
+            'comp_name': 'Netflix',
+            'status': 'Completed',
+            'amount': 274,
+            'date': '2018-07-05'
+        },
+        {
+            'comp_pic': '/static/images/netflix.png',
+            'comp_name': 'Netflix',
+            'status': 'Completed',
+            'amount': 352,
+            'date': '2018-07-05'
+        },
+        {
+            'comp_pic': '/static/images/netflix.png',
+            'comp_name': 'Netflix',
+            'status': 'Completed',
+            'amount': 156,
+            'date': '2018-07-05'
+        },
+        {
+            'comp_pic': '/static/images/netflix.png',
+            'comp_name': 'Netflix',
+            'status': 'Ongoing',
+            'amount': 423,
+            'date': '2018-07-05'
+        },
+        {
+            'comp_pic': '/static/images/netflix.png',
+            'comp_name': 'Netflix',
+            'status': 'Ongoing',
+            'amount': 690,
+            'date': '2018-07-05'
+        },
+        {
+            'comp_pic': '/static/images/netflix.png',
+            'comp_name': 'Netflix',
+            'status': 'Ongoing',
+            'amount': 720,
+            'date': '2018-07-05'
+        },
+    ]
+
+    total_earned = 0
+    for i in payments:
+        total_earned += i['amount']
+
+    return render_template("payments.html", payments=payments, total_earned=total_earned)
+
+@dashboard_blueprint.route('/org/dashboard')
 def organization():
     is_indi_or_org(False)
     

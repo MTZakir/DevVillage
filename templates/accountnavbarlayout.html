@@ -26,6 +26,8 @@
                     {% set profile_url = 'accinfo.individual_profile' %}
                     {% set acc_info_url = 'accinfo.individual_profile' %}
                     {% set settings_url = 'accinfo.individual_settings' %}
+                    {% set invites_url = 'dashboard.invites' %}
+                    {% set payments_url = 'dashboard.payment_history' %}
                 {% else %}
                     {% set home_url = 'homecomp' %}
                     {% set dashboard_url = 'dashboard.organization' %}
@@ -33,13 +35,14 @@
                     {% set profile_url = 'accinfo.org_profile' %}
                     {% set acc_info_url = 'accinfo.org_profile' %}
                     {% set settings_url = 'accinfo.org_settings' %}
+                    {% set settings_url = 'accinfo.org_settings' %}
                 {% endif %}
                 <li><a href="{{url_for(dashboard_url)}}" class="dashboard-nav-option">Dashboard</a></li>
                 <li><a href="{{url_for(discover_url)}}" class="discover-nav-option">Discover</a></li>
-                <li><a href="{{url_for(home_url)}} " class="payments-nav-option">Payments</a></li>
-                <li><a href="{{url_for(home_url)}} " class="invites-nav-option">Invites</a></li>
-                <li><a href="{{url_for(home_url)}} " class="invites-nav-option">DevChat</a></li>
-                <li><a href="{{url_for(home_url)}} " class="invites-nav-option">Buy Tokens</a></li>
+                <li><a href="{{url_for(payments_url)}} " class="payments-nav-option">Payment History</a></li>
+                <li><a href="{{url_for(invites_url)}} " class="invites-nav-option">Invites</a></li>
+                <li><a href="{{url_for(home_url)}} " class="chat-nav-option">DevChat</a></li>
+                <li><a href="{{url_for(home_url)}} " class="tokens-nav-option">Buy Tokens</a></li>
             </ul>
             <ul class="navlinks-right">
                 {% if url_for('accinfo.acc_info') not in request.url %}

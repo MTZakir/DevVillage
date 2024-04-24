@@ -1,0 +1,39 @@
+{% extends "accountnavbarlayout.html" %}
+
+{% block import_files %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/payments.css') }}">
+{% endblock %}
+
+{% block maincontent %}
+    <div class="table_component" role="region" tabindex="0">
+        <table>
+            <div id="hire-heading">
+                <p>Payments</p>
+                <p>Total Earned: ${{total_earned}}</p>
+            </div>
+            <thead>
+                <tr class="table-headings">
+                    <th id="org-head">Organization</th>
+                    <th id="title-head">Status</th>
+                    <th id="duration_head">Amount</th>
+                    <th id="pay_head">Transaction date</th>
+                </tr>
+            </thead>
+            <tbody class="hire-details">
+                {% for payment in payments %}
+                    <tr class="details-hire">
+                        <td>
+                            <div class="comp-img-name">
+                                <img id='comp-img' src={{payment['comp_pic']}}>
+                                <h2 class='payment-text' id="comp-name">{{payment['comp_name']}}</h2>
+                            </div>
+                        </td>
+                        <td class="status">{{payment['status']}}</td>
+                        <td id="amount">${{payment['amount']}}</td>
+                        <td id="date">{{payment['date']}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "accountnavbarlayout.html" %}
+
+{% block import_files %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/invites.css') }}">
+{% endblock %}
+
+{% block maincontent %}
+    <div class="table_component" role="region" tabindex="0">
+        <table>
+            <caption id="hire-heading">Company Hires</caption>
+            <thead>
+                <tr class="table-headings">
+                    <th id="org-head">Organization</th>
+                    <th id="title-head">Contract Title</th>
+                    <th id="duration_head">Contract Duration</th>
+                    <th id="pay_head">Expected Pay</th>
+                </tr>
+            </thead>
+            <tbody class="hire-details">
+                {% for invites in company_hires %}
+                    <tr class="details-hire">
+                        <td>{{invites['organization']}}</td>
+                        <td>{{invites['title']}}</td>
+                        <td>{{invites['duration']}}</td>
+                        <td>${{invites['expected_pay'][0]}} - ${{invites['expected_pay'][1]}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

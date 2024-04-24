@@ -1,0 +1,126 @@
+#hire-heading p{
+    margin: 0;
+}
+
+caption {
+    /* display: flex;
+    justify-content: space-between; */
+    background-color: #0D1117;
+    border-radius: 0.417vw 0.417vw 0px 0px;
+    padding: 0.521vw 0.521vw 0.521vw 1.094vw;
+    font-size: 1.25vw;
+    text-align: start;
+    width: 94.4vw;
+}
+
+.payments-nav-option{
+    color: var(--color) !important; 
+}
+
+.hire-details td{
+    padding: 0.417vw 0px 0.417vw 0px;
+    font-size: 0.833vw;
+    width: 10.417vw;
+    font-weight: 200;
+}
+
+.table-headings th{
+    text-align: center;
+    padding: 0.521vw 0px 0.521vw 0px;
+    font-weight: 425;
+    font-size: 0.833vw;
+}
+
+.table-headings{
+    background-color: #0B1018;
+    border-bottom: 1px solid #151A26;
+    /* max-width: 95.4vw; */
+}
+.table_component {
+    /* border: 1px solid rgb(255, 5, 5); */
+    height: 93vh;
+    margin-top: 7vh;
+    width: 95vw;
+    color: #FFF;
+    padding:2vw;
+    margin-left: 0.48vw;
+}
+
+.hire-details{
+    display: grid;
+    background-color: #0B0F15;
+    width: 95vw;
+    border-radius: 0px 0px 0.417vw 0.417vw;
+    margin-bottom: 1vw;
+}
+
+.details-hire:hover{
+    background-color: #0F141B;
+}
+
+.details-hire{
+    display: table;
+    transition: 0.3s;
+    /* padding: 0px 84px;
+    justify-content: space-between; */
+}
+
+.table_component table {
+    /* border: 1px solid #dededf; */
+    height: 100%;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    text-align: center;
+ 
+}
+
+.scrollable-table{
+    display: block;
+    max-height: 14.167vw;
+    overflow: auto;
+}
+
+.comp-img-name{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:0.521vw;
+}
+
+#comp-img{
+    width: 2.344vw;
+    height: 2.344vw;
+    border-radius: 0.365vw;
+}
+
+#comp-name{
+    font-weight: 340;
+    font-size: 1.25vw;
+}
+
+#amount{
+    font-weight: 540;
+    font-size: 1.25vw;
+}
+
+#date{
+    font-size: 1.042vw;
+    font-weight: 300;
+    font-style: italic;
+}
+
+#hire-heading p{
+    margin: 0;
+}
+
+#hire-heading{
+    display: flex;
+    justify-content: space-between;
+    background-color: #0D1117;
+    border-radius: 0.417vw 0.417vw 0px 0px;
+    padding: 0.521vw 1.094vw 0.521vw 1.094vw;
+    font-size: 1.25vw;
+    text-align: start;
+    width: 92.8vw;
+}
