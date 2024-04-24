@@ -10,11 +10,16 @@
         {{ csrf_token }}
         {{ form.hidden_tag() }}
 
-        {{ form.min_price( placeholder = form.min_price.label.text ) }}
-        {{ form.max_price( placeholder = form.max_price.label.text ) }}
         {{ form.title( placeholder = form.title.label.text ) }}
         {{ form.description( placeholder = form.description.label.text ) }}
+        {{ form.min_price( placeholder = form.min_price.label.text ) }}
+        {{ form.max_price( placeholder = form.max_price.label.text ) }}
+        {{ form.duration }}
+        {{ form.difficulty }}
         {{ form.contract_img( placeholder = form.contract_img.label.text ) }}
+        {{ form.scope( placeholder = form.scope.label.text ) }}
+        {{ form.tech_stack( placeholder = form.tech_stack.label.text ) }}
+        {{ form.deliverables( placeholder = form.deliverables.label.text ) }}
 
         <button type="submit">Create</button>
     </form>

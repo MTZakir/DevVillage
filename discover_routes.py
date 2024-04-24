@@ -1,4 +1,4 @@
-import uuid
+import uuid, pyrebase, os
 from flask import Blueprint, render_template, redirect, url_for, session
 from firebase_admin import db
 from datetime import date
@@ -11,6 +11,19 @@ from datetime import date
 discover_blueprint = Blueprint(
     "discover", __name__, static_folder="static", template_folder="templates"
 )
+
+# Initializing pyrebase
+pyrebase_config = {
+    "apiKey": "AIzaSyDPEdHrwpZOvi0d1d1fUx1WOrX1RJ3TYHc",
+    "authDomain": "codebase-93435.firebaseapp.com",
+    "databaseURL": "https://codebase-93435-default-rtdb.europe-west1.firebasedatabase.app",
+    "projectId": "codebase-93435",
+    "storageBucket": "codebase-93435.appspot.com",
+    "messagingSenderId": "580884701092",
+    "appId": "1:580884701092:web:b4f7be265ee7ad59b9ab31",
+    "measurementId": "G-JRZ98QNRSL"
+}
+firebase = pyrebase.initialize_app(pyrebase_config)
 
 # Remove session if current user is unverified
 # use this in the beginning of every route function
@@ -39,9 +52,7 @@ def is_indi_or_org(acc_type):
 def individuals():
     is_indi_or_org(True)
 
-    
     contract_list = db.reference("/contracts").get()
-    print(contract_list.values())
     return render_template("indidiscover.html", contract_list = contract_list) 
 
 @discover_blueprint.route('/discover/companies')
@@ -193,36 +204,49 @@ def companies():
 # ---------- CONTRACT PAGE ----------
 @discover_blueprint.route("/contract/<string:contract_id>", methods = ["POST", "GET"])
 def contract(contract_id):
-    # WORK IN PROGESS
-
-    # contract_data = db.reference("/contracts").child(contract_id).get()
-
-    # Creating and loading the list of all applicants in the contract
-    applicants_list = []
-    applied = False
-    if db.reference("/contracts/"+contract_id).child("Applied").get():
-        applicants_list = db.reference("/contracts/"+contract_id+"/Applied").get()
-
-    if session.get('user_id'):
-        # Preventing reapplication of contract if already applied
-        if session.get("user_id")[2:] in applicants_list:
-            print("You have already applied for this contract")
-            applied = True
+    # If a user is logged in
+    if session.get("user_id") is not None:
+        # If user is a individual user
+        if auth.get_user(session.get("user_id")[2:]).display_name in db.reference("/user_accounts").get():
+            print(session.get("user_id")[2:])
+            # Retrieve contract details
+            contract_info = db.reference("/contracts").child(contract_id).get()
+            company_info = db.reference("/org_accounts").child(contract_info["Author"]).get()
+            
+            # If user is applied to this contract or not
+            applied = False
+            if db.reference("/contracts").child(contract_id).child("Applied").get() != None:
+                if session.get("user_id")[2:] in db.reference("/contracts").child(contract_id).child("Applied").get():
+                    applied = True
     
-    form = ApplyContract()
+            form = ApplyContract(contract_id, session.get("user_id")[2:])
 
-    if form.validate_on_submit():
-        contract_ref = db.reference("/contracts")
+            if form.validate_on_submit():
 
-        # Adding new applicant to list of applicants
-        applicants_list.append(session.get("user_id")[2:])
-        contract_ref.child(contract_id).update(
-            {"Applied": applicants_list}
-        )
+                # Uploading contract image to cloud
+                storage = firebase.storage()
+                form.resume.data.save(form.resume.data.filename)
+                resume_upload = storage.child("files/resumes/" + str(session.get("user_id")[2:]) + "-" + form.resume.data.filename).put(form.resume.data.filename)
+                os.remove(form.resume.data.filename)
 
+                applicant_data = {
+                    "Pay Requested": str(form.pay_range.data),
+                    "Skill Level": form.capability.data,
+                    "Message": form.message.data,
+                    "Resume": storage.child("files/resumes/" + str(session.get("user_id")[2:]) + "-" + form.resume.data.filename).get_url(session.get("user_id")[2:])
+                }
+
+                db.reference("/contracts").child(contract_id).child("Applied").child(session.get("user_id")[2:]).update(applicant_data)
+
+                return redirect(url_for('discover.individuals'))
+        
+        else:
+            print("You are not an individual account. You do not have permission to view it.")
+    else:
+        print("You must be logged in to view this page.")
         return redirect(url_for('discover.individuals'))
 
-    return render_template("temp/temp_contract.html", form = form, applied = applied)
+    return render_template("contract.html", form = form, applied = applied, contract_info = contract_info, company_info = company_info)
 
 
 
@@ -242,12 +266,28 @@ def create_contract():
 
             uid = str(uuid.uuid4())
 
+            # Uploading contract image to cloud
+            storage = firebase.storage()
+            form.contract_img.data.save(form.contract_img.data.filename)
+            contract_img_upload = storage.child("images/contract_images/" + uid + "-" + form.contract_img.data.filename).put(form.contract_img.data.filename)
+            os.remove(form.contract_img.data.filename)
+
             contract_details = {
-                    "Min Price": form.min_price.data,
-                    "Max Price": form.max_price.data,
+                    # Form data
                     "Title": form.title.data,
                     "Description": form.description.data,
-                    "Contract Image": form.contract_img.data,
+                    "Min Price": form.min_price.data,
+                    "Max Price": form.max_price.data,
+                    "Duration": form.duration.data,
+                    "Difficulty": form.difficulty.data,
+                    "Contract Image": storage.child("images/contract_images/" + uid + "-" + form.contract_img.data.filename).get_url(session.get("user_id")[2:]),
+                    "Scope": form.scope.data,
+                    "Technology Stack": form.tech_stack.data,
+                    "Deliverables": form.deliverables.data,
+                    "Payment Terms": "Payment will be made every 15 days for a duration of " + str(payment_term_calc(form.duration.data)),
+                    "Notes": form.notes.data,
+                    # Auto data
+                    "Status": "Open",
                     "Company Name": org_name,
                     "Author": session.get('user_id')[2:],
                     "Date Posted": today
@@ -264,7 +304,20 @@ def create_contract():
 
     return render_template("temp/create_contract.html", form = form)
 
-
+# Helper function for create_contract()
+def payment_term_calc(days):
+    if days == 15:
+        return "15 Days"
+    elif days == 30:
+        return "1 Month"
+    elif days == 45:
+        return "1 Month + 15 Days"
+    elif days == 60:
+        return "2 Months"
+    elif days == 75:
+        return "2 Months + 15 Days"
+    elif days == 90:
+        return "3 Months"
 
 # ---------- EDIT CONTRACT ----------
 @discover_blueprint.route("/edit_contract/<string:contract_id>", methods = ["POST", "GET"])

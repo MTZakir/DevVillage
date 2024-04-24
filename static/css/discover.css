@@ -18,7 +18,7 @@ a{
     width: fit-content;
 }
 
-ul{
+.navlinks-left, .navlinks-right {
     display:flex;
     gap: 2.083vw;
     height: min-content;
@@ -31,17 +31,17 @@ ul{
     font-weight: 300;
 }
 
-li > a{
+.navlinks-left li > a, .navlinks-right li > a {
     color: rgba(255, 255, 255, 0.897);
     transition: 0.4s;
 }
 
-.navlinks-left a{
+.navlinks-left a {
     color: rgba(255, 255, 255, 0.897);
     transition: 0.4s;
 }
 
-li > a:hover{
+.navlinks-left li > a:hover, .navlinks-right li > a:hover {
     color: var(--color);
 }
 

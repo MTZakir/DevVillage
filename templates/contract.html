@@ -1,11 +1,209 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ contract_data["Title"] }}</title>
-</head>
-<body>
-    Work in progress
-</body>
-</html>
+<title>{{ contract_info.Title }}</title>
+
+
+{% extends 'layoutdiscover.html' %}
+
+{% block import_files %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/contract.css') }}">
+    <script src="/static/js/contract.js" type="module"></script>
+{% endblock %}
+    
+{% block alt_discover %}
+    <li><a href="{{url_for('discover.companies')}}">Discover as company</a></li>
+{% endblock %}
+
+{% block maincontent %}
+
+    <div class="contract-holder">
+
+        <!-- Contract Details (Left Side Menu) -->
+        <div class="contract-details">
+            <div class="detail-bar">
+                <a href="{{ url_for('discover.individuals') }}"><i class="bi bi-arrow-left-circle"></i></a>
+            </div>
+            
+            <div class="contract-details-lower">
+
+                <h3>Contract Overview:</h3>
+                <p>{{ contract_info.Description }}</p>
+                
+                <h3>Contract Details:</h3>
+                <ol class="detail-list">
+                    <!-- Scope of Work -->
+                    {% if contract_info["Scope"] %}
+                    <li>
+                        Scope of Work:
+                        <ul>
+                            {% for line in contract_info["Scope"] %}
+                            <li>{{ line }}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    {% endif %}
+                    
+                    <!-- Technology Stack -->
+                    {% if contract_info["Technology Stack"] %}
+                    <li>
+                        Technology Stack:
+                        <ul>
+                            {% for line in contract_info["Technology Stack"] %}
+                            <li>{{ line }}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    {% endif %}
+                    
+                    <!-- Deliverables -->
+                    {% if contract_info["Deliverables"] %}
+                    <li>
+                        Deliverables:
+                        <ul>
+                            {% for line in contract_info["Deliverables"] %}
+                            <li>{{ line }}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    {% endif %}
+                    
+                    <!-- Payment Terms -->
+                    {% if contract_info["Payment Terms"] %}
+                    <li>
+                        Payment Terms:
+                        <ul>
+                            {% for line in contract_info["Payment Terms"] %}
+                            <li>{{ line }}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    {% endif %}
+                    
+                    <!-- Additional Notes -->
+                    {% if contract_info["Notes"] %}
+                        <li>
+                            Additional Notes:
+                            <ul>
+                                {% for line in contract_info["Notes"] %}
+                                <li>{{ line }}</li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endif %}
+                </ol>
+            </div>  
+        </div>
+            
+            <!-- Contract Form (Right Side Menu) -->
+            <div class="contract-form">
+                <div class="form-bar">
+                    <img class="profile" src="{{ contract_info['Contract Image'] }}">
+                    
+                    <h3>{{ contract_info["Company Name"] }}</h3>
+                    
+                    <p>Posted on {{ contract_info["Date Posted"] }}</p>
+                </div>
+                
+                <ul class="comp-details">
+                    <li>
+                        <h4 class="comp-overview">Company Overview:</h4>
+                    {% if company_info.Description %}
+                        <p class="comp-desc">{{ company_info.Description }}</p>
+                    {% else %}
+                        <p class="comp-desc">This company doesn't have an overview.</p>
+                    {% endif %}
+                </li>
+
+                <li>
+                    <h4 class="site">Company Website:</h4>
+                    <a class="site-link" href="{{ company_info['Org Website'] }}">{{ company_info["Org Website"] }}</a>
+                </li>
+
+                <li>
+                    <h4 class="email">Contact Email:</h4>
+                    <p class="email-link">{{ company_info["Contact Person Email"] }}</p>
+                </li>
+
+                <li>
+                    <h4 class="brief">Brief Contract Overview:</h4>
+                    <ul class="contract-overview">
+                        <li>Title: <p>{{ contract_info.Title }}</p></li>
+                        <li>
+                            Duration:
+                            {% if contract_info.Duration == 15 %}
+                            <p>15 Days</p>
+                            {% elif contract_info.Duration == 30 %}
+                            <p>1 Month</p>
+                            {% elif contract_info.Duration == 45 %}
+                            <p>1 Month + 15 Days</p>
+                            {% elif contract_info.Duration == 60 %}
+                            <p>2 Months</p>
+                            {% elif contract_info.Duration == 75 %}
+                            <p>2 Months + 15 Days</p>
+                            {% elif contract_info.Duration == 90 %}
+                            <p>3 Months</p>
+                            {% endif %}
+                        </li>
+                        <li>Skill Level: <p>{{ contract_info.Difficulty }}</p></li>
+                        <li>Pay Range: <p class="green-p">${{ contract_info["Min Price"] }} - ${{ contract_info["Max Price"] }}</p></li>
+                        <li>
+                            Status:
+                            {% if contract_info.Status == "Open" %}
+                                <p class="green-p">{{ contract_info.Status }}</p>
+                            {% elif contract_info.Status == "Closed" %}
+                                <p class="red-p">{{ contract_info.Status }}</p>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+
+            {% if applied %}
+                <div class="apply-btn-holder">        
+                    <button class="apply-btn disabled" id="apply" type="button" disabled>Apply</button>
+                </div>
+            {% else %}
+                <div class="apply-btn-holder">        
+                    <button class="apply-btn" id="apply" type="button">Apply</button>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Application Form -->
+    <div class="apply-form" id="popup">
+        <form method="POST" enctype="multipart/form-data" id="contract_form">
+            {{ csrf_token }}
+            {{ form.hidden_tag() }}
+
+            <label for="pay_range">{{ form.pay_range.label.text }} (${{ form.min_price }} - ${{ form.max_price }})</label>
+            <div class="inpfields pay">
+                <button type="button" class="num-btn left" id="pay_left"><i class="bi bi-caret-left"></i></button>
+                <input type="number" class="pay_range" id="pay_range" name="pay_range" step="50" min="{{ form.min_price }}" max="{{ form.max_price }}" placeholder="{{ form.min_price }} - {{ form.max_price }}" value="{{ form.min_price }}" readonly required>
+                <button type="button" class="num-btn right" id="pay_right"><i class="bi bi-caret-right"></i></button>
+            </div>
+
+            <label for="capability">{{ form.capability.label }}</label>
+            <select name="capability" class="capability" id="capability">
+                {% for value, label in form.capability.choices %}
+                    <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="message">{{ form.message.label }}</label>
+            <textarea name="message" id="message" class="message" cols="10" rows="5" placeholder="Optional"></textarea>
+
+            {% if form.resume %}
+                <label>{{ form.resume.label.text }}</label>
+                <label for="resume"><i class="bi bi-upload"></i> Upload</label>
+                <input class="resume" id="resume" type="file" name="resume" required hidden>
+            {% endif %}
+
+            <div class="submit-holder">
+                <button class="apply-submit" id="submit-btn" type="submit">Confirm</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="backdrop" id="backdrop"></div>
+
+{% endblock %}
