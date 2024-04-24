@@ -1,11 +1,8 @@
-{% if not session.get("user_id") %}
-    {% extends 'layoutdiscover.html' %}
-{% else %}
-    {% extends 'accountnavbarlayout.html' %}
-    {% block import_files %}
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/discover.css') }}">
-    {% endblock %}
-{% endif %}
+{% extends 'layoutdiscover.html' %}
+
+{% block import_files %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/discover.css') }}">
+{% endblock %}
 
 {% block alt_discover %}<li><a href="{{url_for('discover.companies')}}">Discover as company</a></li>{% endblock %}
 

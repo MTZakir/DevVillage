@@ -1,4 +1,4 @@
-{% extends "accountnavbarlayout.html" %}
+{% extends "layoutdiscover.html" %}
 
 {% block import_files %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/accountinfo.css') }}">
@@ -68,7 +68,7 @@
         </div>
     </div>
 
-    <div class="content">
+    <div class="acc-info-content">
         {% block acc_info_options_display %}{% endblock %}
     </div>
 </div>

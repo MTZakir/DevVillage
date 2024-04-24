@@ -16,20 +16,113 @@
 <body>
     <div class="container fadeinanimation">
         <div class="navbar">
-            <ul class="navlinks-left">
-                <li><a href="{{url_for('home')}}">Home</a></li>
-                {% block alt_discover %}{% endblock %}
-            </ul>
-            <ul class="navlinks-right">
-                <li>
-                    <form class="searchform">
-                        <input id="searchbar" type="text", placeholder="Search contracts">
-                        <button id="searchbtn" type="submit"><i class="bi bi-search search"></i></button>
-                    </form>
-                </li>
-                <li><a href="{{url_for('auth.user_login')}}">Sign In</a></li>
-                <li><a href="{{url_for('auth.user_register')}}">Sign Up</a></li>
-            </ul>
+            {% if not session.get("user_id") %}
+
+                <ul class="navlinks-left">
+                    <li><a href="{{url_for('home')}}">Home</a></li>
+                    {% block alt_discover %}{% endblock %}
+                </ul>
+                <ul class="navlinks-right">
+                    <li>
+                        <form class="searchform">
+                            <input id="searchbar" type="text", placeholder="Search contracts">
+                            <button id="searchbtn" type="submit"><i class="bi bi-search search"></i></button>
+                        </form>
+                    </li>
+                    <li><a href="{{url_for('auth.user_login')}}">Sign In</a></li>
+                    <li><a href="{{url_for('auth.user_register')}}">Sign Up</a></li>
+                </ul>
+
+            {% else %}
+
+                <ul class="navlinks-left">
+                    {% if session.get('user_id')[:2] == 'I-' %}
+                        {% set home_url = 'home' %}
+                        {% set dashboard_url = 'dashboard.individuals' %}
+                        {% set discover_url = 'discover.individuals' %}
+                        {% set profile_url = 'accinfo.individual_profile' %}
+                        {% set acc_info_url = 'accinfo.individual_profile' %}
+                        {% set settings_url = 'accinfo.individual_settings' %}
+                    {% else %}
+                        {% set home_url = 'homecomp' %}
+                        {% set dashboard_url = 'dashboard.organization' %}
+                        {% set discover_url = 'discover.companies' %}
+                        {% set profile_url = 'accinfo.org_profile' %}
+                        {% set acc_info_url = 'accinfo.org_profile' %}
+                        {% set settings_url = 'accinfo.org_settings' %}
+                    {% endif %}
+                    <li><a href="{{url_for(dashboard_url)}}" class="dashboard-nav-option">Dashboard</a></li>
+                    <li><a href="{{url_for(discover_url)}}" class="discover-nav-option">Discover</a></li>
+                    <li><a href="{{url_for(home_url)}} " class="payments-nav-option">Payments</a></li>
+                    <li><a href="{{url_for(home_url)}} " class="invites-nav-option">Invites</a></li>
+                    <li><a href="{{url_for(home_url)}} " class="invites-nav-option">DevChat</a></li>
+                    <li><a href="{{url_for(home_url)}} " class="invites-nav-option">Buy Tokens</a></li>
+                </ul>
+
+
+                <ul class="navlinks-right">
+                    {% if url_for('accinfo.acc_info') not in request.url %}
+                        <div class="acc-info-drop-down">
+                            <div class="icon">
+                                <i class="bi bi-person-circle profile-picture"></i>
+                            </div>
+                            <div class="tilted-container"></div>
+                            <div class="dropdown" style>
+    
+                                <div class="acc-dropdown-display">
+                                    <i class="bi bi-person-circle profile-picture"></i>
+                                    <span class="first-and-last-name">Dave Batis</span>
+                                    <span class="user-name">@Ballsmasher69</span>
+                                </div>
+    
+                                <div class="account-dropdown-options">
+                                    <div class="acc-dropdown-button profile-btn">
+                                        <button onclick="window.location.href = `{{url_for(profile_url)}}`"></button>
+                                        <span>Profile</span>
+                                        <i class="bi bi-person"></i>
+                                    </div>
+                        
+                                    <div class="acc-dropdown-button acc-settings-btn">
+                                        <button onclick="window.location.href = `{{url_for(settings_url)}}`"></button>
+                                        <span>Account Settings</span>
+                                        <i class="bi bi-gear"></i>
+                                    </div>
+                        
+                                    <div class="acc-dropdown-button my-ads-btn">
+                                        <button></button>
+                                        <span>My Ads</span>
+                                        <i class="bi bi-badge-ad"></i>
+                                    </div>
+                        
+                                    <div class="acc-dropdown-button contr-hstry-btn">
+                                        <button></button>
+                                        <span>Contract History</span>
+                                        <i class="bi bi-clock-history"></i>
+                                    </div>
+                        
+                                    <div class="acc-dropdown-button pay-meth-btn">
+                                        <button></button>
+                                        <span>Payment Methods</span>
+                                        <i class="bi bi-credit-card-2-front"></i>
+                                    </div>
+                        
+                                    <div class="acc-dropdown-button elec-sign-btn">
+                                        <button></button>
+                                        <span>Electronic Signature</span>
+                                        <i class="bi bi-pencil-square"></i>
+                                    </div>
+                                </div>
+    
+                                <div class="log-out">
+                                    <button onclick="window.location.href = `{{url_for('auth.logout')}}`"></button>
+                                    <span>Sign out</span>
+                                    <i class="bi bi-door-open"></i>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </ul>
+            {% endif %}
         </div>
 
         {% block maincontent %}{% endblock %}

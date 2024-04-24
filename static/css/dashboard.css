@@ -12,10 +12,6 @@ h2{
     margin:0;
 }
 
-.dashboard-nav-option{
-    color: var(--color) !important; 
-}
-
 .dashboard-content{
     display:grid;
     grid-template-columns: 1fr 1fr;
