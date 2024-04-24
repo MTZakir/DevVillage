@@ -7,7 +7,7 @@
     margin-top: 7vh;
     background-color: #0F0F0F;
     height: 93vh;
-    width: 25vw;
+    width: 23.5vw;
     border-right: 1px solid #2B3245;
     display: flex;
     flex-direction: column;
@@ -20,6 +20,8 @@
     flex-direction: column;
     overflow: hidden;
     align-items: center;
+
+    min-height: 13.811vw;
     /* margin-top: -8vw; */
 }
 
@@ -39,11 +41,11 @@
     font-size: 0.9vw;
 }
 
-.content{
+.acc-info-content{
     margin-top: 7vh;
-    margin-left: 25vw;
+    margin-left: 23.5vw;
     min-height: 93vh;
-    width: 75vw;
+    width: 76.5vw;
 }
 
 .account-info-options{
@@ -110,7 +112,6 @@
 }
 
 .logout{
-    margin-top: 9vw;
 
     position: relative;
     width: 100%;
@@ -163,4 +164,22 @@
     left: 3.7vw;
 
     pointer-events: none;
+}
+
+@media screen and (height: 774.4px) {
+    .logout {
+        margin-top: 9.35vw; /* Adjust margin based on screen height */
+    }
+}
+
+@media screen and (height: 742.4px) {
+    .logout {
+        margin-top: 6vw; /* Adjust margin based on screen height */
+    }
+}
+
+@media screen and (height: 864px) {
+    .logout {
+        margin-top: 13vw; /* Adjust margin based on screen height */
+    }
 }

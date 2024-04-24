@@ -26,21 +26,27 @@
                     </div>
                 </div>
 
-                <div class="avg-rating">
+                <div class="avg-rating profile-rating">
                     <div class="Stars" data-rating="4.3">
                         <span>4.3</span>
                     </div>
                 </div>
 
                 <div class="expertise-and-about">
-                    <span>Field of Expertise</span>
+                    <span>Field of Expertise</span><span class="see-more-expertise see-more"><i class="bi bi-chevron-down"></i></span>
                     <ul>
                         <li>Full Stack Developer</li>
                         <li>Expertise in exploding Dev's left testicle</li>
                         <li>Penetration Tester</li>
+                        <li>Penetration Tester</li>
+                        <li>Penetration Tester</li>
+                        <li>Penetration Tester</li>
+                        <li>Penetration Tester</li>
+                        <li>Penetration Tester</li>
+                        <li>Penetration Tester</li>
                     </ul>
-                    <span>About</span>
-                    <p>Before time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the CubeBefore time began, there was the Cube. We know not where it comes from, only that it holds the power to create worlds and fill them with life. That is how our race was born. For a time, we lived in harmony, but like all great power, some wanted it for good, others for evil. And so began the war, a war that ravaged our planet until it was consumed by the death, and the Cube was lost to the far reaches of space. We scattered across the galaxy, hoping to find it and rebuild our home, searching every star, every world. And just when all hope seemed lost, message of a new discovery drew us to an unknown planet called Earth. But we were already too late.</p>
+                    <span>About</span><span class="see-more-about see-more"><i class="bi bi-chevron-down"></i></span>
+                    <p>Before time began, there was the Cube. We know not where it comes from, only that it holds the power to create worlds and fill them with life. That is how our race was born. For a time, we lived in harmony, but like all great power, some wanted it for good, others for evil. And so began the war, a war that ravaged our planet until it was consumed by the death, and the Cube was lost to the far reaches of space. We scattered across the galaxy, hoping to find it and rebuild our home, searching every star, every world. And just when all hope seemed lost, message of a new discovery drew us to an unknown planet called Earth. But we were already too late.Before time began, there was the Cube. We know not where it comes from, only that it holds the power to create worlds and fill them with life. That is how our race was born. For a time, we lived in harmony, but like all great power, some wanted it for good, others for evil. And so began the war, a war that ravaged our planet until it was consumed by the death, and the Cube was lost to the far reaches of space. We scattered across the galaxy, hoping to find it and rebuild our home, searching every star, every world. And just when all hope seemed lost, message of a new discovery drew us to an unknown planet called Earth. But we were already too late.</p>
                 </div>
             </div>
 
@@ -65,6 +71,66 @@
         </div>
 
         <div class="contracts-and-reviews">
+
+            <div class="option-btns">
+
+                <div class="contract-history-btn">
+                    <button></button>
+                    <span>Contract History</span>
+                </div>
+                
+                <div class="review-btn">
+                    <button></button>
+                    <span>Reviews</span>
+                </div>
+
+            </div>
+
+            <div class="contract-and-review-content">
+                <button class="scroll-btn" id="scroll-left">
+                    <i class="bi bi-chevron-left"></i>
+                </button>
+
+                <div class="contrct-cards-container cards-container">
+                    {% for i in range(20) %}
+
+                    <div class="contrct-cards cards" onclick="window.location.href = `{{url_for('accinfo.individual_settings')}}`">
+                        <span class="org-name">Deez</span>
+                        <span class="contrct-title">Nuts</span>
+                        <span class="pay-range">On yo chin</span>
+                    </div>
+
+                    {% endfor %}
+                </div>
+
+                <div class="review-cards-container cards-container">
+
+                    {% for i in range(20) %}
+
+                    <div class="review-cards cards" onclick="window.location.href = `{{url_for('accinfo.individual_settings')}}`">
+                        <div class="org-name-and-rating">
+
+                            <div class="org-head">
+                                <img src="/static/images/netflix.png" alt="">
+                                <span class="org-name">Netflix</span>
+                            </div>
+
+                            <div class="Stars" data-rating="4.3">
+                                <span>4.3</span>
+                            </div>
+
+                        </div>
+                        <span class="review">Delivered the result according to our expectations, however updates regarding the contract were not given unless asked and way of communication could be more formal. furthermore reports could use some improvements furthermore reports could use some improvements furthermore reports could use some improvements furthermore reports could use some improvements furthermore reports could use some improvements furthermore reports could use some improvements furthermore reports could use some improvements</span>
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+                <button class="scroll-btn" id="scroll-right">
+                    <i class="bi bi-chevron-right"></i>
+                </button>
+            </div>
 
         </div>
     </div>
