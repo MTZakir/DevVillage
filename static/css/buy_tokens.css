@@ -120,6 +120,10 @@ input[type="radio"]:not(:disabled):checked {
     margin-top: 60px;
 }
 
+#buy:hover{
+    cursor: pointer;
+}
+
 #buy{
     padding: 0.521vw;
     height: 2.604vw;
