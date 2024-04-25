@@ -164,6 +164,34 @@ function statusColor(){
     });
 }
 
+function statusColorHistory(){
+    $('.status-heading').each(function() {
+        var status = $(this).text().trim();
+        if (status === 'Completed') {
+            // Set the color of the text to green for completed status
+            $(this).css('background-color', '#0A6533');
+
+        } else if (status === 'Ongoing') {
+            // Set the color of the text to the specified rgba color for ongoing status
+            $(this).css('background-color', '#122943');
+        }
+        console.log(status)
+    })
+}
+function filterStatus(){
+    $("#all-btn").click(function() {
+        $('.contract-card').fadeIn();
+    });
+    $("#ongoing-btn").click(function() {
+        $(".contract-card[data-status='Ongoing']").fadeIn();
+        $(".contract-card[data-status='Completed']").hide();
+    });
+    $("#completed-btn").click(function() {
+        $(".contract-card[data-status='Completed']").fadeIn();
+        $(".contract-card[data-status='Ongoing']").hide();
+    });
+}
+
 $(document).ready(function() {
     setColor();
     ratingCalc();
@@ -173,6 +201,8 @@ $(document).ready(function() {
     submitForm();
     dropDownClick();
     statusColor();
+    statusColorHistory();
+    filterStatus();
     $('#bttnconf').css('background-color', '#733DF0');
 });
 

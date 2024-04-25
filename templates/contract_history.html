@@ -1,0 +1,49 @@
+{% extends "accountinfo.html" %}
+
+{% block import_files %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/contract_history.css') }}">
+{% endblock %}
+
+{% block title %}My Contract History{% endblock %}
+
+{% block acc_info_options_display %}
+    <div class="title-filter-btns">
+        <h2 id="page-title">Contract History</h2>
+        <div class="filter-btns-contract-history">
+            <button class="contract-history-filters" id="all-btn"><span>All</span></button>
+            <button class="contract-history-filters" id="ongoing-btn"><span>Ongoing</span></button>
+            <button class="contract-history-filters" id="completed-btn"><span>Completed</span></button>
+        </div>
+    </div>
+    <div class="contracts-history">
+        {% for contract in contracts %}
+            <div class="contract-card" data-status="{{contract['status']}}">
+                <div  class="contract-text">
+                    <div class="comp-name-date">
+                        <h2 id="comp-name">{{contract['comp_name']}}</h2>
+                        {% if contract['status'] == 'Ongoing' %}
+                            <p>Started on {{contract['start_date']}}</p>
+                        {% else %}
+                            <p>Completed on {{contract['completion_date']}}</p>
+                        {% endif %}
+                    </div>
+                    <div class="contract-title-desc">
+                        <h2>{{contract['title']}}</h2>
+                        <p>{{contract['desc']}}</p>
+                    </div>
+                    <div class="price">
+                        {% if contract['total_earned'] == None %}
+                            <p>${{contract['price_range'][0]}} - {{contract['price_range'][1]}}</p>
+                        {% else %}
+                            <p>Total Earned: ${{contract['total_earned']}}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="contract-status">
+                    <h2 class="status-heading">{{contract['status']}}</h2>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -22,49 +22,37 @@
             <span class="fst-name-lst-name">Dave Batis</span>
             <span class="username">@Ballsmasher69</span>
         </div>
-
-        <div class="account-info-options">
-            <div class="acc-info-button profile-btn">
-                <button onclick="window.location.href = `{{url_for(profile_url)}}`"></button>
-                <span>Profile</span>
-                <i class="bi bi-person"></i>
+        <div class="account-info-all-options">
+            <div class="account-info-options">
+                <div class="acc-info-button profile-btn">
+                    <button onclick="window.location.href = `{{url_for(profile_url)}}`"></button>
+                    <span>Profile</span>
+                    <i class="bi bi-person"></i>
+                </div>
+    
+                <div class="acc-info-button acc-settings-btn">
+                    <button onclick="window.location.href = `{{url_for(settings_url)}}`"></button>
+                    <span>Account Settings</span>
+                    <i class="bi bi-gear"></i>
+                </div>
+    
+                <div class="acc-info-button contr-hstry-btn">
+                    <button onclick="window.location.href = `{{url_for(contract_history_url)}}`"></button>
+                    <span>Contract History</span>
+                    <i class="bi bi-clock-history"></i>
+                </div>
+    
+                <div class="acc-info-button pay-meth-btn">
+                    <button></button>
+                    <span>Wallet</span>
+                    <i class="bi bi-credit-card-2-front"></i>
+                </div>
             </div>
-
-            <div class="acc-info-button acc-settings-btn">
-                <button onclick="window.location.href = `{{url_for(settings_url)}}`"></button>
-                <span>Account Settings</span>
-                <i class="bi bi-gear"></i>
+            <div class="logout">
+                <button onclick="window.location.href = `{{url_for('auth.logout')}}`"></button>
+                <span>Sign out</span>
+                <i class="bi bi-door-open"></i>
             </div>
-
-            <div class="acc-info-button my-ads-btn">
-                <button></button>
-                <span>My Ads</span>
-                <i class="bi bi-badge-ad"></i>
-            </div>
-
-            <div class="acc-info-button contr-hstry-btn">
-                <button></button>
-                <span>Contract History</span>
-                <i class="bi bi-clock-history"></i>
-            </div>
-
-            <div class="acc-info-button pay-meth-btn">
-                <button></button>
-                <span>Payment Methods</span>
-                <i class="bi bi-credit-card-2-front"></i>
-            </div>
-
-            <div class="acc-info-button elec-sign-btn">
-                <button></button>
-                <span>Electronic Signature</span>
-                <i class="bi bi-pencil-square"></i>
-            </div>
-        </div>
-
-        <div class="logout">
-            <button onclick="window.location.href = `{{url_for('auth.logout')}}`"></button>
-            <span>Sign out</span>
-            <i class="bi bi-door-open"></i>
         </div>
     </div>
 

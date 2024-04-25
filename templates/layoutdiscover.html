@@ -11,7 +11,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/static/js/render.js" type="module"></script>
     {% block import_files %}{% endblock %}
-    <title>Discover</title>
+    <title>{% block title %}Discover{% endblock %}</title>
 </head>
 <body>
     <div class="container fadeinanimation">
@@ -43,8 +43,10 @@
                         {% set profile_url = 'accinfo.individual_profile' %}
                         {% set acc_info_url = 'accinfo.individual_profile' %}
                         {% set settings_url = 'accinfo.individual_settings' %}
+                        {% set ad_url = 'accinfo.my_ads' %}
                         {% set invites_url = 'dashboard.invites' %}
                         {% set payments_url = 'dashboard.payment_history' %}
+                        {% set contract_history_url = 'accinfo.contract_history' %}
                     {% else %}
                         {% set home_url = 'homecomp' %}
                         {% set dashboard_url = 'dashboard.organization' %}
@@ -76,49 +78,38 @@
                                     <span class="first-and-last-name">Dave Batis</span>
                                     <span class="user-name">@Ballsmasher69</span>
                                 </div>
-    
-                                <div class="account-dropdown-options">
-                                    <div class="acc-dropdown-button profile-btn">
-                                        <button onclick="window.location.href = `{{url_for(profile_url)}}`"></button>
-                                        <span>Profile</span>
-                                        <i class="bi bi-person"></i>
+                                <div class="acc-options-all">
+                                    <div class="account-dropdown-options">
+                                        <div class="acc-dropdown-button profile-btn">
+                                            <button onclick="window.location.href = `{{url_for(profile_url)}}`"></button>
+                                            <span>Profile</span>
+                                            <i class="bi bi-person"></i>
+                                        </div>
+                            
+                                        <div class="acc-dropdown-button acc-settings-btn">
+                                            <button onclick="window.location.href = `{{url_for(settings_url)}}`"></button>
+                                            <span>Account Settings</span>
+                                            <i class="bi bi-gear"></i>
+                                        </div>
+                            
+                                        <div class="acc-dropdown-button contr-hstry-btn">
+                                            <button  onclick="window.location.href = `{{url_for(contract_history_url)}}`"></button>
+                                            <span>Contract History</span>
+                                            <i class="bi bi-clock-history"></i>
+                                        </div>
+                            
+                                        <div class="acc-dropdown-button pay-meth-btn">
+                                            <button></button>
+                                            <span>Wallet</span>
+                                            <i class="bi bi-credit-card-2-front"></i>
+                                        </div>
                                     </div>
-                        
-                                    <div class="acc-dropdown-button acc-settings-btn">
-                                        <button onclick="window.location.href = `{{url_for(settings_url)}}`"></button>
-                                        <span>Account Settings</span>
-                                        <i class="bi bi-gear"></i>
+        
+                                    <div class="log-out">
+                                        <button onclick="window.location.href = `{{url_for('auth.logout')}}`"></button>
+                                        <span>Sign out</span>
+                                        <i class="bi bi-door-open"></i>
                                     </div>
-                        
-                                    <div class="acc-dropdown-button my-ads-btn">
-                                        <button></button>
-                                        <span>My Ads</span>
-                                        <i class="bi bi-badge-ad"></i>
-                                    </div>
-                        
-                                    <div class="acc-dropdown-button contr-hstry-btn">
-                                        <button></button>
-                                        <span>Contract History</span>
-                                        <i class="bi bi-clock-history"></i>
-                                    </div>
-                        
-                                    <div class="acc-dropdown-button pay-meth-btn">
-                                        <button></button>
-                                        <span>Payment Methods</span>
-                                        <i class="bi bi-credit-card-2-front"></i>
-                                    </div>
-                        
-                                    <div class="acc-dropdown-button elec-sign-btn">
-                                        <button></button>
-                                        <span>Electronic Signature</span>
-                                        <i class="bi bi-pencil-square"></i>
-                                    </div>
-                                </div>
-    
-                                <div class="log-out">
-                                    <button onclick="window.location.href = `{{url_for('auth.logout')}}`"></button>
-                                    <span>Sign out</span>
-                                    <i class="bi bi-door-open"></i>
                                 </div>
                             </div>
                         </div>

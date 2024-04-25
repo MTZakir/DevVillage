@@ -173,7 +173,13 @@ a{
     /* border: 1px solid white; */
 }
 
-.desc-date > h3, p{
+.desc-date h3{
+    color: white;
+    margin: 0;
+    margin-bottom: 0.521vw;
+}
+
+.desc-date p{
     color: white;
     margin: 0;
     margin-bottom: 0.521vw;
@@ -498,7 +504,7 @@ a{
 .dropdown.active{
     opacity: 1;
     width: 19vw;
-    height: 32vw;
+    height: 27vw;
 }
 
 .dropdown .acc-dropdown-display{
@@ -640,4 +646,10 @@ a{
     left: 2.65vw;
 
     pointer-events: none;
+}
+
+.acc-options-all{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }

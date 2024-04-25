@@ -11,6 +11,11 @@ p{
 h2{
     margin:0;
 }
+
+.view-bttn a{
+    color: #ffffff9c;
+}
+
 .dashboard-nav-option{
     color: var(--color) !important;
 }
@@ -181,14 +186,6 @@ h2{
     margin: 0;
 }
 
-caption {
-    background-color: #0D1117;
-    border-radius: 0.417vw 0.417vw 0px 0px;
-    padding: 0.521vw 0.521vw 0.521vw 1.094vw;
-    font-size: 1.25vw;
-    text-align: start;
-}
-
 .hire-details td{
     padding: 0.417vw 0px 0.417vw 0px;
     font-size: 0.833vw;
@@ -295,4 +292,14 @@ caption {
     background-color: #0B0F15;
     justify-content: center;
     align-items: center;
+}
+
+#hire-heading{
+    background-color: #0D1117;
+    border-radius: 0.417vw 0.417vw 0px 0px;
+    padding: 0.521vw 1.094vw 0.521vw 1.094vw;
+    font-size: 1.25vw;
+    text-align: start;
+    display: flex;
+    justify-content: space-between;
 }

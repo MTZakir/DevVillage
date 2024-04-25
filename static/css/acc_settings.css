@@ -1,3 +1,193 @@
 .acc-settings-btn button{
     background-color: #5823d3;
 }
+
+.acc-settings{
+    padding: 20px 30px 20px 30px;
+    display: grid;
+    gap: 1.5vw;
+}
+
+.page-title-brief-desc{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+#title, #brief-desc{
+    margin: 0;
+}
+
+#title{
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.prof-pic{
+    font-size: 138px;
+}
+
+.update-profile-pic{
+    display: flex;
+    gap: 2vw;
+    align-items: center;
+}
+
+.add-or-update-bttn{
+    margin-top: 1vw;
+    background-color: transparent;
+    border-radius: 8px;
+    border: 1px solid #7D59D1;
+    padding: 10px;
+    transition: 0.3s;
+
+    color: #7D59D1;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.add-or-update-bttn:hover{
+    background-color: #7D59D1;
+    color: #fff;
+}
+
+#brief-desc{
+    color: #969090;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.personal-fields {
+    width: 314px;
+    height: fit-content;
+    padding: 15px 10px 15px 15px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    border-radius: 0.313vw;
+    border: none;
+    outline: none;
+    background-color: #202124;
+    box-shadow: 0.052vw 0.208vw 0.208vw 0.052vw rgba(0, 0, 0, 0.25) inset;
+    box-sizing: border-box;
+}
+
+.personal-fields p{
+    margin: 0;
+    color: rgba(255, 255, 255, 0.40);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.personal-fields textarea{
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color:#fff;
+
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    
+    resize: none;
+    height: 26px;
+}
+.personal-fields input{
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color:#fff;
+
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    
+    resize: none;
+    height: 20px;
+}
+
+.personal-details{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.right-fields{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    row-gap: 16px;
+}
+
+.left-fields{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: 16px;
+}
+
+.username-atsign{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#email{
+    color: #ffffff8e;
+}
+
+#email-field{
+    width: 100%;
+}
+
+#username-field{
+    width: 100%;
+}
+
+#phone-field{
+    width: 100%;
+}
+
+#profiences-field{
+    width: 100%;
+}
+
+#password-field{
+    width: 100%;
+}
+
+#birth-field{
+    width: 100%;
+}
+
+#gender-field{
+    width: 100%;
+}
+
+#bio-field{
+    width: 100%;
+    height: 65%;
+    gap: 5px;
+    justify-content: flex-start;
+}
+
+#bio-about{
+    height: 100%; 
+    width: 100%
+}

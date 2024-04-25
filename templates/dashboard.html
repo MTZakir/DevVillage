@@ -9,7 +9,12 @@
         <div class="left-content">
             <div class="table_component" role="region" tabindex="0">
                 <table>
-                    <caption id="hire-heading">Company Hires</caption>
+                    <div id="hire-heading">
+                        <p>Company Invites</p>
+                        <button class="view-bttn bttn-style">
+                            <a class='view-bttn' href="{{url_for(invites_url)}}">View All</a>
+                        </button>
+                    </div>
                     <thead>
                         <tr class="table-headings">
                             <th id="org-head">Organization</th>
@@ -82,7 +87,7 @@
                 <div class="title-button">
                     <h2 id="summary-title">Recent payments</h2>
                     <button class="view-bttn bttn-style">
-                        <a class='view-bttn' href="{{url_for['home']}}">View All</a>
+                        <a class='view-bttn' href="{{url_for(payments_url)}}">View All</a>
                     </button>
                 </div>
                 <div class="payments">
