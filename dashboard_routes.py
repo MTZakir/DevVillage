@@ -358,9 +358,9 @@ def payment_history():
 
 @dashboard_blueprint.route('/org/dashboard')
 def organization():
-    # is_indi_or_org(False)
+    is_indi_or_org(False)
     # Call this function in every route, to ensure navbar details
-    # user_data = user_nav_details(session.get("user_id")[2:])
+    user_data = user_nav_details(session.get("user_id")[2:])
 
     return render_template("dashboard.html")
 
