@@ -33,6 +33,14 @@ def is_indi_or_org(acc_type):
         return redirect(url_for("home"))
 
 # DISCOVER
+@dashboard_blueprint.route('/organization/applicants')
+def applicants():
+    # Call this function in every route, to ensure navbar details
+    user_data = user_nav_details(session.get("user_id")[2:])
+
+    return render_template('applicants.html', user_data=user_data)
+
+
 @dashboard_blueprint.route('/individual/invites')
 def invites():
     # Call this function in every route, to ensure navbar details
@@ -235,9 +243,16 @@ def individuals():
                            recent_payments=recent_payments,
                            user_data = user_data,)
 
+@dashboard_blueprint.route('/individual/org_payments')
+def org_payment_history():
+    is_indi_or_org(True)
+    # Call this function in every route, to ensure navbar details
+    user_data = user_nav_details(session.get("user_id")[2:])
+
+
 @dashboard_blueprint.route('/individual/payments')
 def payment_history():
-    is_indi_or_org(False)
+    is_indi_or_org(True)
     # Call this function in every route, to ensure navbar details
     user_data = user_nav_details(session.get("user_id")[2:])
 
@@ -343,12 +358,11 @@ def payment_history():
 
 @dashboard_blueprint.route('/org/dashboard')
 def organization():
-    is_indi_or_org(False)
+    # is_indi_or_org(False)
     # Call this function in every route, to ensure navbar details
-    user_data = user_nav_details(session.get("user_id")[2:])
+    # user_data = user_nav_details(session.get("user_id")[2:])
 
-    
-    return render_template("dashboard.html", user_data = user_data)
+    return render_template("dashboard.html")
 
 
 

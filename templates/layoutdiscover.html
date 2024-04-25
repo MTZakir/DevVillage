@@ -52,16 +52,27 @@
                         {% set chat_url = 'chat' %}
                     {% else %}
                         {% set home_url = 'homecomp' %}
+                        {% set wallet_url = 'accinfo.org_wallet' %}
+                        {% set tokens_url = 'accinfo.buy_tokens' %}
                         {% set dashboard_url = 'dashboard.organization' %}
+                        {% set payments_url = 'dashboard.org_payment_history' %}
                         {% set discover_url = 'discover.companies' %}
                         {% set profile_url = 'accinfo.org_profile' %}
+                        {% set applicants_url = 'dashboard.applicants' %}
                         {% set acc_info_url = 'accinfo.org_profile' %}
+                        {% set chat_url = 'chat' %}
+                        {% set contract_history_url = 'accinfo.contract_history' %}
                         {% set settings_url = 'accinfo.org_settings' %}
                     {% endif %}
+
                     <li><a href="{{url_for(dashboard_url)}}" class="dashboard-nav-option">Dashboard</a></li>
                     <li><a href="{{url_for(discover_url)}}" class="discover-nav-option">Discover</a></li>
                     <li><a href="{{url_for(payments_url)}} " class="payments-nav-option">Payment History</a></li>
-                    <li><a href="{{url_for(invites_url)}} " class="invites-nav-option">Invites</a></li>
+                    {% if session.get('user_id')[:2] == 'I-' %}
+                        <li><a href="{{url_for(invites_url)}} " class="invites-nav-option">Invites</a></li>
+                    {% else %}
+                        <li><a href="{{url_for(applicants_url)}} " class="invites-nav-option">Applicants</a></li>
+                    {% endif %}
                     <li><a href="{{url_for(chat_url)}} " class="chat-nav-option">DevChat</a></li>
                     <li><a href="{{url_for(tokens_url)}} " class="buy-nav-option">Buy Tokens</a></li>
                 </ul>

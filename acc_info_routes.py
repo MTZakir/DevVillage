@@ -259,7 +259,10 @@ def wallet():
         user_wallet_db = db.reference("/user_accounts").child(auth.get_user(session.get("user_id")[2:]).display_name).child("Wallet").get()
 
         if (user_wallet_db):
+            new_wallet_amount = user_wallet_db + int(form.amount.data)
             db.reference("/user_accounts").child(auth.get_user(session.get("user_id")[2:]).display_name).update({"Wallet": user_wallet_db + int(form.amount.data)})
+
+            return redirect(url_for('accinfo.wallet'))
 
     return render_template("wallet.html", form = form, user_data = user_data)
 
