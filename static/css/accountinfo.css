@@ -174,18 +174,18 @@
 
 @media screen and (height: 774.4px) {
     .logout {
-        margin-top: 9.35vw; /* Adjust margin based on screen height */
+        margin-top: 4vw;
     }
 }
 
 @media screen and (height: 742.4px) {
     .logout {
-        margin-top: 6vw; /* Adjust margin based on screen height */
+        margin-top: 0.72vw;
     }
 }
 
 @media screen and (height: 864px) {
     .logout {
-        margin-top: 13vw; /* Adjust margin based on screen height */
+        margin-top: 7.8vw;
     }
 }

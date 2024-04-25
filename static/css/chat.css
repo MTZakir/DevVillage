@@ -1,0 +1,196 @@
+/* --------------------- CHAT BOX ---------------------*/
+
+.chat-box {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    margin: 0;
+    margin-top: 7vh;
+    height: 93vh;
+}
+
+.chats-panel {
+    overflow-y: auto;
+    max-height: 93vh;
+    width: 100%;
+    background-color: #0F0F0F;
+}
+
+.user-chats .message {
+    margin: 6px 0;
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+/* Style for messages sent by the current user */
+.user-chats .message-right {
+    background-color: #DCF8C6; /* Light green background */
+    color: #000; /* Black text color */
+    text-align: right;
+}
+
+/* Style for messages sent by other users */
+.user-chats .message-left {
+    background-color: #F0F0F0; /* Light gray background */
+    color: #000; /* Black text color */
+    text-align: left;
+}
+
+/* Style for sender information */
+.user-chats .sender {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.one-chat {
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: fit-content;
+    padding: 1.042vw;
+    border-bottom: 0.052vw solid #232420;
+    gap: 1.563vw;
+    transition: 0.3s;
+}
+
+.one-chat:hover {
+    background-color: #2e2e2e;
+}
+
+.name-recent-chat {
+    width: 26.042vw;
+    display: flex;
+    flex-direction: column;
+    gap: 0.469vw;
+}
+
+.chat-area {
+    background-image: linear-gradient(to top right, rgb(9, 14, 17),rgb(11, 23, 41));
+    background-blend-mode: color-dodge;
+}
+
+.user-chats {
+    overflow-y: auto;
+    max-height: 90vh
+}
+
+.textbox {
+    display: flex;
+    justify-content: flex-start;
+    padding: 0.521vw;
+    /* Adjust padding */
+    align-items: center;
+    background: #0F0F0F;
+    gap: 1.563vw;
+    position: absolute;
+    bottom: 0;
+    /* Align to the bottom */
+    height: 3.75vw;
+    /* Set height of the textbox */
+    box-sizing: border-box;
+    /* Include padding and border in the total width and height */
+}
+
+
+.textbar-sendbtn {
+    display: flex;
+    height: 3.75vw;
+    justify-content: center;
+    align-items: center;
+    gap: 1.042vw;
+}
+
+.user-chats {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.contact-text {
+    display: flex;
+    flex-direction: column;
+}
+
+#attachments {
+    width: 0.781vw;
+    height: 0.781vw;
+    background-color: #122943;
+    ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.042vw;
+    border-radius: 50%;
+}
+
+.paperclip {
+    font-size: 1.302vw;
+    color: #ffffff;
+}
+
+.user-chats {
+    overflow-y: auto;
+    padding: 0px 1.042vw 0px 1.042vw;
+    max-height: 87vh;
+}
+
+#send-circle {
+    width: 0.781vw;
+    height: 0.781vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #48259A;
+    border-radius: 50%;
+    padding: 1.042vw;
+}
+
+.send {
+    font-size: 1.302vw;
+    color: #ffffff;
+}
+
+#text-bar:focus {
+    outline: none;
+}
+
+#text-bar {
+    font-size: 1.042vw;
+    border: none;
+    font-weight: 100;
+    color: #ffffffde;
+    width: 55.208vw;
+    height: 2.708vw;
+    border-radius: 2.604vw;
+    background-color: #161414;
+    padding: 0px 1.042vw 0px 1.042vw;
+}
+
+#chat,
+#name {
+    font-weight: 300;
+    margin: 0;
+}
+
+#name {
+    font-size: 1.146vw;
+}
+
+#chat {
+    color: #ffffff85;
+    white-space: nowrap;
+    font-size: 0.938vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#prof-pic {
+    height: 4.167vw;
+    width: 4.167vw;
+    border-radius: 5.208vw;
+}
