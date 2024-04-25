@@ -195,6 +195,13 @@ def contract_history():
     ]
     return render_template('contract_history.html', contracts=contracts)
 
+@acc_info_blueprint.route('/buy_tokens/individual')
+def buy_tokens():
+    is_indi_or_org(True)
+
+    return render_template("buy_tokens.html")
+
+
 @acc_info_blueprint.route('/acc_info/acc_settings/org')
 def org_settings():
     is_indi_or_org(False)

@@ -47,6 +47,7 @@
                         {% set invites_url = 'dashboard.invites' %}
                         {% set payments_url = 'dashboard.payment_history' %}
                         {% set contract_history_url = 'accinfo.contract_history' %}
+                        {% set tokens_url = 'accinfo.buy_tokens' %}
                     {% else %}
                         {% set home_url = 'homecomp' %}
                         {% set dashboard_url = 'dashboard.organization' %}
@@ -60,7 +61,7 @@
                     <li><a href="{{url_for(payments_url)}} " class="payments-nav-option">Payment History</a></li>
                     <li><a href="{{url_for(invites_url)}} " class="invites-nav-option">Invites</a></li>
                     <li><a href="{{url_for(home_url)}} " class="chat-nav-option">DevChat</a></li>
-                    <li><a href="{{url_for(home_url)}} " class="buy-nav-option">Buy Tokens</a></li>
+                    <li><a href="{{url_for(tokens_url)}} " class="buy-nav-option">Buy Tokens</a></li>
                 </ul>
 
 

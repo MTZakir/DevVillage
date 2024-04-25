@@ -169,6 +169,7 @@
 }
 
 .inpfields i{
+    margin-top: 0.35vw;
     position: absolute;
     color: rgba(255, 255, 255, 0.614);
     font-size: 1.45vw;
