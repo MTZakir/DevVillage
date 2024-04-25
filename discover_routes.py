@@ -6,6 +6,7 @@ from discover_forms import CreateContract, ApplyContract
 from firebase_admin import auth
 from firebase_admin._auth_utils import UserNotFoundError
 from datetime import date
+from dashboard_routes import user_nav_details
 
 # Blueprint initialization
 discover_blueprint = Blueprint(
@@ -51,13 +52,18 @@ def is_indi_or_org(acc_type):
 @discover_blueprint.route('/discover/individual')
 def individuals():
     is_indi_or_org(True)
+    # Call this function in every route, to ensure navbar details
+    user_data = user_nav_details(session.get("user_id")[2:])
+
 
     contract_list = db.reference("/contracts").get()
-    return render_template("indidiscover.html", contract_list = contract_list) 
+    return render_template("indidiscover.html", contract_list = contract_list, user_data = user_data) 
 
 @discover_blueprint.route('/discover/companies')
 def companies():
     is_indi_or_org(False)
+    # Call this function in every route, to ensure navbar details
+    user_data = user_nav_details(session.get("user_id")[2:])
 
     
     posted_date = date.today()
@@ -196,7 +202,7 @@ def companies():
             'ratings': 2.4
         },
     ]
-    return render_template("org_discover.html", ad_list=ad_list)
+    return render_template("org_discover.html", ad_list=ad_list, user_data = user_data)
 
 
 
@@ -208,7 +214,9 @@ def contract(contract_id):
     if session.get("user_id") is not None:
         # If user is a individual user
         if auth.get_user(session.get("user_id")[2:]).display_name in db.reference("/user_accounts").get():
-            print(session.get("user_id")[2:])
+            # Call this function in every route, to ensure navbar details
+            user_data = user_nav_details(session.get("user_id")[2:])
+
             # Retrieve contract details
             contract_info = db.reference("/contracts").child(contract_id).get()
             company_info = db.reference("/org_accounts").child(contract_info["Author"]).get()
@@ -372,6 +380,7 @@ def edit_contract(contract_id):
 # ---------------------------
 # Helper Functions
 # ---------------------------
+
 
 # Function that returns true if current user is org, else false.
 def check_if_user_is_company():

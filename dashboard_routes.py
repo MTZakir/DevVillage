@@ -35,6 +35,10 @@ def is_indi_or_org(acc_type):
 # DISCOVER
 @dashboard_blueprint.route('/individual/invites')
 def invites():
+    # Call this function in every route, to ensure navbar details
+    user_data = user_nav_details(session.get("user_id")[2:])
+
+
     company_hires = [
         {
             'organization': 'QVParts', 
@@ -103,11 +107,14 @@ def invites():
             'expected_pay': (500, 700), 
         },
     ]
-    return render_template("invites.html", company_hires=company_hires, )
+    return render_template("invites.html", company_hires=company_hires, user_data = user_data)
 
 @dashboard_blueprint.route('/individual/dashboard')
 def individuals():
     is_indi_or_org(True)
+    # Call this function in every route, to ensure navbar details
+    user_data = user_nav_details(session.get("user_id")[2:])
+
     dashcontent = {
             'completed_contracts': 21,
             'total_earned': 6203.23,
@@ -225,11 +232,15 @@ def individuals():
 
     return render_template("dashboard.html", dashcontent=dashcontent, 
                            company_hires=company_hires, 
-                           recent_payments=recent_payments)
+                           recent_payments=recent_payments,
+                           user_data = user_data,)
 
 @dashboard_blueprint.route('/individual/payments')
 def payment_history():
     is_indi_or_org(False)
+    # Call this function in every route, to ensure navbar details
+    user_data = user_nav_details(session.get("user_id")[2:])
+
     payments = [
         {
             'comp_pic': '/static/images/netflix.png',
@@ -328,10 +339,40 @@ def payment_history():
     for i in payments:
         total_earned += i['amount']
 
-    return render_template("payments.html", payments=payments, total_earned=total_earned)
+    return render_template("payments.html", payments=payments, total_earned=total_earned, user_data = user_data)
 
 @dashboard_blueprint.route('/org/dashboard')
 def organization():
     is_indi_or_org(False)
+    # Call this function in every route, to ensure navbar details
+    user_data = user_nav_details(session.get("user_id")[2:])
+
     
-    return render_template("dashboard.html")
+    return render_template("dashboard.html", user_data = user_data)
+
+
+
+
+# ---------------------------
+# Helper Functions
+# ---------------------------
+
+# Return User details from database for navbar
+def user_nav_details(user_id):
+
+    user_db_auth = auth.get_user(user_id)
+    user_db_ref = db.reference("/user_accounts").child(user_db_auth.display_name).get()
+
+    # Getting base account dropdown info
+    user_data = {
+        "Display_name": user_db_auth.display_name,
+        "First_name": user_db_ref["First_name"],
+        "Last_name": user_db_ref["Last_name"],
+        "Wallet": "$ {:,.2f}".format(user_db_ref["Wallet"])
+    }
+
+    # Any notification messages
+    if (user_db_ref["Notifications"] != None):
+        user_data.update({"Notifications": user_db_ref["Notifications"]})
+
+    return user_data

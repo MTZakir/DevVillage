@@ -1,0 +1,91 @@
+.wallet-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1.014vw 1.486vw 1.014vw 1.486vw;
+}
+
+.wallet-heading {
+    display: flex;
+    flex-direction: column;
+    font-weight: 200;
+    color: white;
+    margin-bottom: 1.014vw;
+    padding-left: 0.4vw;
+}
+
+.wallet-heading .heading{
+    font-size: 1.3vw;
+}
+
+.wallet-heading .subheading{
+    font-size: 0.8vw;
+    color: #ffffffab;
+}
+
+.wallet-content {
+    margin-bottom: 1.014vw;
+    padding-left: 0.4vw;
+    color: white;
+}
+
+
+.wallet-input {
+    width: 16.354vw;
+    height: fit-content;
+    padding: 0.781vw 0.521vw 0.781vw 0.781vw;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    border-radius: 0.313vw;
+    border: none;
+    outline: none;
+    background-color: #202124;
+    box-shadow: 0.052vw 0.208vw 0.208vw 0.052vw rgba(0, 0, 0, 0.25) inset;
+    box-sizing: border-box;
+}
+
+.wallet-input p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.40);
+    font-size: 0.729vw;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.wallet-input input {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color:#fff;
+
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: 0.938vw;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    
+    resize: none;
+    height: 1.042vw;
+}
+
+.wallet-submit {
+    color: white;
+    background-color: #7D59D1;
+
+    border-radius: 0.313vw;
+    border: 1px solid transparent;
+
+    padding: 0.521vw;
+    margin-top: 2.5vh;
+    font-size: 0.729vw;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.wallet-submit:hover {
+    cursor: pointer;
+}

@@ -1,0 +1,27 @@
+{% extends "accountinfo.html" %}
+
+{% block import_files %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/wallet.css') }}">
+{% endblock %}
+
+{% block title %}Account Info{% endblock %}
+
+{% block acc_info_options_display %}
+    <div class="wallet-container">
+        <div class="wallet-heading">
+            <span class="heading">Wallet</span>
+            <span class="subheading">Top up your wallet here.</span>
+        </div>
+
+        <div class="wallet-content">
+            <form method="POST">
+                <div class="wallet-input">
+                    <p class="field-label">Amount</p>
+                    <input type="text" required>
+                </div>
+                <button class="wallet-submit" type="submit">Top up</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

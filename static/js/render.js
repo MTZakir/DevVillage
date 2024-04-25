@@ -118,22 +118,35 @@ function otpfields(){
     });    
 }
 
+
+// Notification icon dropdown
+var noti_icon = document.getElementById('noti_icon');
+var noti_dropdown = document.getElementById('noti_dropdown');
+var noti_tilt = document.getElementById("noti_tilt");
+
+if (noti_icon) {
+    noti_icon.addEventListener("click", function(event) {
+        if (!noti_dropdown.classList.contains("active")) {
+            noti_dropdown.classList.add("active");
+            noti_tilt.classList.add("active");
+        }
+    });
+
+    document.addEventListener("click", function(event) {
+        if (!noti_dropdown.contains(event.target) && !noti_icon.contains(event.target)) {
+            noti_dropdown.classList.remove("active");
+            noti_tilt.classList.remove("active");
+        }
+    })
+}
+
+
+
+
 function dropDownClick() {
     const $dropdown = $(".dropdown");
     const $tilted_container = $(".tilted-container");
     const $icon = $(".icon");
-    const $noti_icon = $('.noti-icon');
-
-    $noti_icon.on('click', function(){
-        if ($dropdown.hasClass("active")){
-            $('.noti-dropdown').removeClass("active");
-            $('.noti-dropdown').css("display", 'none');
-        }
-        else {
-            $('.noti-dropdown').addClass("active")
-            $('.noti-dropdown').css("display", 'block');
-        }
-    });
 
 
     $icon.on("click", function() {
@@ -152,8 +165,6 @@ function dropDownClick() {
 
     $(document).on("click", function(event) {
         if (!($dropdown.is(event.target) || $dropdown.has(event.target).length || $icon.is(event.target) || $icon.has(event.target).length)) {
-            $('.noti-dropdown').css('display', 'none')
-            $('.noti-dropdown').removeClass("active")
             $dropdown.css('display', 'none')
             $dropdown.removeClass("active");
             $tilted_container.removeClass("active");

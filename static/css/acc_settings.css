@@ -28,7 +28,7 @@
 }
 
 .prof-pic{
-    font-size: 138px;
+    font-size: 7.188vw;
 }
 
 .update-profile-pic{
@@ -40,13 +40,13 @@
 .add-or-update-bttn{
     margin-top: 1vw;
     background-color: transparent;
-    border-radius: 8px;
+    border-radius: 0.417vw;
     border: 1px solid #7D59D1;
-    padding: 10px;
-    transition: 0.3s;
+    padding: 0.521vw;
+    transition: background-color 0.3s;
 
     color: #7D59D1;
-    font-size: 14px;
+    font-size: 0.729vw;
     font-style: normal;
     font-weight: 300;
     line-height: normal;
@@ -66,9 +66,9 @@
 }
 
 .personal-fields {
-    width: 314px;
+    width: 16.354vw;
     height: fit-content;
-    padding: 15px 10px 15px 15px;
+    padding: 0.781vw 0.521vw 0.781vw 0.781vw;
 
     display: flex;
     flex-direction: column;
@@ -85,7 +85,7 @@
 .personal-fields p{
     margin: 0;
     color: rgba(255, 255, 255, 0.40);
-    font-size: 14px;
+    font-size: 0.729vw;
     font-style: normal;
     font-weight: 300;
     line-height: normal;
@@ -98,13 +98,13 @@
     color:#fff;
 
     font-family: "Noto Sans JP", sans-serif;
-    font-size: 18px;
+    font-size: 0.938vw;
     font-style: normal;
     font-weight: 300;
     line-height: normal;
     
     resize: none;
-    height: 26px;
+    height: 1.354vw;
 }
 .personal-fields input{
     background-color: transparent;
@@ -113,33 +113,33 @@
     color:#fff;
 
     font-family: "Noto Sans JP", sans-serif;
-    font-size: 18px;
+    font-size: 0.938vw;
     font-style: normal;
     font-weight: 300;
     line-height: normal;
     
     resize: none;
-    height: 20px;
+    height: 1.042vw;
 }
 
 .personal-details{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    gap: 1.042vw;
 }
 
 .right-fields{
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    row-gap: 16px;
+    row-gap: 0.833vw;
 }
 
 .left-fields{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    row-gap: 16px;
+    row-gap: 0.833vw;
 }
 
 .username-atsign{

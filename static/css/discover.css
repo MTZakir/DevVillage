@@ -52,6 +52,7 @@ a{
 }
 
 .navlinks-right{
+    position: relative;
     padding: 0 2.083vw 0 0;
     /* align-items: center; */
 }
@@ -481,17 +482,44 @@ a{
 
 .noti-dropdown{
     position: absolute;
-    left: -25vw;
+    top: 7.5vh;
+    right: 4.5vw;
+
     background-color: #0F0F0F;
+    border-radius: 0.5vw;
+    border: 1px solid #2B3245;
+    color: white;
+
     height: 30vh;
     width: 23vw;
 
     display: none;
 }
-
-.noti-dropdown.active{
+.noti-dropdown.active {
     display: block;
 }
+
+.noti-dropdown-tilt {
+    display: none;
+    position: absolute;
+
+    left: 0;
+    top: 3.38vw;
+
+    height: 0%;
+    background-color: #0F0F0F;
+    transform: rotate(45deg);
+
+    border-top: 1px solid #2B3245;
+    border-left: 1px solid #2B3245;
+    z-index: 101;
+}
+.noti-dropdown-tilt.active {
+    width: 1vw;
+    height: 1vw;
+}
+
+
 
 .dropdown{
     position: absolute;
@@ -567,16 +595,21 @@ a{
     align-items: center;
 }
 
-.acc-dropdown-button span{
+.acc-dropdown-button span {
     position: absolute;
     color: white;
     font-weight: 200;
     font-size: 0.8vw;
 
     top: 0.63vw;
-    left: 2.65vw;
 
     pointer-events: none;
+}
+.acc-dropdown-button span:not(.wallet-amt) {
+    left: 2.65vw;
+}
+.wallet-amt {
+    right: 0.85vw;
 }
 
 .acc-dropdown-button i{

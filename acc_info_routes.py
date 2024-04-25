@@ -1,6 +1,7 @@
 from flask import Blueprint, redirect, render_template, session, url_for
 from firebase_admin import auth
 from firebase_admin._auth_utils import UserNotFoundError
+from dashboard_routes import user_nav_details
 
 # Blueprint initialization
 acc_info_blueprint = Blueprint(
@@ -42,19 +43,18 @@ def acc_info():
 @acc_info_blueprint.route('/acc_info/profile/individual')
 def individual_profile():
     is_indi_or_org(True)
+    # Call this function in every route, to ensure navbar details
+    user_data = user_nav_details(session.get("user_id")[2:])
 
-    return render_template("indiprofile.html")
+    return render_template("indiprofile.html", user_data = user_data)
 
-@acc_info_blueprint.route('/acc_info/profile/org')
-def org_profile():
-    is_indi_or_org(False)
-
-    
-    return render_template("org_profile.html")
 
 @acc_info_blueprint.route('/acc_info/acc_settings/individual')
 def individual_settings():
     is_indi_or_org(True)
+    # Call this function in every route, to ensure navbar details
+    user_data = user_nav_details(session.get("user_id")[2:])
+
     details=[
         {
             'firstname':'Dave',
@@ -70,17 +70,15 @@ def individual_settings():
 
         }
     ]
-    return render_template("indi_acc_settings.html", details=details)
+    return render_template("indi_acc_settings.html", details=details, user_data = user_data)
 
-@acc_info_blueprint.route('/acc_info/myadvertisement/individual')
-def my_ads():
-    is_indi_or_org(True)
-
-    return render_template('myad.html')
 
 @acc_info_blueprint.route('/acc_info/contract_history/individual')
 def contract_history():
     is_indi_or_org(True)
+    # Call this function in every route, to ensure navbar details
+    user_data = user_nav_details(session.get("user_id")[2:])
+
     contracts = [
         {
             'comp_name': 'Google',
@@ -193,17 +191,30 @@ def contract_history():
             'status': 'Completed', 
         },
     ]
-    return render_template('contract_history.html', contracts=contracts)
+    return render_template('contract_history.html', contracts=contracts, user_data = user_data)
 
-@acc_info_blueprint.route('/buy_tokens/individual')
+@acc_info_blueprint.route('/acc_info/wallet/individual')
+def wallet():
+    is_indi_or_org(True)
+    # Call this function in every route, to ensure navbar details
+    user_data = user_nav_details(session.get("user_id")[2:])
+
+    return render_template("wallet.html", user_data = user_data)
+
+
+@acc_info_blueprint.route('/buy_tokens')
 def buy_tokens():
     is_indi_or_org(True)
+    # Call this function in every route, to ensure navbar details
+    user_data = user_nav_details(session.get("user_id")[2:])
 
-    return render_template("buy_tokens.html")
+    return render_template("buy_tokens.html", user_data = user_data)
 
 
 @acc_info_blueprint.route('/acc_info/acc_settings/org')
 def org_settings():
     is_indi_or_org(False)
+    # Call this function in every route, to ensure navbar details
+    user_data = user_nav_details(session.get("user_id")[2:])
 
-    return render_template("org_acc_settings.html")
+    return render_template("org_acc_settings.html", user_data = user_data)

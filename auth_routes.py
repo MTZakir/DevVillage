@@ -195,7 +195,10 @@ def user_register():
                     # Updating realtime database to link username, email and expertise
                     user_data = {
                         "Email": form.email.data,
-                        "Expertise": form.expertise.data
+                        "Expertise": form.expertise.data,
+                        "First_name": form.first_name.data,
+                        "Last_name": form.last_name.data,
+                        "Wallet": 0.0
                     }
                     user_ref.update({form.username.data: user_data})
 
@@ -361,7 +364,6 @@ def logout():
 # ----------------------------------------------------------------
 #   Helper Functions
 # ----------------------------------------------------------------
-
 
 # Function to authorize users with firebase
 def try_login(user_email, user_pass, type):
