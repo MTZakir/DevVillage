@@ -8,6 +8,8 @@
     {% set home_url = 'home' %}
     {% set profile_url = 'accinfo.individual_profile' %}
     {% set settings_url = 'accinfo.individual_settings' %}
+    {% set contract_history_url = 'accinfo.contract_history' %}
+    {% set wallet_url = 'accinfo.wallet' %}
 {% else %}
     {% set home_url = 'homecomp' %}
     {% set profile_url = 'accinfo.org_profile' %}
@@ -43,7 +45,7 @@
                 </div>
     
                 <div class="acc-info-button pay-meth-btn">
-                    <button></button>
+                    <button onclick="window.location.href = `{{url_for(wallet_url)}}`"></button>
                     <span>Wallet</span>
                     <i class="bi bi-credit-card-2-front"></i>
                 </div>

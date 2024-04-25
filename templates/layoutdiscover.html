@@ -47,6 +47,7 @@
                         {% set invites_url = 'dashboard.invites' %}
                         {% set payments_url = 'dashboard.payment_history' %}
                         {% set contract_history_url = 'accinfo.contract_history' %}
+                        {% set wallet_url = 'accinfo.wallet' %}
                         {% set tokens_url = 'accinfo.buy_tokens' %}
                     {% else %}
                         {% set home_url = 'homecomp' %}
@@ -67,11 +68,16 @@
 
                 <ul class="navlinks-right">
                     {% if url_for('accinfo.acc_info') not in request.url %}
-                    <div class="noti-icon">
+                    <div class="noti-icon" id="noti_icon">
                         <i class="bi bi-bell"></i>
-                    </div>    
-                    <div class="noti-dropdown">
-                        asdfasdf
+                    </div>
+                    <div class="noti-dropdown-tilt" id="noti_tilt"></div>
+                    <div class="noti-dropdown" id="noti_dropdown">
+                        {% for noti in user_data["Notifications"] %}
+                            <div class="notification">
+                                {{ noti }}
+                            </div>
+                        {% endfor %}
                     </div>
                         <div class="acc-info-drop-down">
                             <div class="icon">
@@ -82,8 +88,8 @@
     
                                 <div class="acc-dropdown-display">
                                     <i class="bi bi-person-circle profile-picture"></i>
-                                    <span class="first-and-last-name">Dave Batis</span>
-                                    <span class="user-name">@Ballsmasher69</span>
+                                    <span class="first-and-last-name">{{ user_data["First_name"] }} {{ user_data["Last_name"] }}</span>
+                                    <span class="user-name">@ {{ user_data["Display_name"] }}</span>
                                 </div>
                                 <div class="acc-options-all">
                                     <div class="account-dropdown-options">
@@ -100,14 +106,15 @@
                                         </div>
                             
                                         <div class="acc-dropdown-button contr-hstry-btn">
-                                            <button  onclick="window.location.href = `{{url_for(contract_history_url)}}`"></button>
+                                            <button onclick="window.location.href = `{{url_for(contract_history_url)}}`"></button>
                                             <span>Contract History</span>
                                             <i class="bi bi-clock-history"></i>
                                         </div>
                             
                                         <div class="acc-dropdown-button pay-meth-btn">
-                                            <button></button>
+                                            <button onclick="window.location.href = `{{url_for(wallet_url)}}`"></button>
                                             <span>Wallet</span>
+                                            <span class="wallet-amt">{{ user_data["Wallet"] }}</span>
                                             <i class="bi bi-credit-card-2-front"></i>
                                         </div>
                                     </div>
