@@ -122,6 +122,19 @@ function dropDownClick() {
     const $dropdown = $(".dropdown");
     const $tilted_container = $(".tilted-container");
     const $icon = $(".icon");
+    const $noti_icon = $('.noti-icon');
+
+    $noti_icon.on('click', function(){
+        if ($dropdown.hasClass("active")){
+            $('.noti-dropdown').removeClass("active");
+            $('.noti-dropdown').css("display", 'none');
+        }
+        else {
+            $('.noti-dropdown').addClass("active")
+            $('.noti-dropdown').css("display", 'block');
+        }
+    });
+
 
     $icon.on("click", function() {
         if ($dropdown.hasClass("active")) {
@@ -133,12 +146,14 @@ function dropDownClick() {
             $dropdown.addClass("active");
             $dropdown.css("display", "flex");
             $tilted_container.addClass("active");
-            $tilted_container.css('display', 'block')
+            $tilted_container.css('display', 'block');
         }
     });
 
     $(document).on("click", function(event) {
         if (!($dropdown.is(event.target) || $dropdown.has(event.target).length || $icon.is(event.target) || $icon.has(event.target).length)) {
+            $('.noti-dropdown').css('display', 'none')
+            $('.noti-dropdown').removeClass("active")
             $dropdown.css('display', 'none')
             $dropdown.removeClass("active");
             $tilted_container.removeClass("active");

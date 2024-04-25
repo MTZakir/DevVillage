@@ -479,6 +479,20 @@ a{
     height: 1vw;
 }
 
+.noti-dropdown{
+    position: absolute;
+    left: -25vw;
+    background-color: #0F0F0F;
+    height: 30vh;
+    width: 23vw;
+
+    display: none;
+}
+
+.noti-dropdown.active{
+    display: block;
+}
+
 .dropdown{
     position: absolute;
 
@@ -499,6 +513,10 @@ a{
     opacity: 0;
 
     transition: opacity 0.15s ease-in-out;
+}
+
+.active{
+    display: block;
 }
 
 .dropdown.active{
