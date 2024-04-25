@@ -5,10 +5,55 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/buy_tokens.css') }}">
 {% endblock %}
 
-{% block title %}My Contract History{% endblock %}
+{% block title %}Buy Tokens{% endblock %}
 
-{% block acc_info_options_display %}
+{% block maincontent %}
     <div class="payments">
-
+        <div class="price-description">
+            <h2>Application for one contract = 5 tokens</h2>
+            <h2>Posting yourself on the website = 120 tokens</h2>
+        </div>
+        <div class="button-prices">
+            <div class="price-boxes">
+                <div class="one-price-box">
+                    <div class="price-tokens">
+                        <h2>$2.99</h2>
+                        <h3>10 tokens</h3>
+                    </div>
+                    <div class="price-text">
+                        <p class="level">Starter Pack</p>
+                        <p class="price-recommendation">Recommended for beginner contractors on the website</p>
+                    </div>
+                    <input type="radio" id="beginner" name="confirmation">
+                </div>
+                
+                <div class="one-price-box">
+                    <div class="price-tokens">
+                        <h2>$6.99</h2>
+                        <h3>55 tokens</h3>
+                    </div>
+                    <div class="price-text">
+                        <p class="level">Intermediate Pack</p>
+                        <p class="price-recommendation">Recommended for intermediate contractors on the website</p>
+                    </div>
+                    <input type="radio" id="intermediate" name="confirmation">
+                </div>
+                
+                <div class="one-price-box">
+                    <div class="price-tokens">
+                        <h2>$11.99</h2>
+                        <h3>120 tokens</h3>
+                    </div>
+                    <div class="price-text">
+                        <p class="level">Expert pack</p>
+                        <p class="price-recommendation">Recommended for skilled experts on the website</p>
+                    </div>
+                    <input type="radio" id="expert" name="confirmation">
+                </div>
+            </div>
+            <div class="buybutton">
+                <button id="buy" disabled='true' ="window.location.href = `{{url_for(tokens_url)}}`">Buy tokens</button>
+            </div>
+        </div>
     </div>
 {% endblock %}

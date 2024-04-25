@@ -67,6 +67,18 @@ function redirect() {
     }
 }
 
+function borderColor() {
+    $('.one-price-box').click(function() {
+        // Remove border from all boxes
+        $('.one-price-box').css('border', 'none');
+
+        // Add border to the clicked box
+        $(this).css('border', '1px solid var(--color)');
+        $(this).find('input[type="radio"]').prop('checked', true);
+        $('#buy').prop('disabled', false);
+    });
+}
+
 function checkRadio(id){
     $(id).prop('checked', true);
     redirect();
@@ -216,6 +228,7 @@ $(document).ready(function() {
     submitForm();
     dropDownClick();
     statusColor();
+    borderColor();
     statusColorHistory();
     filterStatus();
     $('#bttnconf').css('background-color', '#733DF0');
