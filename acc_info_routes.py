@@ -2,6 +2,8 @@ from flask import Blueprint, redirect, render_template, session, url_for
 from firebase_admin import auth
 from firebase_admin._auth_utils import UserNotFoundError
 from dashboard_routes import user_nav_details
+from acc_info_forms import WalletTopup
+from firebase_admin import db, auth
 
 # Blueprint initialization
 acc_info_blueprint = Blueprint(
@@ -193,13 +195,21 @@ def contract_history():
     ]
     return render_template('contract_history.html', contracts=contracts, user_data = user_data)
 
-@acc_info_blueprint.route('/acc_info/wallet/individual')
+@acc_info_blueprint.route('/acc_info/wallet/individual', methods = ["GET", "POST"])
 def wallet():
     is_indi_or_org(True)
     # Call this function in every route, to ensure navbar details
     user_data = user_nav_details(session.get("user_id")[2:])
 
-    return render_template("wallet.html", user_data = user_data)
+    form = WalletTopup()
+
+    if form.validate_on_submit():
+        user_wallet_db = db.reference("/user_accounts").child(auth.get_user(session.get("user_id")[2:]).display_name).child("Wallet").get()
+
+        if (user_wallet_db):
+            db.reference("/user_accounts").child(auth.get_user(session.get("user_id")[2:]).display_name).update({"Wallet": user_wallet_db + int(form.amount.data)})
+
+    return render_template("wallet.html", form = form, user_data = user_data)
 
 
 @acc_info_blueprint.route('/buy_tokens')

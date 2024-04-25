@@ -71,6 +71,25 @@
     height: 1.042vw;
 }
 
+.wallet-input.active {
+    border: 1px solid red;
+}
+
+
+.error-msg {
+    margin: 0;
+    margin-left: 0.15vw;
+    font-size: 14px;
+    font-weight: lighter;
+    color: red;
+
+    display: none;
+}
+.error-msg.active {
+    display: block;
+}
+
+
 .wallet-submit {
     color: white;
     background-color: #7D59D1;

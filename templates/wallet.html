@@ -3,6 +3,7 @@
 {% block import_files %}
 {{ super() }}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/wallet.css') }}">
+<script src="/static/js/wallet.js" type="module"></script>
 {% endblock %}
 
 {% block title %}Account Info{% endblock %}
@@ -15,11 +16,15 @@
         </div>
 
         <div class="wallet-content">
-            <form method="POST">
-                <div class="wallet-input">
+            <form id="wallet_form" method="POST">
+                {{ csrf_token }}
+                {{ form.hidden_tag() }}
+
+                <div class="wallet-input" id="wallet_holder">
                     <p class="field-label">Amount</p>
-                    <input type="text" required>
+                    <input id="wallet_input" name="amount" type="text" required>
                 </div>
+                <p class="error-msg" id="error_msg">Please enter a valid amount.</p>
                 <button class="wallet-submit" type="submit">Top up</button>
             </form>
         </div>

@@ -21,8 +21,8 @@
     <div class="sidebar">
         <div class="acc-info-display">
             <i class="bi bi-person-circle profile-pic"></i>
-            <span class="fst-name-lst-name">Dave Batis</span>
-            <span class="username">@Ballsmasher69</span>
+            <span class="fst-name-lst-name">{{ user_data["First_name"] }} {{ user_data["Last_name"] }}</span>
+            <span class="username">{{ user_data["Display_name"] }}</span>
         </div>
         <div class="account-info-all-options">
             <div class="account-info-options">
@@ -47,6 +47,7 @@
                 <div class="acc-info-button pay-meth-btn">
                     <button onclick="window.location.href = `{{url_for(wallet_url)}}`"></button>
                     <span>Wallet</span>
+                    <span class="wallet-amt">{{ user_data["Wallet"] }}</span>
                     <i class="bi bi-credit-card-2-front"></i>
                 </div>
             </div>

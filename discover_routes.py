@@ -254,7 +254,7 @@ def contract(contract_id):
         print("You must be logged in to view this page.")
         return redirect(url_for('discover.individuals'))
 
-    return render_template("contract.html", form = form, applied = applied, contract_info = contract_info, company_info = company_info)
+    return render_template("contract.html", form = form, applied = applied, contract_info = contract_info, company_info = company_info, user_data = user_data)
 
 
 

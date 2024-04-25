@@ -78,9 +78,14 @@
     font-size: 1vw;
 
     top: 0.925vw;
-    left: 3.7vw;
 
     pointer-events: none;
+}
+.acc-info-button span:not(.wallet-amt) {
+    left: 3.7vw;
+}
+.acc-info-button .wallet-amt {
+    right: 0.85vw;
 }
 
 .acc-info-button i{
