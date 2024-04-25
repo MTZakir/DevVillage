@@ -3,6 +3,7 @@
 {% block import_files %}
 {{ super() }}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/buy_tokens.css') }}">
+<script src="/static/js/token.js" type="module"></script>
 {% endblock %}
 
 {% block title %}Buy Tokens{% endblock %}
@@ -14,7 +15,10 @@
             <h2>Posting yourself on the website = 120 tokens</h2>
         </div>
         <div class="button-prices">
-            <div class="price-boxes">
+            <form id="token_form" method="POST" class="price-boxes">
+                {{ csrf_token }}
+                {{ form.hidden_tag() }}
+
                 <div class="one-price-box">
                     <div class="price-tokens">
                         <h2>$2.99</h2>
@@ -24,7 +28,7 @@
                         <p class="level">Starter Pack</p>
                         <p class="price-recommendation">Recommended for beginner contractors on the website</p>
                     </div>
-                    <input type="radio" id="beginner" name="confirmation">
+                    <input type="radio" id="beginner" name="token" value="3">
                 </div>
                 
                 <div class="one-price-box">
@@ -36,7 +40,7 @@
                         <p class="level">Intermediate Pack</p>
                         <p class="price-recommendation">Recommended for intermediate contractors on the website</p>
                     </div>
-                    <input type="radio" id="intermediate" name="confirmation">
+                    <input type="radio" id="intermediate" name="token" value="7">
                 </div>
                 
                 <div class="one-price-box">
@@ -48,11 +52,11 @@
                         <p class="level">Expert pack</p>
                         <p class="price-recommendation">Recommended for skilled experts on the website</p>
                     </div>
-                    <input type="radio" id="expert" name="confirmation">
+                    <input type="radio" id="expert" name="token" value="12">
                 </div>
-            </div>
+            </form>
             <div class="buybutton">
-                <button id="buy" disabled='true' onclick="window.location.href = `{{url_for(tokens_url)}}`">Buy tokens</button>
+                <button id="buy" disabled='true' type="button">Buy tokens</button>
             </div>
         </div>
     </div>

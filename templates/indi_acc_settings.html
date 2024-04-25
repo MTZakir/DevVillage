@@ -3,6 +3,7 @@
 {% block import_files %}
 {{ super() }}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/acc_settings.css') }}">
+<script src="/static/js/acc_settings.js" type="module"></script>
 {% endblock %}
 
 {% block title %}Account Info{% endblock %}
@@ -14,64 +15,80 @@
         <p id="brief-desc">Update your profile picture and personal details here</p>
     </div>
     <div class="acc-settings-all-options">
-        <div class="update-profile-pic">
-            <i class="bi bi-person-circle prof-pic"></i>
-            <button class="add-or-update-bttn">
-                <a id="update-bttn-text">Add new profile pic</a>
-            </button>
-        </div>
-        <div class="personal-details">
-            <div class="left-fields">
-                <div class="personal-fields" id="firstname-field">
-                    <p class="field-label">First Name</p>
-                    <textarea class="personal-input-fields" name="first-name" type="text" id="firstname">{{details[0]['firstname']}}</textarea>
+        <form method="POST" enctype="multipart/form-data">
+            {{ csrf_token }}
+            {{ form.hidden_tag() }}
+
+            <div class="update-profile-pic">
+                <i class="bi bi-person-circle prof-pic"></i>
+                <div class="btn-container">
+                    <div class="add-or-update-bttn">
+                        <label for="update-bttn-text">Add new profile pic</label>
+                        <input type="file" id="update-bttn-text" accept="image/*" hidden></input>
+                    </div>
+                    <span class="pfp-msg" id="pfp_msg"></span>
                 </div>
-                <div class="personal-fields" id="lastname-field">
-                    <p class="field-label">Last Name</p>
-                    <textarea class="personal-input-fields" name="first-name" type="text" id="lastname">{{details[0]['lastname']}}</textarea>
-                </div>
-                <div class="personal-fields" id="email-field">
-                    <p class="field-label">Email</p>
-                    <textarea disabled class="personal-input-fields" name="first-name" type="email" id="email">{{details[0]['email']}}</textarea>
-                </div>
-                <div class="personal-fields" id="username-field">
-                    <p class="field-label">Username</p>
-                    <div class="username-atsign">
-                        <p class="field-label">@</p><textarea class="personal-input-fields" name="first-name" type="text" id="username">{{details[0]['username']}}</textarea>
+            </div>
+
+            <div class="personal-details">
+                <div class="left-fields">
+                    <div class="personal-fields" id="firstname-field">
+                        <p class="field-label">First Name</p>
+                        <input class="personal-input-fields" name="first_name" type="text" id="firstname" value='{{ user_data["First_name"] }}' autocomplete="off">
+                    </div>
+                    <div class="personal-fields" id="lastname-field">
+                        <p class="field-label">Last Name</p>
+                        <input class="personal-input-fields" name="last_name" type="text" id="lastname" value='{{ user_data["Last_name"] }}' autocomplete="off">
+                    </div>
+                    <div class="personal-fields" id="email-field">
+                        <p class="field-label">Email</p>
+                        <input class="personal-input-fields" name="email" type="email" id="email" value='{{ user_info["Email"] }}' autocomplete="off" disabled>
+                    </div>
+                    <div class="personal-fields" id="username-field">
+                        <p class="field-label">Display Name</p>
+                        <div class="username-atsign">
+                            <p class="field-label">@</p><input class="personal-input-fields" name="display_name" type="text" id="username" value='{{ user_data["Display_name"] }}' autocomplete="off" disabled>
+                        </div>
+                    </div>
+                    <div class="personal-fields" id="phone-field">
+                        <p class="field-label">Phone number</p>
+                        <input class="personal-input-fields" name="phone" type="text" id="Phone-number" value='{{ user_info["Phone"] }}' autocomplete="off">
+                    </div>
+                    <div class="personal-fields" id="profiences-field">
+                        <p class="field-label">Field of profiences</p>
+                        <input class="personal-input-fields" name="expertise" type="text" id="field-of-profiences" value='{{ user_info["Expertise"] }}' autocomplete="off">
+                    </div>
+                    <div class="personal-fields" id="password-field">
+                        <p class="field-label">Password</p>
+                        <input class="personal-input-fields" name="password" type="password" id="password" value="{{ user_info['Password'] }}" disabled>
                     </div>
                 </div>
-                <div class="personal-fields" id="phone-field">
-                    <p class="field-label">Phone number</p>
-                    <textarea class="personal-input-fields" name="first-name" type="text" id="Phone-number">{{details[0]['phone']}}</textarea>
-                </div>
-                <div class="personal-fields" id="profiences-field">
-                    <p class="field-label">Field of profiences</p>
-                    <textarea class="personal-input-fields" name="first-name" type="text" id="field-of-profiences">{{details[0]['profiencies']}}</textarea>
-                </div>
-                <div class="personal-fields" id="password-field">
-                    <p class="field-label">Password</p>
-                    <input class="personal-input-fields" name="first-name" type="password" id="password" value="{{details[0]['password']}}">
-                </div>
-            </div>
-            <div class="right-fields">
-                <div class="personal-fields" id="birth-field">
-                    <p class="field-label">Date of Birth</p>
-                    <textarea class="personal-input-fields" name="first-name" id="birth">{{details[0]['birth']}}</textarea>
-                </div>
-                
-                <div class="personal-fields" id="gender-field">
-                    <p class="field-label">Gender</p>
-                    <textarea class="personal-input-fields" name="first-name" id="Gender">{{details[0]['gender']}}</textarea>
-                </div>
-                
-                <div class="personal-fields" id="bio-field">
-                    <p class="field-label">Bio / About me</p>
-                    <textarea class="personal-input-fields" name="first-name" id="bio-about" wrap="soft">{{details[0]['bio']}}</textarea>
+                <div class="right-fields">
+                    <div class="personal-fields" id="birth-field">
+                        <p class="field-label">Date of Birth</p>
+                        <input class="personal-input-fields" name="dob" id="birth" value='{{ user_info["DOB"] }}' autocomplete="off">
+                    </div>
+                    
+                    <div class="personal-fields" id="gender-field">
+                        <p class="field-label">Gender</p>
+                        <select class="personal-input-fields" name="gender" id="Gender">
+                            {% for gender in form.gender.choices %}
+                                <option value="{{ gender }}" {% if gender == user_info["Gender"] %} selected {% endif %}>{{ gender }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="personal-fields" id="bio-field">
+                        <p class="field-label">Bio / About me</p>
+                        <textarea class="personal-input-fields" name="bio" id="bio-about" wrap="soft">{{ user_info["Bio"] }}</textarea>
+                    </div>
                 </div>
             </div>
-            
 
-        </div>
+            <div class="save-btn-container">
+                <button class="save-btn" id="save_btn" disabled>Save Changes</button>
+            </div>
+        </form>
     </div>
 </div>
 {% endblock %}

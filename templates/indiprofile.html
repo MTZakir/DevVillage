@@ -21,51 +21,49 @@
                 <div class="name">
                     <i class="bi bi-person-circle profile-pic"></i>
                     <div>
-                        <span class="full-name">Dave Batis</span>
-                        <span class="username">@Ballsmasher69</span>
+                        <span class="full-name">{{ user_data["First_name"] }} {{ user_data["Last_name"] }}</span>
+                        <span class="username">@ {{ user_data["Display_name"] }}</span>
                     </div>
                 </div>
 
                 <div class="avg-rating profile-rating">
-                    <div class="Stars" data-rating="4.3">
-                        <span>4.3</span>
+                    <div class="Stars" data-rating="{{ profile_info['Rating'] }}">
+                        <span>{{ profile_info["Rating"] }}</span>
                     </div>
                 </div>
 
                 <div class="expertise-and-about">
                     <span>Field of Expertise</span><span class="see-more-expertise see-more"><i class="bi bi-chevron-down"></i></span>
                     <ul>
-                        <li>Full Stack Developer</li>
-                        <li>Expertise in exploding Dev's left testicle</li>
-                        <li>Penetration Tester</li>
-                        <li>Penetration Tester</li>
-                        <li>Penetration Tester</li>
-                        <li>Penetration Tester</li>
-                        <li>Penetration Tester</li>
-                        <li>Penetration Tester</li>
-                        <li>Penetration Tester</li>
+                        {% for item in profile_info["Expertise"] %}
+                            <li>{{ item }}</li>
+                        {% endfor%}
                     </ul>
                     <span>About</span><span class="see-more-about see-more"><i class="bi bi-chevron-down"></i></span>
-                    <p>Before time began, there was the Cube. We know not where it comes from, only that it holds the power to create worlds and fill them with life. That is how our race was born. For a time, we lived in harmony, but like all great power, some wanted it for good, others for evil. And so began the war, a war that ravaged our planet until it was consumed by the death, and the Cube was lost to the far reaches of space. We scattered across the galaxy, hoping to find it and rebuild our home, searching every star, every world. And just when all hope seemed lost, message of a new discovery drew us to an unknown planet called Earth. But we were already too late.Before time began, there was the Cube. We know not where it comes from, only that it holds the power to create worlds and fill them with life. That is how our race was born. For a time, we lived in harmony, but like all great power, some wanted it for good, others for evil. And so began the war, a war that ravaged our planet until it was consumed by the death, and the Cube was lost to the far reaches of space. We scattered across the galaxy, hoping to find it and rebuild our home, searching every star, every world. And just when all hope seemed lost, message of a new discovery drew us to an unknown planet called Earth. But we were already too late.</p>
+                    <p>{{ profile_info["Bio"] }}</p>
                 </div>
             </div>
 
             <div class="contact-and-portfolio">
                 <div>
                     <span>Phone</span>
-                    <span class="info">+971502180463</span>
+                    <span class="info">{{ profile_info["Phone"] }}</span>
                 </div>
                 <div>
                     <span>Email</span>
-                    <span class="info">ballsmasher@gmail.com</span>
+                    <span class="info">{{ profile_info["Email"] }}</span>
                 </div>
                 <div>
                     <span>Portfolio</span>
-                    <span class="info">https://ballsmasher.com</span>
+                    <span class="info">https://{{ user_data["First_name"] }}-{{ user_data["Display_name"] }}-{{ user_data["Last_name"] }}.com</span>
                 </div>
                 <div>
                     <span>Resume</span>
-                    <span class="info">resume.pdf</span>
+                    {% if resume %}
+                        <span class="info resume" onclick="window.open('{{ profile_info.Resume }}', '_blank')">{{ user_data["Display_name"] }}-resume.pdf</span>
+                    {% else %}
+                        <span class="info">Not uploaded.</span>
+                    {% endif %}
                 </div>
             </div>
         </div>

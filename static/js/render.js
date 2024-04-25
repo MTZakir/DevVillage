@@ -130,6 +130,7 @@ function otpfields(){
     });    
 }
 
+
 // Notification icon dropdown
 var noti_icon = document.getElementById('noti_icon');
 var noti_dropdown = document.getElementById('noti_dropdown');

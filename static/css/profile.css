@@ -145,6 +145,13 @@
     overflow: hidden;
 }
 
+.resume {
+    cursor: pointer;
+}
+.resume:hover {
+    color: #5823d3;
+}
+
 /* .contact-and-portfolio div:not(:last-child){
     margin-bottom: -100px;
 } */

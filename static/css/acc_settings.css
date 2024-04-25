@@ -5,7 +5,6 @@
 .acc-settings{
     padding: 20px 30px 20px 30px;
     display: grid;
-    gap: 1.5vw;
 }
 
 .page-title-brief-desc{
@@ -36,9 +35,11 @@
     gap: 2vw;
     align-items: center;
 }
+.update-profile-pic i {
+    margin-top: -1vw;
+}
 
 .add-or-update-bttn{
-    margin-top: 1vw;
     background-color: transparent;
     border-radius: 0.417vw;
     border: 1px solid #7D59D1;
@@ -56,6 +57,27 @@
     background-color: #7D59D1;
     color: #fff;
 }
+
+
+.btn-container {
+    position: relative;
+}
+
+.pfp-msg {
+    position: absolute;
+    display: none;
+
+    top: 2.5vw;
+    left: 0.25vw;
+
+    font-size: 0.8vw;
+    color: #ffffff91;
+}
+.pfp-msg:hover {
+    color: #fff;
+    cursor: pointer;
+}
+
 
 #brief-desc{
     color: #969090;
@@ -120,6 +142,17 @@
     
     resize: none;
     height: 1.042vw;
+}
+
+.personal-fields > select {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    color: #fff;
+}
+.personal-fields > select > option {
+    background-color: #202124;
 }
 
 .personal-details{
@@ -190,4 +223,32 @@
 #bio-about{
     height: 100%; 
     width: 100%
+}
+
+
+
+.save-btn {
+    border-radius: 0.313vw;
+    border: 1px solid #444444;
+    background-color: transparent;
+    color: #444444;
+
+    width: max-content;
+    padding: 0.5vw;
+    margin-top: 0.83vw;
+
+    transition: 0.3s ease-in-out;
+}
+.save-btn:hover {
+    cursor: default;
+}
+
+.save-btn.active {
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid #327A31;
+}
+.save-btn.active:hover {
+    cursor: pointer;
+    background-color: #327A31;
 }

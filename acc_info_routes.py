@@ -2,7 +2,7 @@ from flask import Blueprint, redirect, render_template, session, url_for
 from firebase_admin import auth
 from firebase_admin._auth_utils import UserNotFoundError
 from dashboard_routes import user_nav_details
-from acc_info_forms import WalletTopup
+from acc_info_forms import WalletTopup, AccountInfo, BuyTokens
 from firebase_admin import db, auth
 
 # Blueprint initialization
@@ -38,43 +38,93 @@ def is_indi_or_org(acc_type):
     else:
         return redirect(url_for("home"))
 
+
+
+
+# TEST ROUTE - remove later
 @acc_info_blueprint.route('/acc_info')
 def acc_info():
     return render_template("accountinfo.html")
+
+
 
 @acc_info_blueprint.route('/acc_info/profile/individual')
 def individual_profile():
     is_indi_or_org(True)
     # Call this function in every route, to ensure navbar details
+    # Contains first name, last name, display name, wallet amount, tokens and notifications
     user_data = user_nav_details(session.get("user_id")[2:])
 
-    return render_template("indiprofile.html", user_data = user_data)
+    resume = False
+
+    user_auth = auth.get_user(session.get("user_id")[2:])
+    user_ref = db.reference("/user_accounts").child(user_auth.display_name).get()
+    profile_info = {
+        "Rating": user_ref["Rating"],
+        "Expertise": user_ref["Expertise"],
+        "Bio": user_ref["Bio"],
+        "Phone": user_auth.phone_number,
+        "Email": user_auth.email,
+    }
+
+    if "Resume" in user_ref:
+        resume = True
+        profile_info.update({"Resume": user_ref["Resume"]})
 
 
-@acc_info_blueprint.route('/acc_info/acc_settings/individual')
+    return render_template("indiprofile.html", user_data = user_data, profile_info = profile_info, resume = resume)
+
+
+@acc_info_blueprint.route('/acc_info/acc_settings/individual', methods=['GET', 'POST'])
 def individual_settings():
     is_indi_or_org(True)
     # Call this function in every route, to ensure navbar details
+    # Contains display name, first name, last name, wallet and tokens
     user_data = user_nav_details(session.get("user_id")[2:])
 
-    details=[
-        {
-            'firstname':'Dave',
-            'lastname':'Batis',
-            'email':'davebatis@gmail.com',
-            'username':'Ballsmasher69',
-            'phone':'+971-546329002',
-            'profiencies':'',
-            'password':'thisisballs69',
-            'birth':'1999-07-05',
-            'gender':'Nigga',
-            'bio':'Before time began, there was the Cube. We know not where it comes from, only that it holds the power to create worlds and fill them with life. That is how our race was born. For a time, we lived in harmony, but like all great power, some wanted it for good, others for evil. And so began the war, a war that ravaged our planet until it was consumed by the death, and the Cube was lost to the far reaches of space. We scattered across the galaxy, hoping to find it and rebuild our home, searching every star, every world. And just when all hope seemed lost, message of a new discovery drew us to an unknown planet called Earth. But we were already too late.',
+    user_auth = auth.get_user(session.get("user_id")[2:])
+    user_ref = db.reference("/user_accounts").child(user_auth.display_name)
 
-        }
-    ]
-    return render_template("indi_acc_settings.html", details=details, user_data = user_data)
+    user_info = {
+        "Email": user_ref.get()["Email"],
+        "Password": user_auth.email,
+        "Phone": user_auth.phone_number,
+        "Expertise": user_ref.get()["Expertise"],
+        "DOB": user_ref.get()["DOB"],
+        "Gender": user_ref.get()["Gender"],
+        "Bio": user_ref.get()["Bio"]
+    }
+
+    form = AccountInfo()
+
+    if form.validate_on_submit():
+        # Updating any field
+        # First name
+        if form.first_name.data != user_data["First_name"]:
+            user_ref.update({"First_name": form.first_name.data})
+        # Last name
+        if form.last_name.data != user_data["Last_name"]:
+            user_ref.update({"Last_name": form.last_name.data})
+        # Phone
+        if form.phone.data != user_auth.phone_number:
+            auth.update_user(session.get("user_id")[2:], phone_number = form.phone.data)
+        # Expertise
+        if form.expertise.data != user_info["Expertise"]:
+            user_ref.update({"Expertise": form.expertise.data})
+        # DOB
+        if form.dob.data != user_info["DOB"]:
+            user_ref.update({"DOB": form.dob.data})
+        # Gender
+        if form.gender.data != user_info["Gender"]:
+            user_ref.update({"Gender": form.gender.data})
+        # Bio
+        if form.bio.data != user_info["Bio"]:
+            user_ref.update({"Bio": form.bio.data})
 
 
+    return render_template("indi_acc_settings.html", form=form, user_data = user_data, user_info = user_info)
+
+# CONTRACT HISTORY
 @acc_info_blueprint.route('/acc_info/contract_history/individual')
 def contract_history():
     is_indi_or_org(True)
@@ -195,6 +245,8 @@ def contract_history():
     ]
     return render_template('contract_history.html', contracts=contracts, user_data = user_data)
 
+
+# WALLET TOPUP
 @acc_info_blueprint.route('/acc_info/wallet/individual', methods = ["GET", "POST"])
 def wallet():
     is_indi_or_org(True)
@@ -212,13 +264,31 @@ def wallet():
     return render_template("wallet.html", form = form, user_data = user_data)
 
 
-@acc_info_blueprint.route('/buy_tokens')
+# BUY TOKENS
+@acc_info_blueprint.route('/buy_tokens', methods=['GET', 'POST'])
 def buy_tokens():
     is_indi_or_org(True)
     # Call this function in every route, to ensure navbar details
     user_data = user_nav_details(session.get("user_id")[2:])
 
-    return render_template("buy_tokens.html", user_data = user_data)
+    user_ref = db.reference("/user_accounts").child(auth.get_user(session.get("user_id")[2:]).display_name)
+
+    form = BuyTokens()
+    if form.validate_on_submit():
+        # Reduce wallet balance
+        user_ref.update({"Wallet": user_ref.get()["Wallet"] - int(form.token.data)})
+
+        # Give tokens
+        if form.token.data == "3":
+            user_ref.update({"Tokens": user_ref.get()["Tokens"] + 10})
+        if form.token.data == "7":
+            user_ref.update({"Tokens": user_ref.get()["Tokens"] + 55})
+        if form.token.data == "12":
+            user_ref.update({"Tokens": user_ref.get()["Tokens"] + 120})
+
+        return redirect(url_for('dashboard.individuals'))
+
+    return render_template("buy_tokens.html", form = form, user_data = user_data)
 
 
 @acc_info_blueprint.route('/acc_info/acc_settings/org')

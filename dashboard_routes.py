@@ -368,7 +368,8 @@ def user_nav_details(user_id):
         "Display_name": user_db_auth.display_name,
         "First_name": user_db_ref["First_name"],
         "Last_name": user_db_ref["Last_name"],
-        "Wallet": "$ {:,.2f}".format(user_db_ref["Wallet"])
+        "Wallet": "$ {:,.2f}".format(user_db_ref["Wallet"]),
+        "Tokens": user_db_ref["Tokens"]
     }
 
     # Any notification messages

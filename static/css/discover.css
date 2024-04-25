@@ -22,7 +22,7 @@ a{
     display:flex;
     gap: 2.083vw;
     height: min-content;
-    /* border: 1px solid white; */
+
     align-items: center;
     list-style: none;
     
@@ -479,6 +479,24 @@ a{
     width: 1vw;
     height: 1vw;
 }
+
+
+.token-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.35vw;
+
+    cursor: pointer;
+}
+.token-container span {
+    font-size: 16px;
+}
+.token-icon {
+    width: 1.35vw;
+    height: 1.35vw;
+}
+
 
 .noti-icon {
     position: relative;

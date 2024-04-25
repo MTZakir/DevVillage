@@ -246,6 +246,10 @@ def contract(contract_id):
 
                 db.reference("/contracts").child(contract_id).child("Applied").child(session.get("user_id")[2:]).update(applicant_data)
 
+                # If its user's first time uploading resume
+                if applied == False:
+                    db.reference("/user_accounts").child(auth.get_user(session.get("user_id")[2:]).display_name).update({"Resume": storage.child("files/resumes/" + str(session.get("user_id")[2:]) + "-" + form.resume.data.filename).get_url(session.get("user_id")[2:])})
+
                 return redirect(url_for('discover.individuals'))
         
         else:
