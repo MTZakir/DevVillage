@@ -48,11 +48,11 @@
 .add-or-update-bttn{
     background-color: transparent;
     border-radius: 0.417vw;
-    border: 1px solid #7D59D1;
+    border: 1px solid var(--color);
     padding: 0.521vw;
     transition: background-color 0.3s;
 
-    color: #7D59D1;
+    color: var(--color);
     font-size: 0.729vw;
     font-style: normal;
     font-weight: 300;
@@ -60,7 +60,7 @@
 }
 
 .add-or-update-bttn:hover{
-    background-color: #7D59D1;
+    background-color: var(--color);
     color: #fff;
 }
 

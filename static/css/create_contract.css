@@ -1,5 +1,5 @@
 .contract-creation-btn button{
-    background-color: #0D66AD; 
+    background-color: var(--color); 
 }
 
 .acc-settings{

@@ -1,5 +1,9 @@
 /* --------------------- CHAT BOX ---------------------*/
 
+.chat-nav-option{
+    color: var(--color) !important;
+}
+
 .chat-box {
     display: grid;
     grid-template-columns: 1fr 2fr;

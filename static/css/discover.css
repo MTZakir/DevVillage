@@ -665,7 +665,7 @@ a{
 
 .acc-dropdown-button button:hover{
     transition: 0.2s;
-    background-color: #5823d3;
+    background-color: var(--color);
 }
 
 .log-out{

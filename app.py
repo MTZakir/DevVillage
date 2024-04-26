@@ -72,8 +72,26 @@ def homecomp():
         
     return render_template("homecomp.html")
 
-@app.route('/chat')
-def chat():
+@app.route('/indi/chat')
+def indi_chat():
+    user_data = acc_nav_details(session.get("user_id"))
+    if 'user_id' not in session:
+        return redirect(url_for('home'))
+    else:
+        chat_info = [
+            {
+                'type': 'individual',
+                'profile_pic': '/static/images/taha.png',
+                'first_name': 'Taha',
+                'last_name': 'Zakir',
+                'recent_chat': 'We have sent the admin info via email to your registered email address.'
+            }
+        ]
+        chat_history = get_chat_history()
+        return render_template('chat.html', chat_info=chat_info, chat_history=chat_history, user_data = user_data)
+
+@app.route('/org/chat')
+def org_chat():
     user_data = acc_nav_details(session.get("user_id"))
     if 'user_id' not in session:
         return redirect(url_for('home'))

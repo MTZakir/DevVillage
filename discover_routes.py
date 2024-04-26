@@ -266,7 +266,7 @@ def contract(contract_id):
 
 
 # ---------- CREATE CONTRACT ----------
-@discover_blueprint.route("/create_contract", methods = ["POST", "GET"])
+@discover_blueprint.route("/org/create_contract", methods = ["POST", "GET"])
 def create_contract():
     is_indi_or_org(False)
     contract_ref = db.reference("/contracts")
@@ -320,7 +320,7 @@ def create_contract():
         print("You are not authorized to access this page.")
         return redirect(url_for('discover.individuals'))
 
-    return render_template("temp/create_contract.html", form = form, user_data = user_data)
+    return render_template("create_contract.html", form = form, user_data = user_data)
 
 # Helper function for create_contract()
 def payment_term_calc(days):

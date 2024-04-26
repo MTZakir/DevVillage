@@ -48,23 +48,22 @@
                         {% set invites_url = 'dashboard.invites' %}
                         {% set payments_url = 'dashboard.payment_history' %}
                         {% set contract_history_url = 'accinfo.contract_history' %}
-                        {% set contract_creation_url = 'accinfo.contract_creation' %}
-                        {% set org_contract_history_url = 'accinfo.contract_history_org' %}
-                        {% set wallet_url = 'accinfo.wallet' %}
-                        {% set tokens_url = 'accinfo.buy_tokens' %}
-                        {% set chat_url = 'chat' %}
+                        {% set wallet_url = 'accinfo.indi_wallet' %}
+                        {% set tokens_url = 'accinfo.indi_buy_tokens' %}
+                        {% set chat_url = 'indi_chat' %}
                     {% else %}
+                        {% set contract_creation_url = 'discover.create_contract' %}
                         {% set home_url = 'homecomp' %}
-                        {% set wallet_url = 'accinfo.wallet' %}
-                        {% set tokens_url = 'accinfo.buy_tokens' %}
+                        {% set wallet_url = 'accinfo.org_wallet' %}
+                        {% set tokens_url = 'accinfo.org_buy_tokens' %}
                         {% set dashboard_url = 'dashboard.organization' %}
                         {% set payments_url = 'dashboard.org_payment_history' %}
                         {% set discover_url = 'discover.companies' %}
+                        {% set org_contract_history_url = 'accinfo.contract_history_org' %}
                         {% set profile_url = 'accinfo.org_profile' %}
                         {% set applicants_url = 'dashboard.applicants' %}
                         {% set acc_info_url = 'accinfo.org_profile' %}
-                        {% set chat_url = 'chat' %}
-                        {% set contract_history_url = 'accinfo.contract_history' %}
+                        {% set chat_url = 'org_chat' %}
                         {% set settings_url = 'accinfo.org_settings' %}
                     {% endif %}
 
@@ -124,6 +123,7 @@
                             </div>
                             <div class="acc-options-all">
                                 <div class="account-dropdown-options">
+                                {% if session.get('user_id')[:2] == 'I-' %}
                                     <div class="acc-dropdown-button profile-btn">
                                         <button onclick="window.location.href = `{{url_for(profile_url)}}`"></button>
                                         <span>Profile</span>
@@ -148,8 +148,34 @@
                                         <span class="wallet-amt">{{ user_data["Wallet"] }}</span>
                                         <i class="bi bi-credit-card-2-front"></i>
                                     </div>
+                                {% else %}  
+                                    <div class="acc-dropdown-button acc-settings-btn">
+                                        <button onclick="window.location.href = `{{url_for(settings_url)}}`"></button>
+                                        <span>Account Settings</span>
+                                        <i class="bi bi-gear"></i>
+                                    </div>
+
+                                    <div class="acc-dropdown-button contr-hstry-btn">
+                                        <button onclick="window.location.href = `{{url_for(org_contract_history_url)}}`"></button>
+                                        <span>Contract History</span>
+                                        <i class="bi bi-clock-history"></i>
+                                    </div>
+
+                                    <div class="acc-dropdown-button contr-hstry-btn">
+                                        <button onclick="window.location.href = `{{url_for(contract_creation_url)}}`"></button>
+                                        <span>Create Contract</span>
+                                        <i class="bi bi-card-list"></i>
+                                    </div>
+                        
+                                    <div class="acc-dropdown-button pay-meth-btn">
+                                        <button onclick="window.location.href = `{{url_for(wallet_url)}}`"></button>
+                                        <span>Wallet</span>
+                                        <span class="wallet-amt">{{ user_data["Wallet"] }}</span>
+                                        <i class="bi bi-credit-card-2-front"></i>
+                                    </div>
+                                {% endif %}
                                 </div>
-    
+                                
                                 <div class="log-out">
                                     <button onclick="window.location.href = `{{url_for('auth.logout')}}`"></button>
                                     <span>Sign out</span>

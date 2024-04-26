@@ -272,82 +272,98 @@ def contract_history():
 
 
 # WALLET TOPUP
-@acc_info_blueprint.route('/acc_info/wallet', methods = ["GET", "POST"])
-def wallet():
+@acc_info_blueprint.route('/org/acc_info/wallet', methods = ["GET", "POST"])
+def org_wallet():
     # Call this function in every route, to ensure navbar details
+    is_indi_or_org(False)
     user_data = acc_nav_details(session.get("user_id"))
 
     form = WalletTopup()
 
     if form.validate_on_submit():
         # Organization Account
-        if session.get("user_id")[0] == "O":
-            org_wallet_db = db.reference("/org_accounts").child(session.get("user_id")[2:])
+        org_wallet_db = db.reference("/org_accounts").child(session.get("user_id")[2:])
 
-            if org_wallet_db.get()["Wallet"]:
-                new_wallet_amount = org_wallet_db.get()["Wallet"] + int(form.amount.data)
-                org_wallet_db.update({"Wallet": new_wallet_amount})
+        if org_wallet_db.get()["Wallet"]:
+            new_wallet_amount = org_wallet_db.get()["Wallet"] + int(form.amount.data)
+            org_wallet_db.update({"Wallet": new_wallet_amount})
 
-                return redirect(url_for('accinfo.wallet'))
-        
+            return redirect(url_for('accinfo.org_wallet'))
+
+    return render_template("wallet.html", form = form, user_data = user_data)
+
+@acc_info_blueprint.route('/org/acc_info/wallet', methods = ["GET", "POST"])
+def indi_wallet():
+    # Call this function in every route, to ensure navbar details
+    is_indi_or_org(True)
+    user_data = acc_nav_details(session.get("user_id"))
+
+    form = WalletTopup()
+
+    if form.validate_on_submit():
         # Individual Account
-        if session.get("user_id")[0] == "I":
-            user_wallet_db = db.reference("/user_accounts").child(auth.get_user(session.get("user_id")[2:]).display_name).child("Wallet").get()
+        user_wallet_db = db.reference("/user_accounts").child(auth.get_user(session.get("user_id")[2:]).display_name).child("Wallet").get()
 
-            if user_wallet_db:
-                new_wallet_amount = user_wallet_db + int(form.amount.data)
-                db.reference("/user_accounts").child(auth.get_user(session.get("user_id")[2:]).display_name).update({"Wallet": new_wallet_amount})
+        if user_wallet_db:
+            new_wallet_amount = user_wallet_db + int(form.amount.data)
+            db.reference("/user_accounts").child(auth.get_user(session.get("user_id")[2:]).display_name).update({"Wallet": new_wallet_amount})
 
-                return redirect(url_for('accinfo.wallet'))
+            return redirect(url_for('accinfo.indi_wallet'))
 
     return render_template("wallet.html", form = form, user_data = user_data)
 
 
 # BUY TOKENS
-@acc_info_blueprint.route('/buy_tokens', methods=['GET', 'POST'])
+@acc_info_blueprint.route('/individual/buy_tokens', methods=['GET', 'POST'])
 def buy_tokens():
+    is_indi_or_org(True)
+    # Call this function in every route, to ensure navbar details
+    user_data = acc_nav_details(session.get("user_id"))
+    form = BuyTokens()   
+    # Individual Account
+    user_ref = db.reference("/user_accounts").child(auth.get_user(session.get("user_id")[2:]).display_name)
+    
+    if form.validate_on_submit():
+        # Reduce wallet balance
+        user_ref.update({"Wallet": user_ref.get()["Wallet"] - int(form.token.data)})
+
+        # Give tokens
+        if form.token.data == "3":
+            user_ref.update({"Tokens": user_ref.get()["Tokens"] + 10})
+        if form.token.data == "7":
+            user_ref.update({"Tokens": user_ref.get()["Tokens"] + 55})
+        if form.token.data == "12":
+            user_ref.update({"Tokens": user_ref.get()["Tokens"] + 120})
+
+        return redirect(url_for('dashboard.individuals'))
+        
+
+    return render_template("buy_tokens.html", form = form, user_data = user_data)
+
+@acc_info_blueprint.route('/org/buy_tokens', methods=['GET', 'POST'])
+def org_buy_tokens():
+    is_indi_or_org(False)
     # Call this function in every route, to ensure navbar details
     user_data = acc_nav_details(session.get("user_id"))
     form = BuyTokens()
 
     # Organization Account
-    if session.get("user_id")[0] == "O":
-        org_ref = db.reference("/org_accounts").child(session.get("user_id")[2:])
+    org_ref = db.reference("/org_accounts").child(session.get("user_id")[2:])
 
-        if form.validate_on_submit():
-            # Reduce wallet balance
-            org_ref.update({"Wallet": org_ref.get()["Wallet"] - int(form.token.data)})
+    if form.validate_on_submit():
+        # Reduce wallet balance
+        org_ref.update({"Wallet": org_ref.get()["Wallet"] - int(form.token.data)})
 
-            # Give tokens
-            if form.token.data == "3":
-                org_ref.update({"Tokens": org_ref.get()["Tokens"] + 10})
-            if form.token.data == "7":
-                org_ref.update({"Tokens": org_ref.get()["Tokens"] + 55})
-            if form.token.data == "12":
-                org_ref.update({"Tokens": org_ref.get()["Tokens"] + 120})
+        # Give tokens
+        if form.token.data == "3":
+            org_ref.update({"Tokens": org_ref.get()["Tokens"] + 10})
+        if form.token.data == "7":
+            org_ref.update({"Tokens": org_ref.get()["Tokens"] + 55})
+        if form.token.data == "12":
+            org_ref.update({"Tokens": org_ref.get()["Tokens"] + 120})
 
-            return redirect(url_for('dashboard.organization'))
-
-        
-    # Individual Account
-    if session.get("user_id")[0] == "I":
-        user_ref = db.reference("/user_accounts").child(auth.get_user(session.get("user_id")[2:]).display_name)
-        
-        if form.validate_on_submit():
-            # Reduce wallet balance
-            user_ref.update({"Wallet": user_ref.get()["Wallet"] - int(form.token.data)})
-
-            # Give tokens
-            if form.token.data == "3":
-                user_ref.update({"Tokens": user_ref.get()["Tokens"] + 10})
-            if form.token.data == "7":
-                user_ref.update({"Tokens": user_ref.get()["Tokens"] + 55})
-            if form.token.data == "12":
-                user_ref.update({"Tokens": user_ref.get()["Tokens"] + 120})
-
-            return redirect(url_for('dashboard.individuals'))
-        
-
+        return redirect(url_for('dashboard.organization'))
+      
     return render_template("buy_tokens.html", form = form, user_data = user_data)
 
 
