@@ -312,7 +312,7 @@ def create_contract():
 
     else:
         print("You are not authorized to access this page.")
-        return redirect(url_for('discover.main'))
+        return redirect(url_for('discover.individuals'))
 
     return render_template("temp/create_contract.html", form = form)
 

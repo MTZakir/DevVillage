@@ -1,5 +1,5 @@
-.contr-hstry-btn{
-    color: var(--color) !important; 
+.contr-hstry-btn button{
+    background-color: #5823d3; 
 }
 
 .contract-card h2{

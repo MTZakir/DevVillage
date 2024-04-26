@@ -46,7 +46,12 @@ def is_indi_or_org(acc_type):
 def acc_info():
     return render_template("accountinfo.html")
 
+@acc_info_blueprint.route('/acc_info/create_contract/company')
+def contract_creation():
+    is_indi_or_org(True)
 
+    user_data = user_nav_details(session.get("user_id")[2:])
+    return render_template('create_contract.html', user_data=user_data)
 
 @acc_info_blueprint.route('/acc_info/profile/individual')
 def individual_profile():

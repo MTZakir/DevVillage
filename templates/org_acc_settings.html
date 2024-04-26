@@ -2,10 +2,72 @@
 
 {% block import_files %}
 {{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/acc_settings.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/org_settings.css') }}">
+<script src="/static/js/acc_settings.js" type="module"></script>
 {% endblock %}
 
-{% block title %}Account Info{% endblock %}
+{% block title %}Contract Creation{% endblock %}
 
 {% block acc_info_options_display %}
+<div class="acc-settings">
+    <div class="page-title-brief-desc">
+        <h2 id="title">Account Settings</h2>
+        <p id="brief-desc">Update your profile picture and personal details here</p>
+    </div>
+    <div class="acc-settings-all-options">
+        <form method="POST" enctype="multipart/form-data">
+            
+            <div class="update-profile-pic">
+                <img src='/static/images/netflix.png' class="prof-pic-comp"></i>
+                <div class="btn-container">
+                    <div class="add-or-update-bttn">
+                        <label for="update-bttn-text">Add new profile pic</label>
+                        <input type="file" id="update-bttn-text" accept="image/*" hidden></input>
+                    </div>
+                    <span class="pfp-msg" id="pfp_msg"></span>
+                </div>
+            </div>
+
+            <div class="personal-details">
+                <div class="left-fields">
+                    <div class="personal-fields" id="orgname-field">
+                        <p class="field-label">Organization Name</p>
+                        <input class="personal-input-fields" name="Organization_Name" type="text" id="orgname" value='' autocomplete="off">
+                    </div>
+
+                    <div class="save-btn-container">
+                        <button class="save-btn" id="save_btn" disabled>Save Changes</button>
+                    </div>
+                    
+                    <div class="personal-fields" id="email-field">
+                        <p class="field-label">Email</p>
+                        <input class="personal-input-fields" name="email" type="email" id="email" value='' autocomplete="off" disabled>
+                    </div>
+
+                    <div class="personal-fields" id="sector-field">
+                        <p class="field-label">Industry Sector</p>
+                        <div class="username-atsign">
+                            <input class="personal-input-fields" name="display_name" type="text" id="username" value='' autocomplete="off">
+                        </div>
+                    </div>
+                    
+                    <div class="personal-fields" id="password-field">
+                        <p class="field-label">Password</p>
+                        <input class="personal-input-fields" name="password" type="password" id="password" value="" disabled>
+                    </div>
+
+                    <div class="personal-fields" id="website-field">
+                        <p class="field-label">Website</p>
+                        <input class="personal-input-fields" name="password" id="website" value="">
+                    </div>
+                    
+                    <div class="personal-fields" id="comp-desc-field">
+                        <p class="field-label">Company Description (Max 200 char)</p>
+                        <textarea class="personal-input-fields" name="bio" id="comp-desc" wrap="soft"></textarea>
+                    </div>
+                </div>    
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

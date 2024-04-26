@@ -43,10 +43,12 @@
                         {% set profile_url = 'accinfo.individual_profile' %}
                         {% set acc_info_url = 'accinfo.individual_profile' %}
                         {% set settings_url = 'accinfo.individual_settings' %}
+                        {% set org_settings_url = 'accinfo.org_settings' %}
                         {% set ad_url = 'accinfo.my_ads' %}
                         {% set invites_url = 'dashboard.invites' %}
                         {% set payments_url = 'dashboard.payment_history' %}
                         {% set contract_history_url = 'accinfo.contract_history' %}
+                        {% set contract_creation_url = 'accinfo.contract_creation' %}
                         {% set wallet_url = 'accinfo.wallet' %}
                         {% set tokens_url = 'accinfo.buy_tokens' %}
                         {% set chat_url = 'chat' %}
@@ -120,7 +122,19 @@
                                         <span>Account Settings</span>
                                         <i class="bi bi-gear"></i>
                                     </div>
+                                    
+                                    <div class="acc-dropdown-button acc-settings-btn">
+                                        <button onclick="window.location.href = `{{url_for(org_settings_url)}}`"></button>
+                                        <span>Account Settings (ORG)</span>
+                                        <i class="bi bi-gear"></i>
+                                    </div>
                         
+                                    <div class="acc-dropdown-button contr-hstry-btn">
+                                        <button onclick="window.location.href = `{{url_for(contract_creation_url)}}`"></button>
+                                        <span>Contract Creation (ORG)</span>
+                                        <i class="bi bi-clock-history"></i>
+                                    </div>
+
                                     <div class="acc-dropdown-button contr-hstry-btn">
                                         <button onclick="window.location.href = `{{url_for(contract_history_url)}}`"></button>
                                         <span>Contract History</span>

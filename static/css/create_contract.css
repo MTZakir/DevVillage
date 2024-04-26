@@ -1,0 +1,288 @@
+.contract-creation-btn button{
+    background-color: #5823d3; 
+}
+
+.acc-settings{
+    padding: 20px 30px 20px 30px;
+    display: grid;
+}
+
+.page-title-brief-desc{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+#title, #brief-desc{
+    margin: 0;
+}
+
+#title{
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.prof-pic{
+    font-size: 7.188vw;
+}
+
+.update-profile-pic{
+    display: flex;
+    gap: 2vw;
+    align-items: center;
+}
+.update-profile-pic i {
+    margin-top: -1vw;
+}
+
+.add-or-update-bttn{
+    background-color: transparent;
+    border-radius: 0.417vw;
+    border: 1px solid #7D59D1;
+    padding: 0.521vw;
+    transition: background-color 0.3s;
+
+    color: #7D59D1;
+    font-size: 0.729vw;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.add-or-update-bttn:hover{
+    background-color: #7D59D1;
+    color: #fff;
+}
+
+
+.btn-container {
+    position: relative;
+}
+
+.pfp-msg {
+    position: absolute;
+    display: none;
+
+    top: 2.5vw;
+    left: 0.25vw;
+
+    font-size: 0.8vw;
+    color: #ffffff91;
+}
+.pfp-msg:hover {
+    color: #fff;
+    cursor: pointer;
+}
+
+
+#brief-desc{
+    color: #969090;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.personal-fields {
+    width: 16.354vw;
+    height: fit-content;
+    padding: 0.781vw 0.521vw 0.781vw 0.781vw;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    border-radius: 0.313vw;
+    border: none;
+    outline: none;
+    background-color: #202124;
+    box-shadow: 0.052vw 0.208vw 0.208vw 0.052vw rgba(0, 0, 0, 0.25) inset;
+    box-sizing: border-box;
+}
+
+.personal-fields p{
+    margin: 0;
+    color: rgba(255, 255, 255, 0.40);
+    font-size: 0.729vw;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.personal-fields textarea{
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color:#fff;
+
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: 0.938vw;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    
+    resize: none;
+    height: 1.354vw;
+}
+.personal-input-fields{
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color:#fff;
+
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: 0.938vw;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    
+    resize: none;
+    height: 1.042vw;
+}
+
+.personal-fields > select {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    color: #fff;
+}
+.personal-fields > select > option {
+    background-color: #202124;
+}
+
+.personal-details{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.042vw;
+    margin-top: 20px;
+    background-color: #0F0F0F;
+    border-radius: 10px;
+    padding: 40px;
+}
+
+.right-fields{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    row-gap: 0.833vw;
+}
+
+.left-fields{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: 0.833vw;
+}
+
+.username-atsign{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#title-field{
+    width: 100%;
+}
+
+#email{
+    color: #ffffff8e;
+}
+
+#min-price-field{
+    width: 100%;
+}
+
+#max-price-field{
+    width: 100%;
+}
+
+#scope-field{
+    width: 100%;
+}
+
+#technoligical-field {
+    width: 100%;
+}
+
+#delivarables-field{
+    width: 100%;
+}
+
+#duration-field{
+    width: 100%;
+}
+
+#gender-field{
+    width: 100%;
+}
+
+#overview-field{
+    width: 100%;
+    height: 15%;
+    gap: 5px;
+    justify-content: flex-start;
+}
+
+#additional-field {
+    width: 100%;
+}
+
+#overview-field{
+    width: 100%;
+    height: 15%;
+    gap: 5px;
+    justify-content: flex-start;
+}
+
+#bio-about{
+    height: 100%; 
+    width: 100%
+}
+
+.three-field{
+    background-color: #313030;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    margin-top: 20px;
+    padding: 10px;
+    height: 20px;
+}
+
+.three-field:focus{
+    outline: #413f3f;
+}
+
+.create-btn {
+    border-radius: 0.313vw;
+    border: 1px solid #444444;
+    background-color: transparent;
+    color: #444444;
+
+    width: max-content;
+    padding: 0.5vw;
+    margin-top: 0.83vw;
+
+    transition: 0.3s ease-in-out;
+}
+.create-btn:hover {
+    cursor: default;
+}
+
+.create-btn.active {
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid #327A31;
+}
+.create-btn.active:hover {
+    cursor: pointer;
+    background-color: #327A31;
+}
