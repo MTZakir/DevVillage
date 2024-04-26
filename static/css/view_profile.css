@@ -1,29 +1,14 @@
+:root {
+    --contrct-card-container-padding: 12px;
+    --review-card-container-padding: 4px 6px;
+    --cards-scrollbar-height: 0.5vw;
+}
+
 .profile-container{
     display: flex;
     flex-direction: column;
     padding: 1.014vw 1.486vw 1.014vw 1.486vw;
-}
-
-.profile-heading{
-    display: flex;
-    flex-direction: column;
-    font-weight: 200;
-    color: white;
-    margin-bottom: 1.014vw;
-    padding-left: 0.4vw;
-}
-
-.profile-heading .heading{
-    font-size: 1.3vw;
-}
-
-.profile-heading .subheading{
-    font-size: 0.8vw;
-    color: #ffffffab;
-}
-
-.profile-btn button{
-    background-color: #5823d3;
+    margin-top: 7vh;;
 }
 
 .profile-content{
@@ -36,7 +21,7 @@
     border-radius: 1.4vw;
 
     max-height: 40vw;
-    max-width: 70.27vw;
+    max-width: calc(100vw - (1.914vw)*2);
 }
 
 .acc-details{
@@ -50,7 +35,8 @@
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    margin: 0 1.014vw 0 0;
+    margin: 0 1.689vw 0 0;
+    width: 72.311vw;
 }
 
 .general-info::-webkit-scrollbar{
@@ -274,7 +260,7 @@
 }
 
 .contract-history-btn button, .review-btn button{
-    width: 13vw;
+    width: 18vw;
     height: 100%;
 
     background-color: #ffffff00;
@@ -314,16 +300,17 @@
 
 .contract-history-btn span{
     top: 15%;
-    left: 24.5%;
+    left: 32%;
 }
 
 .review-btn span{
     top: 15%;
-    left: 36%;
+    left: 41.2%;
 }
 
 .contract-and-review-content{
     display: flex;
+
 
 
     border-radius: 15px;
@@ -368,7 +355,7 @@
     overflow: auto;
     overflow-y: hidden;
 
-    max-width: 44vw;
+    max-width: 62vw;
 
     padding-top: var(--contrct-card-container-padding);
     padding-right: var(--contrct-card-container-padding);
@@ -376,7 +363,7 @@
     padding-left: var(--contrct-card-container-padding);
 
     width: 100%;
-    height: calc(8vw - (var(--card-container-padding) * 2)) !important;
+    /* height: calc(10vw - (var(--card-container-padding) * 2)) !important; */
     
 }
 
@@ -463,12 +450,12 @@
     overflow: auto;
     overflow-y: hidden;
 
-    max-width: 44vw;
+    max-width: 62vw;
 
     padding: var(--review-card-container-padding);
 
     width: 100%;
-    height: calc(8vw - (var(--review-card-container-padding) * 2)) !important;
+    /* height: calc(9vw - (var(--review-card-container-padding) * 2)) !important; */
 }
 
 .review-cards {
@@ -530,8 +517,34 @@
 
 @media screen and (height: 774.4px) {
     .acc-details {
-        height: 31vw;
-        max-height: 31vw;
+        height: 36vw;
+        max-height: 36vw;
+    }
+    .profile-content{
+        height: 44vw;
+        max-height: 44vw;
+    }
+}
+
+@media screen and (height: 990px) {
+    .acc-details {
+        height: 37.5vw;
+        max-height: 37.5vw;
+    }
+    .profile-content{
+        height: 45vw;
+        max-height: 45vw;
+    }
+}
+
+@media screen and (height: 977px) {
+    .acc-details {
+        height: 36.7vw;
+        max-height: 36.7vw;
+    }
+    .profile-content{
+        height: 44.5vw;
+        max-height: 44.5vw;
     }
 }
 

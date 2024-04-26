@@ -304,7 +304,7 @@ document.addEventListener("DOMContentLoaded", function() {
         contrcthstryspan.classList.add("active");
     }
 
-    if (currentURL === "/acc_info/profile/individual") {
+    if (currentURL === "/acc_info/profile/individual" || currentURL === "/org/view_profile") {
         //handling long list of expertise
         const expert_list_length = expertList.length;
         let isExpandedExprt = false;
