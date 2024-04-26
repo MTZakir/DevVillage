@@ -34,7 +34,7 @@
                     </div>
                     <div class="price">
                         {% if contract['total_earned'] == None %}
-                            <p>${{contract['price_range'][0]}} - {{contract['price_range'][1]}}</p>
+                            <p>Agreed Pay: ${{contract['agreed_pay']}} | Every 15 days</p>
                         {% else %}
                             <p>Total Earned: ${{contract['total_earned']}}</p>
                         {% endif %}

@@ -1,0 +1,150 @@
+.org-contract-history-btn button{
+    background-color: #0D66AD;
+}
+
+.contract-card h2{
+    margin: 0;
+}
+
+.contract-card p{
+    margin: 0;
+}
+
+.title-filter-btns{
+    background-color: #0F141B;
+    padding: 10px 22px 10px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.filter-btns-contract-history{
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+.filter-btns-contract-history span{
+    font-size: 12px;
+}
+
+.contract-history-filters{
+    font-family: "Noto Sans JP", sans-serif;
+    width: 85px;
+    border-radius: 3px;
+    border: none;
+    padding:4px 0px;
+    color: #FFF;
+}
+
+.comp-name-date{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title-filter-btns h2{
+    margin: 0;
+    color: #FFF;
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+#all-btn:hover, #ongoing-btn:hover, #completed-btn:hover, #open-btn:hover{
+    cursor: pointer;
+}
+
+#all-btn, #ongoing-btn{
+    background-color: #122943;
+}
+
+#open-btn{
+    background-color: rgb(23, 65, 65);
+}
+
+#completed-btn{
+    background-color: #0A6533;
+}
+
+.contracts-history{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 20px 22px;
+    gap: 30px;
+    row-gap: 60px;
+}
+
+.contract-card{
+    /* border: 1px solid white; */
+    background-color: #0D1117;
+    border-radius: 10px;
+}
+
+.contract-text{
+    padding: 16px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.contract-status{
+    text-align: center;
+    border-radius: 10px;
+}
+
+.contract-status h2{
+    margin: 0;
+    border-radius: 0px 0px 10px 10px;
+
+    color: #D9D7D7;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.64px;
+}
+
+.comp-name-date h2{
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.comp-name-date p{
+    color: rgba(255, 255, 255, 0.50);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 250;
+    line-height: normal;
+}
+
+.contract-title-desc h2{
+    color: #FFF;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 250;
+    line-height: normal;
+}
+
+.contract-title-desc p{
+    color: rgba(255, 255, 255, 0.50);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 250;
+    line-height: normal;
+    white-space: nowrap; 
+    overflow: hidden; 
+    width: 400px;
+    text-overflow: ellipsis;
+}
+
+.price p{
+    color: #1A7229;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.64px;
+}

@@ -183,16 +183,22 @@ function dropDownClick() {
 }
 
 function statusColor(){
-    $('.status').each(function() {
+    $('.status-heading').each(function() {
         var status = $(this).text().trim();
-        if (status === 'Completed') {
+        if (status === 'Completed' || status === 'Closed') {
             // Set the color of the text to green for completed status
-            $(this).css('color', '#1A7229');
+            $(this).css('background-color', 'rgb(10, 101, 51)');
             $(this).css('font-size', '1.042vw');
             $(this).css('font-weight', '300');
         } else if (status === 'Ongoing') {
             // Set the color of the text to the specified rgba color for ongoing status
-            $(this).css('color', 'rgba(255, 255, 255, 0.70)');
+            $(this).css('background-color', 'rgba(255, 255, 255, 0.70)');
+            $(this).css('font-size', '1.042vw');
+            $(this).css('font-weight', '300');
+        }
+         else if (status === 'Open') {
+            // Set the color of the text to the specified rgba color for ongoing status
+            $(this).css('background-color', 'rgb(23, 65, 65)');
             $(this).css('font-size', '1.042vw');
             $(this).css('font-weight', '300');
         }
@@ -202,7 +208,7 @@ function statusColor(){
 function statusColorHistory(){
     $('.status-heading').each(function() {
         var status = $(this).text().trim();
-        if (status === 'Completed') {
+        if (status === 'Completed' || status === 'Closed') {
             // Set the color of the text to green for completed status
             $(this).css('background-color', '#0A6533');
 
@@ -220,9 +226,19 @@ function filterStatus(){
     $("#ongoing-btn").click(function() {
         $(".contract-card[data-status='Ongoing']").fadeIn();
         $(".contract-card[data-status='Completed']").hide();
+        $(".contract-card[data-status='Closed']").hide();
+        $(".contract-card[data-status='Open']").hide();
     });
     $("#completed-btn").click(function() {
         $(".contract-card[data-status='Completed']").fadeIn();
+        $(".contract-card[data-status='Closed']").fadeIn();
+        $(".contract-card[data-status='Ongoing']").hide();
+        $(".contract-card[data-status='Open']").hide();
+    });
+    $("#open-btn").click(function() {
+        $(".contract-card[data-status='Open']").fadeIn();
+        $(".contract-card[data-status='Completed']").hide();
+        $(".contract-card[data-status='Closed']").hide();
         $(".contract-card[data-status='Ongoing']").hide();
     });
 }
