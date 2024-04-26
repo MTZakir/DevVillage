@@ -1,7 +1,7 @@
 from flask import Blueprint, redirect, render_template, session, url_for
 from firebase_admin import auth
 from firebase_admin._auth_utils import UserNotFoundError
-from dashboard_routes import user_nav_details
+from dashboard_routes import acc_nav_details
 from acc_info_forms import WalletTopup, AccountInfo, BuyTokens
 from firebase_admin import db, auth
 
@@ -46,19 +46,17 @@ def is_indi_or_org(acc_type):
 def acc_info():
     return render_template("accountinfo.html")
 
-@acc_info_blueprint.route('/acc_info/create_contract/company')
-def contract_creation():
-    is_indi_or_org(True)
 
-    user_data = user_nav_details(session.get("user_id")[2:])
-    return render_template('create_contract.html', user_data=user_data)
 
+# ------------------------------------------------------------------------------------
+
+# INDIVIDUAL ACCOUNT INFO
 @acc_info_blueprint.route('/acc_info/profile/individual')
 def individual_profile():
     is_indi_or_org(True)
     # Call this function in every route, to ensure navbar details
     # Contains first name, last name, display name, wallet amount, tokens and notifications
-    user_data = user_nav_details(session.get("user_id")[2:])
+    user_data = acc_nav_details(session.get("user_id"))
 
     resume = False
 
@@ -79,13 +77,13 @@ def individual_profile():
 
     return render_template("indiprofile.html", user_data = user_data, profile_info = profile_info, resume = resume)
 
-
+# INDIVIDUAL ACCOUNT SETTINGS
 @acc_info_blueprint.route('/acc_info/acc_settings/individual', methods=['GET', 'POST'])
 def individual_settings():
     is_indi_or_org(True)
     # Call this function in every route, to ensure navbar details
     # Contains display name, first name, last name, wallet and tokens
-    user_data = user_nav_details(session.get("user_id")[2:])
+    user_data = acc_nav_details(session.get("user_id"))
 
     user_auth = auth.get_user(session.get("user_id")[2:])
     user_ref = db.reference("/user_accounts").child(user_auth.display_name)
@@ -129,12 +127,12 @@ def individual_settings():
 
     return render_template("indi_acc_settings.html", form=form, user_data = user_data, user_info = user_info)
 
-# CONTRACT HISTORY
+# INDIVUDUAL CONTRACT HISTORY
 @acc_info_blueprint.route('/acc_info/contract_history/individual')
 def contract_history():
     is_indi_or_org(True)
     # Call this function in every route, to ensure navbar details
-    user_data = user_nav_details(session.get("user_id")[2:])
+    user_data = acc_nav_details(session.get("user_id"))
 
     contracts = [
         {
@@ -274,22 +272,33 @@ def contract_history():
 
 
 # WALLET TOPUP
-@acc_info_blueprint.route('/acc_info/wallet/individual', methods = ["GET", "POST"])
+@acc_info_blueprint.route('/acc_info/wallet', methods = ["GET", "POST"])
 def wallet():
-    is_indi_or_org(True)
     # Call this function in every route, to ensure navbar details
-    user_data = user_nav_details(session.get("user_id")[2:])
+    user_data = acc_nav_details(session.get("user_id"))
 
     form = WalletTopup()
 
     if form.validate_on_submit():
-        user_wallet_db = db.reference("/user_accounts").child(auth.get_user(session.get("user_id")[2:]).display_name).child("Wallet").get()
+        # Organization Account
+        if session.get("user_id")[0] == "O":
+            org_wallet_db = db.reference("/org_accounts").child(session.get("user_id")[2:])
 
-        if (user_wallet_db):
-            new_wallet_amount = user_wallet_db + int(form.amount.data)
-            db.reference("/user_accounts").child(auth.get_user(session.get("user_id")[2:]).display_name).update({"Wallet": user_wallet_db + int(form.amount.data)})
+            if org_wallet_db.get()["Wallet"]:
+                new_wallet_amount = org_wallet_db.get()["Wallet"] + int(form.amount.data)
+                org_wallet_db.update({"Wallet": new_wallet_amount})
 
-            return redirect(url_for('accinfo.wallet'))
+                return redirect(url_for('accinfo.wallet'))
+        
+        # Individual Account
+        if session.get("user_id")[0] == "I":
+            user_wallet_db = db.reference("/user_accounts").child(auth.get_user(session.get("user_id")[2:]).display_name).child("Wallet").get()
+
+            if user_wallet_db:
+                new_wallet_amount = user_wallet_db + int(form.amount.data)
+                db.reference("/user_accounts").child(auth.get_user(session.get("user_id")[2:]).display_name).update({"Wallet": new_wallet_amount})
+
+                return redirect(url_for('accinfo.wallet'))
 
     return render_template("wallet.html", form = form, user_data = user_data)
 
@@ -297,43 +306,75 @@ def wallet():
 # BUY TOKENS
 @acc_info_blueprint.route('/buy_tokens', methods=['GET', 'POST'])
 def buy_tokens():
-    is_indi_or_org(True)
     # Call this function in every route, to ensure navbar details
-    user_data = user_nav_details(session.get("user_id")[2:])
-
-    user_ref = db.reference("/user_accounts").child(auth.get_user(session.get("user_id")[2:]).display_name)
-
+    user_data = acc_nav_details(session.get("user_id"))
     form = BuyTokens()
-    if form.validate_on_submit():
-        # Reduce wallet balance
-        user_ref.update({"Wallet": user_ref.get()["Wallet"] - int(form.token.data)})
 
-        # Give tokens
-        if form.token.data == "3":
-            user_ref.update({"Tokens": user_ref.get()["Tokens"] + 10})
-        if form.token.data == "7":
-            user_ref.update({"Tokens": user_ref.get()["Tokens"] + 55})
-        if form.token.data == "12":
-            user_ref.update({"Tokens": user_ref.get()["Tokens"] + 120})
+    # Organization Account
+    if session.get("user_id")[0] == "O":
+        org_ref = db.reference("/org_accounts").child(session.get("user_id")[2:])
 
-        return redirect(url_for('dashboard.individuals'))
+        if form.validate_on_submit():
+            # Reduce wallet balance
+            org_ref.update({"Wallet": org_ref.get()["Wallet"] - int(form.token.data)})
+
+            # Give tokens
+            if form.token.data == "3":
+                org_ref.update({"Tokens": org_ref.get()["Tokens"] + 10})
+            if form.token.data == "7":
+                org_ref.update({"Tokens": org_ref.get()["Tokens"] + 55})
+            if form.token.data == "12":
+                org_ref.update({"Tokens": org_ref.get()["Tokens"] + 120})
+
+            return redirect(url_for('dashboard.organization'))
+
+        
+    # Individual Account
+    if session.get("user_id")[0] == "I":
+        user_ref = db.reference("/user_accounts").child(auth.get_user(session.get("user_id")[2:]).display_name)
+        
+        if form.validate_on_submit():
+            # Reduce wallet balance
+            user_ref.update({"Wallet": user_ref.get()["Wallet"] - int(form.token.data)})
+
+            # Give tokens
+            if form.token.data == "3":
+                user_ref.update({"Tokens": user_ref.get()["Tokens"] + 10})
+            if form.token.data == "7":
+                user_ref.update({"Tokens": user_ref.get()["Tokens"] + 55})
+            if form.token.data == "12":
+                user_ref.update({"Tokens": user_ref.get()["Tokens"] + 120})
+
+            return redirect(url_for('dashboard.individuals'))
+        
 
     return render_template("buy_tokens.html", form = form, user_data = user_data)
 
 
+@acc_info_blueprint.route('/acc_info/profile/organization')
+def org_profile():
+    is_indi_or_org(False)
+    # Call this function in every route, to ensure navbar details
+    user_data = acc_nav_details(session.get("user_id"))
+
+    return render_template("org_profile.html", user_data = user_data)
+
+
+# ORGANIZATION ACCOUNT SETTINGS
 @acc_info_blueprint.route('/acc_info/acc_settings/org')
 def org_settings():
     is_indi_or_org(False)
     # Call this function in every route, to ensure navbar details
-    user_data = user_nav_details(session.get("user_id")[2:])
+    user_data = acc_nav_details(session.get("user_id"))
 
     return render_template("org_acc_settings.html", user_data = user_data)
 
+# ORGANIZATION CONTRACT HISTORY
 @acc_info_blueprint.route('/acc_info/contract_history/org')
 def contract_history_org():
     is_indi_or_org(False)
     # Call this function in every route, to ensure navbar details
-    user_data = user_nav_details(session.get("user_id")[2:])
+    user_data = acc_nav_details(session.get("user_id"))
     contracts = [
         {
             'indi_username': 'test',

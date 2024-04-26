@@ -30,13 +30,15 @@
                     
                     <div class="personal-fields" id="min-price-field">
                         <p class="field-label">Minimum offered price for contract</p>
-                        <input class="personal-input-fields" name="email" type="email" id="email" value='' autocomplete="off">
+                        <div class="pay-dollar-sign">
+                            <p class="field-label">$</p><input class="personal-input-fields" name="email" type="email" id="email" value='' autocomplete="off">
+                        </div>
                     </div>
                     
                     <div class="personal-fields" id="max-price-field">
                         <p class="field-label">Maximum offered price for contract</p>
-                        <div class="username-atsign">
-                            <p class="field-label">@</p><input class="personal-input-fields" name="display_name" type="text" id="username" value='' autocomplete="off">
+                        <div class="pay-dollar-sign">
+                            <p class="field-label">$</p><input class="personal-input-fields" name="display_name" type="text" id="username" value='' autocomplete="off">
                         </div>
                     </div>
                     
@@ -70,16 +72,16 @@
                     </div>
                     
                     <div class="personal-fields" id="additional-field">
-                        <p class="field-label">Additional information</p>
+                        <p class="field-label">Additional information (Optional)</p>
                         <input class="three-field" name="dob" id="birth" value='' autocomplete="off">
                         <input class="three-field" name="dob" id="birth" value='' autocomplete="off">
                         <input class="three-field" name="dob" id="birth" value='' autocomplete="off">
                     </div>
                 </div>
-            </div>
 
-            <div class="save-btn-container">
-                <button class="create-btn" id="create_btn">Create Contract</button>
+                <div class="save-btn-container">
+                    <button class="create-btn" id="create_btn">Create Contract</button>
+                </div>
             </div>
         </form>
     </div>

@@ -55,7 +55,7 @@
                         {% set chat_url = 'chat' %}
                     {% else %}
                         {% set home_url = 'homecomp' %}
-                        {% set wallet_url = 'accinfo.org_wallet' %}
+                        {% set wallet_url = 'accinfo.wallet' %}
                         {% set tokens_url = 'accinfo.buy_tokens' %}
                         {% set dashboard_url = 'dashboard.organization' %}
                         {% set payments_url = 'dashboard.org_payment_history' %}
@@ -107,8 +107,20 @@
 
                             <div class="acc-dropdown-display">
                                 <i class="bi bi-person-circle profile-picture"></i>
-                                <span class="first-and-last-name">{{ user_data["First_name"] }} {{ user_data["Last_name"] }}</span>
-                                <span class="user-name">@ {{ user_data["Display_name"] }}</span>
+                                <span class="first-and-last-name">
+                                    {% if user_data["First_name"] is defined or user_data["Last_name"] is defined %}
+                                        {{ user_data["First_name"] }} {{ user_data["Last_name"] }}
+                                    {% elif user_data["Company_name"] is defined %}
+                                        {{ user_data["Company_name"] }}
+                                    {% endif %}
+                                </span>
+                                <span class="user-name">
+                                    {% if user_data["Display_name"] is defined %}
+                                        @ {{ user_data["Display_name"] }}
+                                    {% elif user_data["Email"] is defined %}
+                                        {{ user_data["Email"] }}
+                                    {% endif %}
+                                </span>
                             </div>
                             <div class="acc-options-all">
                                 <div class="account-dropdown-options">
@@ -122,24 +134,6 @@
                                         <button onclick="window.location.href = `{{url_for(settings_url)}}`"></button>
                                         <span>Account Settings</span>
                                         <i class="bi bi-gear"></i>
-                                    </div>
-                                    
-                                    <div class="acc-dropdown-button acc-settings-btn">
-                                        <button onclick="window.location.href = `{{url_for(org_settings_url)}}`"></button>
-                                        <span>Account Settings (ORG)</span>
-                                        <i class="bi bi-gear"></i>
-                                    </div>
-                        
-                                    <div class="acc-dropdown-button contr-hstry-btn">
-                                        <button onclick="window.location.href = `{{url_for(contract_creation_url)}}`"></button>
-                                        <span>Contract Creation (ORG)</span>
-                                        <i class="bi bi-clock-history"></i>
-                                    </div>
-
-                                    <div class="acc-dropdown-button org-contr-hstry-btn">
-                                        <button onclick="window.location.href = `{{url_for(org_contract_history_url)}}`"></button>
-                                        <span>Contract History (ORG)</span>
-                                        <i class="bi bi-clock-history"></i>
                                     </div>
 
                                     <div class="acc-dropdown-button contr-hstry-btn">

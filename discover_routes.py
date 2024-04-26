@@ -6,7 +6,7 @@ from discover_forms import CreateContract, ApplyContract
 from firebase_admin import auth
 from firebase_admin._auth_utils import UserNotFoundError
 from datetime import date
-from dashboard_routes import user_nav_details
+from dashboard_routes import acc_nav_details
 
 # Blueprint initialization
 discover_blueprint = Blueprint(
@@ -48,22 +48,26 @@ def is_indi_or_org(acc_type):
     else:
         return redirect(url_for("home"))
 
+
+
+
+
 # ---------- MAIN DISCOVER PAGE ----------
 @discover_blueprint.route('/discover/individual')
 def individuals():
     is_indi_or_org(True)
     # Call this function in every route, to ensure navbar details
-    user_data = user_nav_details(session.get("user_id")[2:])
+    user_data = acc_nav_details(session.get("user_id"))
 
 
     contract_list = db.reference("/contracts").get()
     return render_template("indidiscover.html", contract_list = contract_list, user_data = user_data) 
 
-@discover_blueprint.route('/discover/companies')
+@discover_blueprint.route('/discover/organization')
 def companies():
     is_indi_or_org(False)
     # Call this function in every route, to ensure navbar details
-    user_data = user_nav_details(session.get("user_id")[2:])
+    user_data = acc_nav_details(session.get("user_id"))
 
     
     posted_date = date.today()
@@ -205,8 +209,6 @@ def companies():
     return render_template("org_discover.html", ad_list=ad_list, user_data = user_data)
 
 
-
-
 # ---------- CONTRACT PAGE ----------
 @discover_blueprint.route("/contract/<string:contract_id>", methods = ["POST", "GET"])
 def contract(contract_id):
@@ -215,7 +217,7 @@ def contract(contract_id):
         # If user is a individual user
         if auth.get_user(session.get("user_id")[2:]).display_name in db.reference("/user_accounts").get():
             # Call this function in every route, to ensure navbar details
-            user_data = user_nav_details(session.get("user_id")[2:])
+            user_data = acc_nav_details(session.get("user_id"))
 
             # Retrieve contract details
             contract_info = db.reference("/contracts").child(contract_id).get()
@@ -266,9 +268,13 @@ def contract(contract_id):
 # ---------- CREATE CONTRACT ----------
 @discover_blueprint.route("/create_contract", methods = ["POST", "GET"])
 def create_contract():
+    is_indi_or_org(False)
     contract_ref = db.reference("/contracts")
 
+
     if check_if_user_is_company():
+        # Call this function in every route, to ensure navbar details
+        user_data = acc_nav_details(session.get("user_id"))
         form = CreateContract()
 
         if form.validate_on_submit():
@@ -314,7 +320,7 @@ def create_contract():
         print("You are not authorized to access this page.")
         return redirect(url_for('discover.individuals'))
 
-    return render_template("temp/create_contract.html", form = form)
+    return render_template("temp/create_contract.html", form = form, user_data = user_data)
 
 # Helper function for create_contract()
 def payment_term_calc(days):
@@ -338,6 +344,9 @@ def edit_contract(contract_id):
 
     # Checking if user is an organization account AND if the current user is the author of the contract
     if contract_ref.child("Author").get() == session.get('user_id')[2:] and check_if_user_is_company():
+        # Call this function in every route, to ensure navbar details
+        user_data = acc_nav_details(session.get("user_id"))
+        
         form = CreateContract()
 
         # If form is submitted, apply changes
@@ -369,9 +378,8 @@ def edit_contract(contract_id):
         print("You are not authorized to access this page.")
         return redirect(url_for('discover.main'))
 
-    return render_template("temp/edit_contract.html", form = form)
+    return render_template("temp/edit_contract.html", form = form, user_data = user_data)
 
-@discover_blueprint.route("/applicants", methods = ["POST", "GET"])
 
 # ---------- DELETE CONTRACT ----------
 # Logic for deleting contract:

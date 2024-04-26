@@ -203,6 +203,21 @@ function statusColor(){
             $(this).css('font-weight', '300');
         }
     });
+
+    $('.status').each(function() {
+        var status = $(this).text().trim();
+        if (status === 'Completed' || status === 'Closed') {
+            // Set the color of the text to green for completed status
+            $(this).css('color', 'rgb(10, 101, 51)');
+            $(this).css('font-size', '1.042vw');
+            $(this).css('font-weight', '300');
+        } else if (status === 'Ongoing') {
+            // Set the color of the text to the specified rgba color for ongoing status
+            $(this).css('color', 'rgba(255, 255, 255, 0.70)');
+            $(this).css('font-size', '1.042vw');
+            $(this).css('font-weight', '300');
+        }
+    });
 }
 
 function statusColorHistory(){

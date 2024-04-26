@@ -1,7 +1,7 @@
 from flask import Flask, redirect, render_template, request, session, url_for
 from auth_routes import auth_blueprint
 from discover_routes import discover_blueprint
-from dashboard_routes import dashboard_blueprint, user_nav_details
+from dashboard_routes import dashboard_blueprint, acc_nav_details
 from verify_routes import verify_blueprint
 from acc_info_routes import acc_info_blueprint
 from firebase_admin import auth
@@ -74,7 +74,7 @@ def homecomp():
 
 @app.route('/chat')
 def chat():
-    user_data = user_nav_details(session.get("user_id")[2:])
+    user_data = acc_nav_details(session.get("user_id"))
     if 'user_id' not in session:
         return redirect(url_for('home'))
     else:
