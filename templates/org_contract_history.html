@@ -34,12 +34,16 @@
                     <h2>{{contract['title']}}</h2>
                     <p>{{contract['desc']}}</p>
                 </div>
-                <div class="price">
+                <div class="price-edit-delete-btns">
                     {% if contract['total_payed'] == None %}
                         <p>Agreed Pay: ${{contract['agreed_pay']}}</p>
                     {% else %}
                         <p>Total Payed: ${{contract['total_payed']}}</p>
                     {% endif %}
+                        <div class="edit-delete-btns">
+                            <button id="edit-btn"><span>Edit</span></button>
+                            <button id="delete-btn"><span>Delete</span></button>
+                        </div>
                 </div>
             </div>
             <div class="contract-status">

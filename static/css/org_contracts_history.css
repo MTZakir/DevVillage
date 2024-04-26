@@ -140,11 +140,51 @@
     text-overflow: ellipsis;
 }
 
-.price p{
+.price-edit-delete-btns p{
     color: #1A7229;
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
     letter-spacing: -0.64px;
+}
+
+.price-edit-delete-btns{
+    display: flex;
+    justify-content: space-between;
+    border: none;
+}
+
+.edit-delete-btns{
+    display: flex;
+    gap: 10px;
+}
+
+#edit-btn:hover{
+    color: #fff;
+    background-color: #0D66AD;
+    cursor: pointer;
+}
+
+#delete-btn:hover{
+    color: #fff;
+    background-color: #801313;
+    cursor: pointer;
+}
+
+#edit-btn{
+    background-color: transparent;
+    border: 1px solid #0D66AD;
+    color: #0D66AD;
+    border-radius: 6px;
+    padding: 5px 14px;
+    transition: 0.3s;
+}
+#delete-btn{
+    background-color: transparent;
+    border: 1px solid #801313;
+    color: #801313;
+    border-radius: 6px;
+    padding: 5px 14px;
+    transition: 0.3s;
 }
