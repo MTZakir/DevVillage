@@ -34,7 +34,11 @@ h2{
 
 .right-content{
     padding: 1.042vw 1.563vw;
-    display: grid;
+    /* display: grid; */
+}
+
+.prof-pic {
+    font-size: 30px;
 }
 
 .base-summary{
@@ -302,4 +306,47 @@ h2{
     text-align: start;
     display: flex;
     justify-content: space-between;
+}
+
+.view-accept-reject-btns:hover{
+    cursor: pointer;
+}
+
+.view-accept-reject-btns{
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 10px;
+    margin-right: 10px;
+    transition: 0.3s;
+}
+
+#view-btn:hover {
+    background-color: #0D66AD;
+    color: #fff;
+}
+
+#accept-btn:hover {
+    background-color: rgb(10, 101, 51);
+    color: #fff;
+}
+
+#reject-btn:hover {
+    background-color: rgb(119, 13, 13);
+    color: #fff;
+}
+
+#view-btn{
+    border: 1px solid #0D66AD;
+    color: #0D66AD;
+}
+
+#accept-btn{
+    border: 1px solid rgb(10, 101, 51);
+    color: rgb(10, 101, 51);
+}
+
+#reject-btn {
+    border: 1px solid rgb(119, 13, 13);
+    color: rgb(119, 13, 13);
 }

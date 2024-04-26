@@ -17,6 +17,10 @@ caption {
     color: var(--color) !important; 
 }
 
+.prof-pic-contractor{
+    font-size: 30px;
+}
+
 .hire-details td{
     padding: 0.417vw 0px 0.417vw 0px;
     font-size: 0.833vw;

@@ -11,6 +11,7 @@ from database import init_db, add_chat_message, get_chat_history
 
 # Database
 import firebase_admin
+from firebase_admin import db, auth
 from firebase_admin import credentials
 
 # Initializing database
@@ -89,6 +90,20 @@ def indi_chat():
         ]
         chat_history = get_chat_history()
         return render_template('chat.html', chat_info=chat_info, chat_history=chat_history, user_data = user_data)
+
+@app.route('/org/view_profile')
+def view_profile():
+    resume = False
+    user_data = acc_nav_details(session.get("user_id"))
+    profile_info = {
+        "Rating": 4.5,
+        "Expertise": ['balls','no balls'],
+        "Bio": 'Before Time Began',
+        "Phone": 971456223434,
+        "Email": 'Yourmom@yourmom.com',
+    }
+
+    return render_template('viewprofile.html', user_data = user_data, profile_info = profile_info, resume = resume)
 
 @app.route('/org/chat')
 def org_chat():

@@ -489,9 +489,11 @@ a{
 
     cursor: pointer;
 }
+
 .token-container span {
     font-size: 16px;
 }
+
 .token-icon {
     width: 1.35vw;
     height: 1.35vw;
@@ -517,6 +519,18 @@ a{
 
     display: none;
 }
+
+.notification:hover{
+    background-color: #1f2329;
+    
+}
+
+.notification{
+    padding: 8px 20px;
+    transition: 0.3s;
+    border-radius: 0.5vw;
+}
+
 .noti-dropdown.active {
     display: block;
 }

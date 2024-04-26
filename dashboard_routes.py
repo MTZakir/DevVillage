@@ -155,13 +155,12 @@ def individuals():
             'duration': '30 days',
             'expected_pay': (500, 700), 
         },
-        
     ]
 
     return render_template("dashboard.html", dashcontent=dashcontent, 
                            company_hires=company_hires, 
                            recent_payments=recent_payments,
-                           user_data = user_data,)
+                           user_data = user_data, applicants=applicants)
 
 
 # INDIVIDUAL PAYMENT HISTORY
@@ -349,14 +348,6 @@ def invites():
     ]
     return render_template("invites.html", company_hires=company_hires, user_data = user_data)
 
-
-
-
-
-
-
-
-
 # ORGANIZATION DASHBOARD
 @dashboard_blueprint.route('/org/dashboard')
 def organization():
@@ -366,122 +357,199 @@ def organization():
 
     dashcontent = {
             'completed_contracts': 21,
-            'total_earned': 6203.23,
+            'ongoing_contracts': 4,
             'tokens_owned': 34,
         }
     
     recent_payments = [
         {
-            'company_name': 'Netflix',
-            'company_pic': '/static/images/netflix.png',
-            'status': 'Completed',
+            'contractor_name': 'test',
+            'status': 'Closed',
             'amount': 273,
         },
         {
-            'company_name': 'Netflix',
-            'company_pic': '/static/images/netflix.png',
-            'status': 'Ongoing',
-            'amount': 121,
+            'contractor_name': 'test',
+            'status': 'Closed',
+            'amount': 273,
         },
         {
-            'company_name': 'Netflix',
-            'company_pic': '/static/images/netflix.png',
-            'status': 'Completed',
-            'amount': 209,
+            'contractor_name': 'test',
+            'status': 'Closed',
+            'amount': 273,
         },
         {
-            'company_name': 'Netflix',
-            'company_pic': '/static/images/netflix.png',
-            'status': 'Ongoing',
-            'amount': 628,
+            'contractor_name': 'test',
+            'status': 'Closed',
+            'amount': 273,
         },
         {
-            'company_name': 'Netflix',
-            'company_pic': '/static/images/netflix.png',
-            'status': 'Ongoing',
-            'amount': 123,
+            'contractor_name': 'test',
+            'status': 'Closed',
+            'amount': 273,
         },
         {
-            'company_name': 'Netflix',
-            'company_pic': '/static/images/netflix.png',
-            'status': 'Completed',
-            'amount': 193,
-        }
+            'contractor_name': 'test',
+            'status': 'Closed',
+            'amount': 273,
+        },
+        {
+            'contractor_name': 'test',
+            'status': 'Closed',
+            'amount': 273,
+        },
     ]
 
-    company_hires = [
+    applicants = [
         {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
         },
         {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
         },
         {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
         },
         {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
         },
         {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
         },
         {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
         },
         {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
         },
         {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
         },
         {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
         },
         {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
         },
         {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
         },
-        
+        {
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
+        },
+        {
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
+        },
+        {
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
+        },
+        {
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
+        },
+        {
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
+        },
+        {
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
+        },
+        {
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
+        },
+        {
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
+        },
+        {
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
+        },
+        {
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
+        },
+        {
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
+        },
+        {
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
+        },
+        {
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
+        },
+        {
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
+        },
+        {
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
+        },
+        {
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
+        },
+        {
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
+        },
+        {
+            'applicant': 'test',
+            'title': 'Build website API for Banking',
+            'suggested_pay': 120,
+        },
     ]
 
 
     return render_template("dashboard.html", dashcontent=dashcontent, 
-                           company_hires=company_hires, 
+                           applicants=applicants, 
                            recent_payments=recent_payments,
                            user_data = user_data,)
 
@@ -495,105 +563,67 @@ def org_payment_history():
 
     payments = [
         {
-            'comp_pic': '/static/images/netflix.png',
-            'comp_name': 'Netflix',
-            'status': 'Completed',
-            'amount': 274,
-            'date': '2018-07-05'
+            'contractor_name': 'test',
+            'status': 'Closed',
+            'amount': 273,
+            'date': '1984-05-03'
         },
         {
-            'comp_pic': '/static/images/netflix.png',
-            'comp_name': 'Netflix',
-            'status': 'Completed',
-            'amount': 534,
-            'date': '2018-07-05'
-        },
-        {
-            'comp_pic': '/static/images/netflix.png',
-            'comp_name': 'Netflix',
-            'status': 'Completed',
-            'amount': 211,
-            'date': '2018-07-05'
-        },
-        {
-            'comp_pic': '/static/images/netflix.png',
-            'comp_name': 'Netflix',
-            'status': 'Completed',
-            'amount': 114,
-            'date': '2018-07-05'
-        },
-        {
-            'comp_pic': '/static/images/netflix.png',
-            'comp_name': 'Netflix',
-            'status': 'Completed',
-            'amount': 674,
-            'date': '2018-07-05'
-        },
-        {
-            'comp_pic': '/static/images/netflix.png',
-            'comp_name': 'Netflix',
-            'status': 'Completed',
-            'amount': 904,
-            'date': '2018-07-05'
-        },
-        {
-            'comp_pic': '/static/images/netflix.png',
-            'comp_name': 'Netflix',
-            'status': 'Completed',
-            'amount': 304,
-            'date': '2018-07-05'
-        },
-        {
-            'comp_pic': '/static/images/netflix.png',
-            'comp_name': 'Netflix',
-            'status': 'Completed',
-            'amount': 274,
-            'date': '2018-07-05'
-        },
-        {
-            'comp_pic': '/static/images/netflix.png',
-            'comp_name': 'Netflix',
-            'status': 'Completed',
-            'amount': 352,
-            'date': '2018-07-05'
-        },
-        {
-            'comp_pic': '/static/images/netflix.png',
-            'comp_name': 'Netflix',
-            'status': 'Completed',
-            'amount': 156,
-            'date': '2018-07-05'
-        },
-        {
-            'comp_pic': '/static/images/netflix.png',
-            'comp_name': 'Netflix',
+            'contractor_name': 'test',
             'status': 'Ongoing',
-            'amount': 423,
-            'date': '2018-07-05'
+            'amount': 273,
+            'date': '1984-05-03'
         },
         {
-            'comp_pic': '/static/images/netflix.png',
-            'comp_name': 'Netflix',
+            'contractor_name': 'test',
             'status': 'Ongoing',
-            'amount': 690,
-            'date': '2018-07-05'
+            'amount': 273,
+            'date': '1984-05-03'
         },
         {
-            'comp_pic': '/static/images/netflix.png',
-            'comp_name': 'Netflix',
-            'status': 'Ongoing',
-            'amount': 720,
-            'date': '2018-07-05'
+            'contractor_name': 'test',
+            'status': 'Closed',
+            'amount': 273,
+            'date': '1984-05-03'
         },
+        {
+            'contractor_name': 'test',
+            'status': 'Ongoing',
+            'amount': 273,
+            'date': '1984-05-03'
+        },
+        {
+            'contractor_name': 'test',
+            'status': 'Ongoing',
+            'amount': 273,
+            'date': '1984-05-03'
+        },
+        {
+            'contractor_name': 'test',
+            'status': 'Closed',
+            'amount': 273,
+            'date': '1984-05-03'
+        },
+        {
+            'contractor_name': 'test',
+            'status': 'Ongoing',
+            'amount': 273,
+            'date': '1984-05-03'
+        },
+        {
+            'contractor_name': 'test',
+            'status': 'Ongoing',
+            'amount': 273,
+            'date': '1984-05-03'
+        },
+        
     ]
 
-    total_earned = 0
+    total_payed = 0
     for i in payments:
-        total_earned += i['amount']
+        total_payed += i['amount']
 
-    return render_template("payments.html", payments=payments, total_earned=total_earned, user_data = user_data)
-
-
+    return render_template("payments.html", payments=payments, total_payed=total_payed, user_data = user_data)
 
 # ORGANIZATION APPLICANTS LIST
 @dashboard_blueprint.route('/organization/applicants')

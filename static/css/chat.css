@@ -71,6 +71,7 @@
 .chat-area {
     background-image: linear-gradient(to top right, rgb(9, 14, 17),rgb(11, 23, 41));
     background-blend-mode: color-dodge;
+    width: 100vw;
 }
 
 .user-chats {
@@ -92,6 +93,7 @@
     height: 3.75vw;
     /* Set height of the textbox */
     box-sizing: border-box;
+    width: 100%;
     /* Include padding and border in the total width and height */
 }
 
@@ -168,7 +170,7 @@
     border: none;
     font-weight: 100;
     color: #ffffffde;
-    width: 55.208vw;
+    width: 88.208vw;
     height: 2.708vw;
     border-radius: 2.604vw;
     background-color: #161414;

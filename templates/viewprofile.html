@@ -1,0 +1,133 @@
+{% extends "layoutdiscover.html" %}
+
+{% block import_files %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/view_profile.css') }}">
+{% endblock %}
+
+{% block maincontent %}
+<div class="profile-container">
+    <div class="profile-heading">
+        <span class="heading">Profile</span>
+        <span class="subheading">View your profile here</span>
+    </div>
+    <div class="profile-content">
+
+        <div class="acc-details">
+
+            <div class="general-info">
+                <div class="name">
+                    <i class="bi bi-person-circle profile-pic"></i>
+                    <div>
+                        <span class="full-name">{{ user_data["First_name"] }} {{ user_data["Last_name"] }}</span>
+                        <span class="username">@ {{ user_data["Display_name"] }}</span>
+                    </div>
+                </div>
+
+                <div class="avg-rating profile-rating">
+                    <div class="Stars" data-rating="{{ profile_info['Rating'] }}">
+                        <span>{{ profile_info["Rating"] }}</span>
+                    </div>
+                </div>
+
+                <div class="expertise-and-about">
+                    <span>Field of Expertise</span><span class="see-more-expertise see-more"><i class="bi bi-chevron-down"></i></span>
+                    <ul>
+                        {% for item in profile_info["Expertise"] %}
+                            <li>{{ item }}</li>
+                        {% endfor%}
+                    </ul>
+                    <span>About</span><span class="see-more-about see-more"><i class="bi bi-chevron-down"></i></span>
+                    <p>{{ profile_info["Bio"] }}</p>
+                </div>
+            </div>
+
+            <div class="contact-and-portfolio">
+                <div>
+                    <span>Phone</span>
+                    <span class="info">{{ profile_info["Phone"] }}</span>
+                </div>
+                <div>
+                    <span>Email</span>
+                    <span class="info">{{ profile_info["Email"] }}</span>
+                </div>
+                <div>
+                    <span>Portfolio</span>
+                    <span class="info">https://{{ user_data["First_name"] }}-{{ user_data["Display_name"] }}-{{ user_data["Last_name"] }}.com</span>
+                </div>
+                <div>
+                    <span>Resume</span>
+                    {% if resume %}
+                        <span class="info resume" onclick="window.open('{{ profile_info.Resume }}', '_blank')">{{ user_data["Display_name"] }}-resume.pdf</span>
+                    {% else %}
+                        <span class="info">Not uploaded.</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="contracts-and-reviews">
+
+            <div class="option-btns">
+
+                <div class="contract-history-btn">
+                    <button></button>
+                    <span>Contract History</span>
+                </div>
+                
+                <div class="review-btn">
+                    <button></button>
+                    <span>Reviews</span>
+                </div>
+
+            </div>
+
+            <div class="contract-and-review-content">
+                <button class="scroll-btn" id="scroll-left">
+                    <i class="bi bi-chevron-left"></i>
+                </button>
+
+                <div class="contrct-cards-container cards-container">
+                    {% for i in range(20) %}
+
+                    <div class="contrct-cards cards" onclick="window.location.href = `{{url_for('accinfo.individual_settings')}}`">
+                        <span class="org-name">Deez</span>
+                        <span class="contrct-title">Nuts</span>
+                        <span class="pay-range">On yo chin</span>
+                    </div>
+
+                    {% endfor %}
+                </div>
+
+                <div class="review-cards-container cards-container">
+
+                    {% for i in range(20) %}
+
+                    <div class="review-cards cards" onclick="window.location.href = `{{url_for('accinfo.individual_settings')}}`">
+                        <div class="org-name-and-rating">
+
+                            <div class="org-head">
+                                <img src="/static/images/netflix.png" alt="">
+                                <span class="org-name">Netflix</span>
+                            </div>
+
+                            <div class="Stars" data-rating="4.3">
+                                <span>4.3</span>
+                            </div>
+
+                        </div>
+                        <span class="review">Delivered the result according to our expectations, however updates regarding the contract were not given unless asked and way of communication could be more formal. furthermore reports could use some improvements furthermore reports could use some improvements furthermore reports could use some improvements furthermore reports could use some improvements furthermore reports could use some improvements furthermore reports could use some improvements furthermore reports could use some improvements</span>
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+                <button class="scroll-btn" id="scroll-right">
+                    <i class="bi bi-chevron-right"></i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

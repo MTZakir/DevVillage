@@ -8,27 +8,6 @@
 
 {% block maincontent %}
 <div class="chat-box">
-    <div class="chats-panel">
-        {% for user_info in chat_info %}
-        <a href="accountnavbarlayout.html">
-            <div class="one-chat">
-                {% if user_info['type'] == 'individual' %}
-                <img id='prof-pic' src="{{ user_info['profile_pic'] }}">
-                <div class="name-recent-chat">
-                    <h2 id="name">{{ user_info['first_name'] }} {{ user_info['last_name'] }}</h2>
-                    <h3 id='chat'>{{ user_info['recent_chat'] }}</h3>
-                </div>
-                {% elif user_info['type'] == 'company' %}
-                <img id='prof-pic' src="{{ user_info['company_pic'] }}">
-                <div class="name-recent-chat">
-                    <h2 id="name">{{ user_info['company_name'] }}</h2>
-                    <h3 id='chat'>{{ user_info['recent_chat'] }}</h3>
-                </div>
-                {% endif %}
-            </div>
-        </a>
-        {% endfor %}
-    </div>
     <div class="chat-area">
         <div class="user-chats" id="user-chats">
             <!-- Stored chat history -->
