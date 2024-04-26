@@ -21,3 +21,13 @@ class AccountInfo(FlaskForm):
                          choices=["Male", "Female"],
                          validators = [Optional()])
     bio = StringField("Bio", validators = [Optional()])
+
+
+class OrganizationInfo(FlaskForm):
+    org_name = StringField("Organization Name", validators=[Optional()])
+    #email = StringField("Email", validators=[Optional(), Email()])
+    industry = StringField("Industry Sector", validators=[Optional()])
+    #password = StringField("Password", validators=[Optional()])
+    website = StringField("Website", validators=[Optional()])
+    contact_email = StringField("Contact Email", validators=[Optional(), Email()])
+    description = StringField("Company Description", validators=[Optional()])

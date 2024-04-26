@@ -1,6 +1,7 @@
 from flask import Blueprint, redirect, render_template, session, url_for
 from firebase_admin import db, auth
 from firebase_admin._auth_utils import UserNotFoundError
+from discover_forms import ApplicantAcceptReject
 
 dashboard_blueprint = Blueprint(
     "dashboard", __name__, static_folder="static", template_folder="templates"
@@ -160,7 +161,7 @@ def individuals():
     return render_template("dashboard.html", dashcontent=dashcontent, 
                            company_hires=company_hires, 
                            recent_payments=recent_payments,
-                           user_data = user_data, applicants=applicants)
+                           user_data = user_data)
 
 
 # INDIVIDUAL PAYMENT HISTORY
@@ -349,7 +350,7 @@ def invites():
     return render_template("invites.html", company_hires=company_hires, user_data = user_data)
 
 # ORGANIZATION DASHBOARD
-@dashboard_blueprint.route('/org/dashboard')
+@dashboard_blueprint.route('/org/dashboard', methods=['GET', 'POST'])
 def organization():
     is_indi_or_org(False)
     # Call this function in every route, to ensure navbar details
@@ -399,159 +400,51 @@ def organization():
         },
     ]
 
-    applicants = [
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-        {
-            'applicant': 'test',
-            'title': 'Build website API for Banking',
-            'suggested_pay': 120,
-        },
-    ]
+
+    applicant_list = []
+    for contract in db.reference("/contracts").get():
+        contract_ref = db.reference("/contracts").child(contract)
+
+        if session.get("user_id")[2:] == contract_ref.child("Author").get() and contract_ref.child("Applied").get() != None:
+            applicant_list.append({
+                "Contract ID": contract,
+                "Applicant ID": next(iter(contract_ref.child("Applied").get().keys())),
+                "Applicant Name": auth.get_user(next(iter(contract_ref.child("Applied").get().keys()))).display_name,
+                "Title": contract_ref.child("Title").get(),
+                "Pay": contract_ref.child("Applied").child(next(iter(contract_ref.child("Applied").get().keys()))).child("Pay Requested").get(),
+                "Resume": db.reference("/user_accounts").child(auth.get_user(next(iter(contract_ref.child("Applied").get().keys()))).display_name).child("Resume").get()
+            })
 
 
-    return render_template("dashboard.html", dashcontent=dashcontent, 
-                           applicants=applicants, 
-                           recent_payments=recent_payments,
-                           user_data = user_data,)
+    form = ApplicantAcceptReject()
+
+    if form.validate_on_submit():
+        user_id = form.applicant.data[:-2]
+        # If rejected
+        if form.applicant.data[-1] == "0":
+            db.reference("/user_accounts").child(auth.get_user(user_id).display_name).child("Notifications").push(f"You did not qualify for the '{db.reference("/contracts").child(form.contract.data).child("Title").get()}' contract. Wish you the very best later on.")
+            db.reference("/contracts").child(form.contract.data).child("Applied").child(user_id).delete()
+
+        # If accepted
+        if form.applicant.data[-1] == "1":
+            db.reference("/user_accounts").child(auth.get_user(user_id).display_name).child("Notifications").push(f"You have been accepted for the '{db.reference("/contracts").child(form.contract.data).child("Title").get()}' contract. Looking forward to working with you.")
+            current = db.reference("/user_accounts").child(auth.get_user(user_id).display_name)
+            current_wallet = current.child("Wallet").get()
+            current.update({"Wallet": current_wallet + int(applicant_list[0]["Pay"])})
+            db.reference("/contracts").child(form.contract.data).child("Contractors").child(user_id).update({
+                "Contractor Name": auth.get_user(user_id).display_name,
+                "Pay": applicant_list[0]["Pay"]
+            })
+            db.reference("/contracts").child(form.contract.data).child("Applied").child(user_id).delete()
+
+        return redirect(url_for("dashboard.organization"))
+
+    return render_template("dashboard.html",
+                            form = form,
+                            dashcontent=dashcontent, 
+                            applicant_list=applicant_list, 
+                            recent_payments=recent_payments,
+                            user_data = user_data,)
 
 
 # ORGANIZATION PAYMENT HISTORY
@@ -625,16 +518,6 @@ def org_payment_history():
 
     return render_template("payments.html", payments=payments, total_payed=total_payed, user_data = user_data)
 
-# ORGANIZATION APPLICANTS LIST
-@dashboard_blueprint.route('/organization/applicants')
-def applicants():
-    is_indi_or_org(False)
-    # Call this function in every route, to ensure navbar details
-    user_data = acc_nav_details(session.get("user_id"))
-
-    return render_template('applicants.html', user_data=user_data)
-
-
 
 
 
@@ -658,8 +541,9 @@ def acc_nav_details(acc_id):
         }
 
         # Any notification messages
-        if (comp_db_ref["Notifications"] != None):
-            comp_data.update({"Notifications": comp_db_ref["Notifications"]})
+        if (db.reference("/org_accounts").child(acc_id[2:]).child("Notifications").get() != None):
+            noti = db.reference("/org_accounts").child(acc_id[2:]).child("Notifications").get()
+            comp_data.update({"Notifications": noti.values()})
 
         return comp_data
 
@@ -678,7 +562,8 @@ def acc_nav_details(acc_id):
         }
 
         # Any notification messages
-        if (user_db_ref["Notifications"] != None):
-            user_data.update({"Notifications": user_db_ref["Notifications"]})
+        if (db.reference("/user_accounts").child(user_db_auth.display_name).child("Notifications").get() != None):
+            noti = db.reference("/user_accounts").child(user_db_auth.display_name).child("Notifications").get()
+            user_data.update({"Notifications": noti.values()})
 
         return user_data

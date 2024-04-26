@@ -43,6 +43,7 @@ pfp_input.addEventListener("change", function() {
 pfp_msg.addEventListener("click", function() {
     current_list[0] = '';
     change_checker()
+    pfp_input.value = '';
     pfp_msg.textContent = '';
 });
 

@@ -27,14 +27,18 @@ class CreateContract(FlaskForm):
     difficulty = SelectField(
         'Select Difficulty',
         choices=[
-            'Hacker',
+            'Beginner',
+            'Intermediate',
+            'Advanced',
+            'Expert',
+            'Master',
         ],
         validators=[DataRequired()]
     )
     contract_img = FileField('Contract Image', validators=[DataRequired(), FileAllowed(['jpg', 'jpeg', 'png'], message = 'Images only!')])
     scope = StringField('Scope of Work', validators=[DataRequired()])
-    tech_stack = StringField('Technology Stack', validators=[DataRequired()])
     deliverables = StringField('Deliverables', validators=[DataRequired()])
+    tech_stack = StringField('Technology Stack', validators=[DataRequired()])
     notes = StringField('Additional Notes', validators=[Optional()])
 
 class ApplyContract(FlaskForm):
@@ -74,3 +78,8 @@ class ApplyContract(FlaskForm):
         # If user already has resume in account, delete resume field
         if "Resume" in user:
             delattr(self, 'resume')
+
+
+class ApplicantAcceptReject(FlaskForm):
+    applicant = StringField("Applicant", validators=[DataRequired()])
+    contract = StringField("Contract", validators=[DataRequired()])

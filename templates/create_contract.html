@@ -3,7 +3,7 @@
 {% block import_files %}
 {{ super() }}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/create_contract.css') }}">
-<!-- <script src="/static/js/acc_settings.js" type="module"></script> -->
+<script src="/static/js/create_contract.js" type="module"></script>
 {% endblock %}
 
 {% block title %}Contract Creation{% endblock %}
@@ -16,71 +16,98 @@
     </div>
     <div class="acc-settings-all-options">
         <form method="POST" enctype="multipart/form-data">
+            {{ csrf_token }}
+            {{ form.hidden_tag() }}
+
             <div class="personal-details">
                 <div class="left-fields">
                     <div class="personal-fields" id="title-field">
                         <p class="field-label">Title</p>
-                        <input class="personal-input-fields" name="first_name" type="text" id="firstname" value='' autocomplete="off">
+                        <input class="personal-input-fields" name="title" type="text" id="title" value='' autocomplete="off">
                     </div>
                     
                     <div class="personal-fields" id="overview-field">
                         <p class="field-label">Contract Overview</p>
-                        <textarea class="personal-input-fields" name="bio" id="bio-about" wrap="soft"></textarea>
+                        <textarea class="personal-input-fields" name="description" id="description" wrap="soft"></textarea>
                     </div>
                     
                     <div class="personal-fields" id="min-price-field">
                         <p class="field-label">Minimum offered price for contract</p>
                         <div class="pay-dollar-sign">
-                            <p class="field-label">$</p><input class="personal-input-fields" name="email" type="email" id="email" value='' autocomplete="off">
+                            <p class="field-label">$</p><input class="personal-input-fields" name="min_price" type="text" id="min_price" value='' autocomplete="off">
                         </div>
                     </div>
                     
                     <div class="personal-fields" id="max-price-field">
                         <p class="field-label">Maximum offered price for contract</p>
                         <div class="pay-dollar-sign">
-                            <p class="field-label">$</p><input class="personal-input-fields" name="display_name" type="text" id="username" value='' autocomplete="off">
+                            <p class="field-label">$</p><input class="personal-input-fields" name="max_price" type="text" id="max_price" value='' autocomplete="off">
                         </div>
                     </div>
                     
                     <div class="personal-fields" id="duration-field">
                         <p class="field-label">Duration</p>
-                        <input class="personal-input-fields" name="dob" id="birth" value='' autocomplete="off">
+                        <select name="duration" id="duration">
+                            {% for value, label in form.duration.choices %}
+                                <option value="{{ value }}">{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="personal-fields" id="difficulty-field">
+                        <p class="field-label">Difficulty</p>
+                        <select name="difficulty" id="difficulty">
+                            {% for value in form.difficulty.choices %}
+                                <option value="{{ value }}">{{ value }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="personal-fields" id="duration-field">
+                        <p class="field-label">Contract Image</p>
+                        <label class="contract-img-label" for="contract_img" id="contract_img_label">Select an Image</label>
+                        <input class="personal-input-fields" type="file" name="contract_img" id="contract_img" value='' autocomplete="off" hidden>
                     </div>
 
                     <div class="personal-fields" id="scope-field">
                         <p class="field-label">Scope of work</p>
-                        <input class="three-field" name="phone" type="text" id="Phone-number" value='' autocomplete="off">
-                        <input class="three-field" name="phone" type="text" id="Phone-number" value='' autocomplete="off">
-                        <input class="three-field" name="phone" type="text" id="Phone-number" value='' autocomplete="off">
+                        <input class="three-field" type="text" value='' autocomplete="off">
+                        <input class="three-field" type="text" value='' autocomplete="off">
+                        <input class="three-field" type="text" value='' autocomplete="off">
+                    </div>
+                    <input type="text" name="scope" id="scope" hidden>
+                    
+
+                    <div class="save-btn-container">
+                        <button class="create-btn active" id="create_btn">Create Contract</button>
                     </div>
 
                 </div>
                 
                 <div class="right-fields">
-                    <div class="personal-fields" id="delivarables-field">
-                        <p class="field-label">Delivarables</p>
-                        <input class="three-field" name="password" type="password" id="password" value="">
-                        <input class="three-field" name="password" type="password" id="password" value="">
-                        <input class="three-field" name="password" type="password" id="password" value="">
+                    <div class="personal-fields" id="deliverables-field">
+                        <p class="field-label">Deliverables</p>
+                        <input class="three-field" type="text" value="" autocomplete="off">
+                        <input class="three-field" type="text" value="" autocomplete="off">
+                        <input class="three-field" type="text" value="" autocomplete="off">
                     </div>
+                    <input type="text" name="deliverables" id="deliverables" hidden>
 
                     <div class="personal-fields" id="technoligical-field">
                         <p class="field-label">Technological Stack</p>
-                        <input class="three-field" name="expertise" type="text" id="field-of-profiences" value='' autocomplete="off">
-                        <input class="three-field" name="expertise" type="text" id="field-of-profiences" value='' autocomplete="off">
-                        <input class="three-field" name="expertise" type="text" id="field-of-profiences" value='' autocomplete="off">
+                        <input class="three-field" type="text" value='' autocomplete="off">
+                        <input class="three-field" type="text" value='' autocomplete="off">
+                        <input class="three-field" type="text" value='' autocomplete="off">
                     </div>
+                    <input type="text" name="tech_stack" id="tech_stack" hidden>
                     
                     <div class="personal-fields" id="additional-field">
                         <p class="field-label">Additional information (Optional)</p>
-                        <input class="three-field" name="dob" id="birth" value='' autocomplete="off">
-                        <input class="three-field" name="dob" id="birth" value='' autocomplete="off">
-                        <input class="three-field" name="dob" id="birth" value='' autocomplete="off">
+                        <input class="three-field" type="text" value='' autocomplete="off">
+                        <input class="three-field" type="text" value='' autocomplete="off">
+                        <input class="three-field" type="text" value='' autocomplete="off">
                     </div>
-                </div>
-
-                <div class="save-btn-container">
-                    <button class="create-btn" id="create_btn">Create Contract</button>
+                    <input type="text" name="notes" id="notes" hidden>
                 </div>
             </div>
         </form>

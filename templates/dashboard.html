@@ -2,6 +2,7 @@
 
 {% block import_files %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+<script src="/static/js/dashboard.js" type="module"></script>
 {% endblock %}
 
 {% block maincontent %}
@@ -48,17 +49,21 @@
                             </tr>
                         </thead>
                         <tbody class="hire-details" style="max-height: 77vh;">
-                            {% for applicant in applicants %}
+                            {% for applicant in applicant_list %}
                                 <tr class="details-hire">
-                                    <td>{{applicant['applicant']}}</td>
-                                    <td>{{applicant['title']}}</td>
-                                    <td>{{applicant['suggested_pay']}}</td>
+                                    <td>{{ applicant['Applicant Name'] }}</td>
+                                    <td>{{ applicant['Title'] }}</td>
+                                    <td>$ {{ applicant['Pay'] }}</td>
                                     <td>
-                                        <div class="applicants-btns-list">
-                                            <button class="view-accept-reject-btns" id="view-btn"><span>View</span></button>
-                                            <button class="view-accept-reject-btns" id="accept-btn"><span>Accept</span></button>
-                                            <button class="view-accept-reject-btns" id="reject-btn"><span>Reject</span></button>
-                                        </div>
+                                        <form method="POST" class="applicants-btns-list" id="app_form">
+                                            {{ csrf_token }}
+                                            {{ form.hidden_tag() }}
+                                            <input type="text" id="app_form_input" name="applicant" value="{{ applicant['Applicant ID'] }}" hidden>
+                                            <input type="text" name="contract" value="{{ applicant['Contract ID'] }}" hidden>
+                                            <button class="view-accept-reject-btns" type="button" id="view-btn" onclick="window.open('{{ applicant.Resume }}', '_blank')"><span>View</span></button>
+                                            <button class="view-accept-reject-btns" type="button" id="accept-btn"><span>Accept</span></button>
+                                            <button class="view-accept-reject-btns" type="button" id="reject-btn"><span>Reject</span></button>
+                                        </form>
                                     </td>
                                 </tr>
                             {% endfor %}

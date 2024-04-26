@@ -1,8 +1,9 @@
+from datetime import datetime, timedelta
 from flask import Blueprint, redirect, render_template, session, url_for
 from firebase_admin import auth
 from firebase_admin._auth_utils import UserNotFoundError
 from dashboard_routes import acc_nav_details
-from acc_info_forms import WalletTopup, AccountInfo, BuyTokens
+from acc_info_forms import WalletTopup, AccountInfo, BuyTokens, OrganizationInfo
 from firebase_admin import db, auth
 
 # Blueprint initialization
@@ -271,8 +272,8 @@ def contract_history():
     return render_template('contract_history.html', contracts=contracts, user_data = user_data)
 
 
-# WALLET TOPUP
-@acc_info_blueprint.route('/org/acc_info/wallet', methods = ["GET", "POST"])
+# ORGANIZATION WALLET TOPUP
+@acc_info_blueprint.route('/wallet/organization', methods = ["GET", "POST"])
 def org_wallet():
     # Call this function in every route, to ensure navbar details
     is_indi_or_org(False)
@@ -292,7 +293,8 @@ def org_wallet():
 
     return render_template("wallet.html", form = form, user_data = user_data)
 
-@acc_info_blueprint.route('/org/acc_info/wallet', methods = ["GET", "POST"])
+# INDIVIDUAL WALLET TOPUP
+@acc_info_blueprint.route('/wallet/individual', methods = ["GET", "POST"])
 def indi_wallet():
     # Call this function in every route, to ensure navbar details
     is_indi_or_org(True)
@@ -313,9 +315,9 @@ def indi_wallet():
     return render_template("wallet.html", form = form, user_data = user_data)
 
 
-# BUY TOKENS
-@acc_info_blueprint.route('/individual/buy_tokens', methods=['GET', 'POST'])
-def buy_tokens():
+# INDIVIDUAL BUY TOKENS
+@acc_info_blueprint.route('/tokens/individual', methods=['GET', 'POST'])
+def indi_buy_tokens():
     is_indi_or_org(True)
     # Call this function in every route, to ensure navbar details
     user_data = acc_nav_details(session.get("user_id"))
@@ -337,10 +339,11 @@ def buy_tokens():
 
         return redirect(url_for('dashboard.individuals'))
         
-
     return render_template("buy_tokens.html", form = form, user_data = user_data)
 
-@acc_info_blueprint.route('/org/buy_tokens', methods=['GET', 'POST'])
+
+# ORGANIZATION BUY TOKENS
+@acc_info_blueprint.route('/tokens/organization', methods=['GET', 'POST'])
 def org_buy_tokens():
     is_indi_or_org(False)
     # Call this function in every route, to ensure navbar details
@@ -367,23 +370,52 @@ def org_buy_tokens():
     return render_template("buy_tokens.html", form = form, user_data = user_data)
 
 
-@acc_info_blueprint.route('/acc_info/profile/organization')
-def org_profile():
-    is_indi_or_org(False)
-    # Call this function in every route, to ensure navbar details
-    user_data = acc_nav_details(session.get("user_id"))
-
-    return render_template("org_profile.html", user_data = user_data)
-
 
 # ORGANIZATION ACCOUNT SETTINGS
-@acc_info_blueprint.route('/acc_info/acc_settings/org')
+@acc_info_blueprint.route('/acc_info/acc_settings/org', methods=['GET', 'POST'])
 def org_settings():
     is_indi_or_org(False)
     # Call this function in every route, to ensure navbar details
     user_data = acc_nav_details(session.get("user_id"))
 
-    return render_template("org_acc_settings.html", user_data = user_data)
+    org_db_auth = auth.get_user(session.get("user_id")[2:])
+    org_db_ref = db.reference("/org_accounts").child(session.get("user_id")[2:])
+
+    org_data = {
+        "Org_name": org_db_auth.display_name,
+        "Email": org_db_ref.get()["Email"],
+        "Industry": org_db_ref.get()["Industry"],
+        "Website": org_db_ref.get()["Org Website"],
+        "Contact Email": org_db_ref.get()["Contact Person Email"],
+    }
+
+    if ("Description" in org_db_ref.get()):
+        org_data.update({"Description": org_db_ref.get()["Description"]})
+
+    form = OrganizationInfo()
+
+    if form.validate_on_submit():
+        # Updating any value
+        # Organization Name
+        if form.org_name.data != org_data["Org_name"]:
+            auth.update_user(session.get("user_id")[2:], display_name = form.org_name.data)
+        # Industry
+        if form.industry.data != org_data["Industry"]:
+            org_db_ref.update({"Industry": form.industry.data})
+        # Website
+        if form.website.data != org_data["Website"]:
+            org_db_ref.update({"Org Website": form.website.data})
+        # Contact Email
+        if form.contact_email.data != org_data["Contact Email"]:
+            org_db_ref.update({"Contact Person Email": form.contact_email.data})
+        # Description
+        if form.industry.data != org_data["Industry"]:
+            org_db_ref.update({"Description": form.description.data})
+
+        return redirect(url_for("accinfo.org_settings"))
+
+
+    return render_template("org_acc_settings.html", form = form, user_data = user_data, org_data = org_data)
 
 # ORGANIZATION CONTRACT HISTORY
 @acc_info_blueprint.route('/acc_info/contract_history/org')
@@ -391,156 +423,34 @@ def contract_history_org():
     is_indi_or_org(False)
     # Call this function in every route, to ensure navbar details
     user_data = acc_nav_details(session.get("user_id"))
-    contracts = [
-        {
-            'indi_username': 'test',
-            'start_date': '2024-04-05',
-            'completion_date': '2024-04-09',
-            'title': 'Implement Firebase Authentication', 
-            'desc': 'This website need peoeple to code please send dudes and stuff',
-            'price_range': (42, 90),
-            'total_payed': 1142,
-            'status': 'Closed', 
-        },
-        {
-            'indi_username': 'test',
-            'start_date': '2024-04-05',
-            'completion_date': '2024-04-09',
-            'title': 'Implement Firebase Authentication', 
-            'desc': 'This website need peoeple to code please send dudes and stuff',
-            'price_range': (42, 90),
-            'total_payed': 1142,
-            'status': 'Ongoing', 
-        },
-        {
-            'indi_username': 'test',
-            'start_date': '2024-04-05',
-            'completion_date': '2024-04-09',
-            'title': 'Implement Firebase Authentication', 
-            'desc': 'This website need peoeple to code please send dudes and stuff',
-            'price_range': (42, 90),
-            'total_payed': 1142,
-            'status': 'Open', 
-        },
-        {
-            'indi_username': 'test',
-            'start_date': '2024-04-05',
-            'completion_date': '2024-04-09',
-            'title': 'Implement Firebase Authentication', 
-            'desc': 'This website need peoeple to code please send dudes and stuff',
-            'price_range': (42, 90),
-            'total_payed': 1142,
-            'status': 'Closed', 
-        },
-        {
-            'indi_username': 'test',
-            'start_date': '2024-04-05',
-            'completion_date': '2024-04-09',
-            'title': 'Implement Firebase Authentication', 
-            'desc': 'This website need peoeple to code please send dudes and stuff',
-            'price_range': (42, 90),
-            'total_payed': 1142,
-            'status': 'Ongoing', 
-        },
-        {
-            'indi_username': 'test',
-            'start_date': '2024-04-05',
-            'completion_date': '2024-04-09',
-            'title': 'Implement Firebase Authentication', 
-            'desc': 'This website need peoeple to code please send dudes and stuff',
-            'price_range': (42, 90),
-            'total_payed': 1142,
-            'status': 'Open', 
-        },
-        {
-            'indi_username': 'test',
-            'start_date': '2024-04-05',
-            'completion_date': '2024-04-09',
-            'title': 'Implement Firebase Authentication', 
-            'desc': 'This website need peoeple to code please send dudes and stuff',
-            'price_range': (42, 90),
-            'total_payed': 1142,
-            'status': 'Closed', 
-        },
-        {
-            'indi_username': 'test',
-            'start_date': '2024-04-05',
-            'completion_date': '2024-04-09',
-            'title': 'Implement Firebase Authentication', 
-            'desc': 'This website need peoeple to code please send dudes and stuff',
-            'price_range': (42, 90),
-            'total_payed': 1142,
-            'status': 'Ongoing', 
-        },
-        {
-            'indi_username': 'test',
-            'start_date': '2024-04-05',
-            'completion_date': '2024-04-09',
-            'title': 'Implement Firebase Authentication', 
-            'desc': 'This website need peoeple to code please send dudes and stuff',
-            'price_range': (42, 90),
-            'total_payed': 1142,
-            'status': 'Open', 
-        },
-        {
-            'indi_username': 'test',
-            'start_date': '2024-04-05',
-            'completion_date': '2024-04-09',
-            'title': 'Implement Firebase Authentication', 
-            'desc': 'This website need peoeple to code please send dudes and stuff',
-            'price_range': (42, 90),
-            'total_payed': 1142,
-            'status': 'Closed', 
-        },
-        {
-            'indi_username': 'test',
-            'start_date': '2024-04-05',
-            'completion_date': '2024-04-09',
-            'title': 'Implement Firebase Authentication', 
-            'desc': 'This website need peoeple to code please send dudes and stuff',
-            'price_range': (42, 90),
-            'total_payed': 1142,
-            'status': 'Ongoing', 
-        },
-        {
-            'indi_username': 'test',
-            'start_date': '2024-04-05',
-            'completion_date': '2024-04-09',
-            'title': 'Implement Firebase Authentication', 
-            'desc': 'This website need peoeple to code please send dudes and stuff',
-            'price_range': (42, 90),
-            'total_payed': 1142,
-            'status': 'Open', 
-        },
-        {
-            'indi_username': 'test',
-            'start_date': '2024-04-05',
-            'completion_date': '2024-04-09',
-            'title': 'Implement Firebase Authentication', 
-            'desc': 'This website need peoeple to code please send dudes and stuff',
-            'price_range': (42, 90),
-            'total_payed': 1142,
-            'status': 'Closed', 
-        },
-        {
-            'indi_username': 'test',
-            'start_date': '2024-04-05',
-            'completion_date': '2024-04-09',
-            'title': 'Implement Firebase Authentication', 
-            'desc': 'This website need peoeple to code please send dudes and stuff',
-            'price_range': (42, 90),
-            'total_payed': 1142,
-            'status': 'Ongoing', 
-        },
-        {
-            'indi_username': 'test',
-            'start_date': '2024-04-05',
-            'completion_date': '2024-04-09',
-            'title': 'Implement Firebase Authentication', 
-            'desc': 'This website need peoeple to code please send dudes and stuff',
-            'price_range': (42, 90),
-            'total_payed': 1142,
-            'status': 'Open', 
-        },
-    ]
-    return render_template("org_contract_history.html", user_data = user_data, contracts=contracts)
+
+    # Getting the current user's contracts
+    contract_data = []
+
+    for child in db.reference("/contracts").get():
+        user_contract = db.reference("/contracts").child(child)
+
+        if user_contract.child("Author").get() == session.get("user_id")[2:]:
+
+            # Date calculation of contract
+            start_date = user_contract.child("Date Posted").get()
+            duration = user_contract.child("Duration").get()
+
+            temp_start = datetime.strptime(start_date, "%d-%m-%Y")
+            temp_new = temp_start + timedelta(days=int(duration))
+            end_date = temp_new.strftime("%d-%m-%Y")
+
+            contract_data.append({
+                "Start_date": start_date,
+                "End_date": end_date,
+                "Title": user_contract.child("Title").get(),
+                "Description": user_contract.child("Description").get(),
+                "Min_price": user_contract.child("Min Price").get(),
+                "Max_price": user_contract.child("Max Price").get(),
+                "Status": user_contract.child("Status").get()
+            })
+
+
+    print(contract_data)
+
+    return render_template("org_contract_history.html", user_data = user_data, contract_data=contract_data)

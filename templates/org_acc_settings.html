@@ -16,7 +16,9 @@
     </div>
     <div class="acc-settings-all-options">
         <form method="POST" enctype="multipart/form-data">
-            
+            {{ csrf_token }}
+            {{ form.hidden_tag() }}
+
             <div class="update-profile-pic">
                 <img src='/static/images/netflix.png' class="prof-pic-comp"></i>
                 <div class="btn-container">
@@ -32,40 +34,46 @@
                 <div class="left-fields">
                     <div class="personal-fields" id="orgname-field">
                         <p class="field-label">Organization Name</p>
-                        <input class="personal-input-fields" name="Organization_Name" type="text" id="orgname" value='' autocomplete="off">
+                        <input class="personal-input-fields" name="org_name" type="text" id="orgname" value='{{ org_data["Org_name"] }}' autocomplete="off">
                     </div>
 
-                    <div class="save-btn-container">
-                        <button class="save-btn" id="save_btn" disabled>Save Changes</button>
-                    </div>
-                    
                     <div class="personal-fields" id="email-field">
                         <p class="field-label">Email</p>
-                        <input class="personal-input-fields" name="email" type="email" id="email" value='' autocomplete="off" disabled>
+                        <input class="personal-input-fields" name="email" type="email" id="email" value='{{ org_data["Email"] }}' autocomplete="off" disabled>
                     </div>
-
+                    
                     <div class="personal-fields" id="sector-field">
                         <p class="field-label">Industry Sector</p>
                         <div class="username-atsign">
-                            <input class="personal-input-fields" name="display_name" type="text" id="username" value='' autocomplete="off">
+                            <input class="personal-input-fields" name="industry" type="text" id="username" value='{{ org_data["Industry"] }}' autocomplete="off">
                         </div>
                     </div>
                     
                     <div class="personal-fields" id="password-field">
                         <p class="field-label">Password</p>
-                        <input class="personal-input-fields" name="password" type="password" id="password" value="" disabled>
+                        <input class="personal-input-fields" name="password" type="password" id="password" value='{{ org_data["Email"] }}' disabled>
+                    </div>
+
+                    <div class="save-btn-container">
+                        <button class="save-btn" id="save_btn" disabled>Save Changes</button>
+                    </div>
+                </div>
+                <div class="right-fields">
+                    <div class="personal-fields" id="website-field">
+                        <p class="field-label">Website</p>
+                        <input class="personal-input-fields" name="website" id="website" value='{{ org_data["Website"] }}' autocomplete="off">
                     </div>
 
                     <div class="personal-fields" id="website-field">
-                        <p class="field-label">Website</p>
-                        <input class="personal-input-fields" name="password" id="website" value="">
+                        <p class="field-label">Contact Email</p>
+                        <input class="personal-input-fields" name="contact_email" id="contact_email" value='{{ org_data["Contact Email"] }}' autocomplete="off">
                     </div>
                     
                     <div class="personal-fields" id="comp-desc-field">
                         <p class="field-label">Company Description (Max 200 char)</p>
-                        <textarea class="personal-input-fields" name="bio" id="comp-desc" wrap="soft"></textarea>
+                        <textarea class="personal-input-fields" name="description" id="comp-desc" wrap="soft">{% if org_data["Description"] is defined %}{{ org_data["Description"] }}{% endif %}</textarea>
                     </div>
-                </div>    
+                </div>
             </div>
         </form>
     </div>

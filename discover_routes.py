@@ -1,4 +1,5 @@
 import uuid, pyrebase, os
+from ast import literal_eval
 from flask import Blueprint, render_template, redirect, url_for, session
 from firebase_admin import db
 from datetime import date
@@ -209,6 +210,8 @@ def companies():
     return render_template("org_discover.html", ad_list=ad_list, user_data = user_data)
 
 
+
+
 # ---------- CONTRACT PAGE ----------
 @discover_blueprint.route("/contract/<string:contract_id>", methods = ["POST", "GET"])
 def contract(contract_id):
@@ -232,25 +235,36 @@ def contract(contract_id):
             form = ApplyContract(contract_id, session.get("user_id")[2:])
 
             if form.validate_on_submit():
+                
+                if db.reference("/user_accounts").child(auth.get_user(session.get("user_id")[2:]).display_name).child("Resume").get() == None:
+                    # Uploading contract image to cloud
+                    storage = firebase.storage()
+                    form.resume.data.save(form.resume.data.filename)
+                    resume_upload = storage.child("files/resumes/" + str(session.get("user_id")[2:]) + ".pdf").put(form.resume.data.filename)
+                    os.remove(form.resume.data.filename)
 
-                # Uploading contract image to cloud
-                storage = firebase.storage()
-                form.resume.data.save(form.resume.data.filename)
-                resume_upload = storage.child("files/resumes/" + str(session.get("user_id")[2:]) + "-" + form.resume.data.filename).put(form.resume.data.filename)
-                os.remove(form.resume.data.filename)
+                    applicant_data = {
+                        "Pay Requested": str(form.pay_range.data),
+                        "Skill Level": form.capability.data,
+                        "Message": form.message.data,
+                        "Resume": storage.child("files/resumes/" + str(session.get("user_id")[2:]) + ".pdf").get_url(session.get("user_id")[2:])
+                    }
 
-                applicant_data = {
-                    "Pay Requested": str(form.pay_range.data),
-                    "Skill Level": form.capability.data,
-                    "Message": form.message.data,
-                    "Resume": storage.child("files/resumes/" + str(session.get("user_id")[2:]) + "-" + form.resume.data.filename).get_url(session.get("user_id")[2:])
-                }
+                    db.reference("/contracts").child(contract_id).child("Applied").child(session.get("user_id")[2:]).update(applicant_data)
 
-                db.reference("/contracts").child(contract_id).child("Applied").child(session.get("user_id")[2:]).update(applicant_data)
+                    db.reference("/user_accounts").child(auth.get_user(session.get("user_id")[2:]).display_name).update({"Resume": storage.child("files/resumes/" + str(session.get("user_id")[2:]) + ".pdf").get_url(session.get("user_id")[2:])})
 
-                # If its user's first time uploading resume
-                if applied == False:
-                    db.reference("/user_accounts").child(auth.get_user(session.get("user_id")[2:]).display_name).update({"Resume": storage.child("files/resumes/" + str(session.get("user_id")[2:]) + "-" + form.resume.data.filename).get_url(session.get("user_id")[2:])})
+                else:
+                    storage = firebase.storage()
+                    
+                    applicant_data = {
+                        "Pay Requested": str(form.pay_range.data),
+                        "Skill Level": form.capability.data,
+                        "Message": form.message.data,
+                        "Resume": storage.child("files/resumes/" + str(session.get("user_id")[2:]) + ".pdf").get_url(session.get("user_id")[2:])
+                    }
+
+                    db.reference("/contracts").child(contract_id).child("Applied").child(session.get("user_id")[2:]).update(applicant_data)
 
                 return redirect(url_for('discover.individuals'))
         
@@ -271,7 +285,6 @@ def create_contract():
     is_indi_or_org(False)
     contract_ref = db.reference("/contracts")
 
-
     if check_if_user_is_company():
         # Call this function in every route, to ensure navbar details
         user_data = acc_nav_details(session.get("user_id"))
@@ -290,6 +303,13 @@ def create_contract():
             contract_img_upload = storage.child("images/contract_images/" + uid + "-" + form.contract_img.data.filename).put(form.contract_img.data.filename)
             os.remove(form.contract_img.data.filename)
 
+
+            scope = [str(x.strip()) for x in form.scope.data[1:-1].split(',')]
+            deliverables = [str(x.strip()) for x in form.deliverables.data[1:-1].split(',')]
+            tech = [str(x.strip()) for x in form.tech_stack.data[1:-1].split(',')]
+            notes = [str(x.strip()) for x in form.notes.data[1:-1].split(',')]
+
+
             contract_details = {
                     # Form data
                     "Title": form.title.data,
@@ -299,11 +319,10 @@ def create_contract():
                     "Duration": form.duration.data,
                     "Difficulty": form.difficulty.data,
                     "Contract Image": storage.child("images/contract_images/" + uid + "-" + form.contract_img.data.filename).get_url(session.get("user_id")[2:]),
-                    "Scope": form.scope.data,
-                    "Technology Stack": form.tech_stack.data,
-                    "Deliverables": form.deliverables.data,
-                    "Payment Terms": "Payment will be made every 15 days for a duration of " + str(payment_term_calc(form.duration.data)),
-                    "Notes": form.notes.data,
+                    "Scope": scope,
+                    "Deliverables": deliverables,
+                    "Technology Stack": tech,
+                    "Payment Terms": ["Payment will be made every 15 days for a duration of " + str(payment_term_calc(form.duration.data))],
                     # Auto data
                     "Status": "Open",
                     "Company Name": org_name,
@@ -311,7 +330,12 @@ def create_contract():
                     "Date Posted": today
                 }
 
+            if form.notes.data != None:
+                contract_details.update({"Notes": notes})
+
             contract_ref.update({uid: contract_details})
+
+            return redirect(url_for("discover.create_contract"))
         
         else:
             print("Create contract form error: ", form.errors)
@@ -324,18 +348,21 @@ def create_contract():
 
 # Helper function for create_contract()
 def payment_term_calc(days):
-    if days == 15:
+    if days == "15":
         return "15 Days"
-    elif days == 30:
+    elif days == "30":
         return "1 Month"
-    elif days == 45:
+    elif days == "45":
         return "1 Month + 15 Days"
-    elif days == 60:
+    elif days == "60":
         return "2 Months"
-    elif days == 75:
+    elif days == "75":
         return "2 Months + 15 Days"
-    elif days == 90:
+    elif days == "90":
         return "3 Months"
+    
+
+
 
 # ---------- EDIT CONTRACT ----------
 @discover_blueprint.route("/edit_contract/<string:contract_id>", methods = ["POST", "GET"])
