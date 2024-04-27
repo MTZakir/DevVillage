@@ -79,6 +79,7 @@ def indi_chat():
     if 'user_id' not in session:
         return redirect(url_for('home'))
     else:
+        # Mock info, update this with actual data from the user database
         chat_info = [
             {
                 'type': 'individual',
@@ -89,7 +90,7 @@ def indi_chat():
             }
         ]
         chat_history = get_chat_history()
-        return render_template('chat.html', chat_info=chat_info, chat_history=chat_history, user_data = user_data)
+        return render_template('chat.html', chat_info=chat_info, chat_history=chat_history, user_data=user_data)
 
 @app.route('/org/view_profile')
 def view_profile():
@@ -111,6 +112,7 @@ def org_chat():
     if 'user_id' not in session:
         return redirect(url_for('home'))
     else:
+        # Mock info, update this with actual data from the user database
         chat_info = [
             {
                 'type': 'individual',
@@ -121,7 +123,7 @@ def org_chat():
             }
         ]
         chat_history = get_chat_history()
-        return render_template('chat.html', chat_info=chat_info, chat_history=chat_history, user_data = user_data)
+        return render_template('chat.html', chat_info=chat_info, chat_history=chat_history, user_data=user_data)
 
 @socketio.on('message')
 def handle_message(message):
