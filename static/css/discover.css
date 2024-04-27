@@ -518,6 +518,8 @@ a{
     width: 23vw;
 
     display: none;
+
+    overflow-y: scroll;
 }
 
 .notification:hover{

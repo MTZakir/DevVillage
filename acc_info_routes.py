@@ -285,11 +285,13 @@ def org_wallet():
         # Organization Account
         org_wallet_db = db.reference("/org_accounts").child(session.get("user_id")[2:])
 
-        if org_wallet_db.get()["Wallet"]:
-            new_wallet_amount = org_wallet_db.get()["Wallet"] + int(form.amount.data)
-            org_wallet_db.update({"Wallet": new_wallet_amount})
+        print("deez")
+        new_wallet_amount = org_wallet_db.get()["Wallet"] + int(form.amount.data)
+        org_wallet_db.update({"Wallet": new_wallet_amount})
 
-            return redirect(url_for('accinfo.org_wallet'))
+        return redirect(url_for('accinfo.org_wallet'))
+    else:
+        print(form.errors)
 
     return render_template("wallet.html", form = form, user_data = user_data)
 
@@ -306,11 +308,10 @@ def indi_wallet():
         # Individual Account
         user_wallet_db = db.reference("/user_accounts").child(auth.get_user(session.get("user_id")[2:]).display_name).child("Wallet").get()
 
-        if user_wallet_db:
-            new_wallet_amount = user_wallet_db + int(form.amount.data)
-            db.reference("/user_accounts").child(auth.get_user(session.get("user_id")[2:]).display_name).update({"Wallet": new_wallet_amount})
+        new_wallet_amount = user_wallet_db + int(form.amount.data)
+        db.reference("/user_accounts").child(auth.get_user(session.get("user_id")[2:]).display_name).update({"Wallet": new_wallet_amount})
 
-            return redirect(url_for('accinfo.indi_wallet'))
+        return redirect(url_for('accinfo.indi_wallet'))
 
     return render_template("wallet.html", form = form, user_data = user_data)
 

@@ -423,7 +423,15 @@ def organization():
         # If rejected
         if form.applicant.data[-1] == "0":
             # Send notification
-            db.reference("/user_accounts").child(auth.get_user(user_id).display_name).child("Notifications").push(f"You did not qualify for the '{db.reference("/contracts").child(form.contract.data).child("Title").get()}' contract. Wish you the very best later on.")
+            # Get the contract title first
+            contract_title = db.reference("/contracts").child(form.contract.data).child("Title").get()
+
+            # Construct the notification message separately
+            notification_message = f"You did not qualify for the '{contract_title}' contract. Wish you the very best later on."
+
+            # Push the notification to the database
+            db.reference("/user_accounts").child(auth.get_user(user_id).display_name).child("Notifications").push(notification_message)
+
             # Refund user's tokens
             user_current = db.reference("/user_accounts").child(auth.get_user(user_id).display_name)
             user_current_token = user_current.child("Tokens").get()
@@ -434,15 +442,23 @@ def organization():
         # If accepted
         if form.applicant.data[-1] == "1":
             # Send notification
-            db.reference("/user_accounts").child(auth.get_user(user_id).display_name).child("Notifications").push(f"You have been accepted for the '{db.reference("/contracts").child(form.contract.data).child("Title").get()}' contract. Looking forward to working with you.")
+            # Get the contract title first
+            contract_title = db.reference("/contracts").child(form.contract.data).child("Title").get()
+
+            # Construct the notification message separately
+            notification_message = f"You have been accepted for the '{contract_title}' contract. Looking forward to working with you."
+
+            # Push the notification to the database
+            db.reference("/user_accounts").child(auth.get_user(user_id).display_name).child("Notifications").push(notification_message)
+
             # Update user wallet
             user_current = db.reference("/user_accounts").child(auth.get_user(user_id).display_name)
             user_current_wallet = user_current.child("Wallet").get()
-            user_current.update({"Wallet": user_current_wallet + (int(applicant_list[0]["Pay"]) / (int(db.reference("/contracts").child(form.contract.data).child("Duration")) / 15))})
+            user_current.update({"Wallet": user_current_wallet + (int(applicant_list[0]["Pay"]) / (int(db.reference("/contracts").child(form.contract.data).child("Duration").get()) / 15))})
             # Update company wallet
             org_current = db.reference("/org_accounts").child(session.get("user_id")[2:])
             org_current_wallet = org_current.child("Wallet").get()
-            org_current.update({"Wallet": org_current_wallet - (int(applicant_list[0]["Pay"]) / (int(db.reference("/contracts").child(form.contract.data).child("Duration")) / 15))})
+            org_current.update({"Wallet": org_current_wallet - (int(applicant_list[0]["Pay"]) / (int(db.reference("/contracts").child(form.contract.data).child("Duration").get()) / 15))})
             # Add user to contractor list
             db.reference("/contracts").child(form.contract.data).child("Contractors").child(user_id).update({
                 "Contractor Name": auth.get_user(user_id).display_name,

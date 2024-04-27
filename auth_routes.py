@@ -204,7 +204,6 @@ def user_register():
                         "Gender": '',
                         "Notifications": [],
                         "Rating": 0.0,
-                        "Resume": '',
                         "Tokens": 10
                     }
                     user_ref.update({form.username.data: user_data})
