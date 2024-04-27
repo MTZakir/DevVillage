@@ -11,19 +11,17 @@
     <div class="chat-area">
         <div class="user-chats" id="user-chats">
             <!-- Stored chat history -->
-            {% if chat_history %}
-                {% for message in chat_history %}
-                <div class="message {% if message[0] == current_user_id %}message-right{% else %}message-left{% endif %}">
-                    {% if message[0] == current_user_id %}
-                    <!-- Your message -->
-                    <span class="sender">You:</span> {{ message[1] }}
-                    {% else %}
-                    <!-- Other user's message -->
-                    <span class="sender">{{ message[0] }}:</span> {{ message[1] }}
-                    {% endif %}
-                </div>
-                {% endfor %}
-            {% endif %}
+            {% for message in chat_history %}
+            <div class="message {% if message[0] == current_user_id %}message-right{% else %}message-left{% endif %}">
+                {% if message[0] == current_user_id %}
+                <!-- Your message -->
+                <span class="sender"></span> {{ message[1] }}
+                {% else %}
+                <!-- Other user's message -->
+                <span class="sender">{{ message[0] }}:</span> {{ message[1] }}
+                {% endif %}
+            </div>
+            {% endfor %}
         </div>
         <div class="textbox">
             <div id="attachments">
@@ -48,7 +46,7 @@
         var userChats = document.getElementById('user-chats');
         var newMessage = document.createElement('div');
         newMessage.classList.add('message', 'message-right');
-        newMessage.innerHTML = "<span class='sender'>You:</span> " + message;
+        newMessage.innerHTML = "<span class='sender'></span> " + message;
         userChats.appendChild(newMessage);
         // Scroll to bottom of chat area
         userChats.scrollTop = userChats.scrollHeight;
