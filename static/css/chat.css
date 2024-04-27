@@ -76,7 +76,7 @@
 
 .user-chats {
     overflow-y: auto;
-    max-height: 90vh
+    max-height: 80vh;
 }
 
 .textbox {
@@ -87,7 +87,6 @@
     align-items: center;
     background: #0F0F0F;
     gap: 1.563vw;
-    position: absolute;
     bottom: 0;
     /* Align to the bottom */
     height: 3.75vw;
@@ -171,7 +170,7 @@
     font-weight: 100;
     color: #ffffffde;
     width: 88.208vw;
-    height: 2.708vw;
+    height: 2.308vw;
     border-radius: 2.604vw;
     background-color: #161414;
     padding: 0px 1.042vw 0px 1.042vw;
