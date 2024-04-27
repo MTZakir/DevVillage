@@ -42,11 +42,11 @@
     var socket = io();
 
     // Function to handle incoming messages
-    socket.on('message', function (message) {
+    socket.on('message', function (data) {
         var userChats = document.getElementById('user-chats');
         var newMessage = document.createElement('div');
         newMessage.classList.add('message', 'message-right');
-        newMessage.innerHTML = "<span class='sender'></span> " + message;
+        newMessage.innerHTML = "<span class='sender'>" + data.user_id + ":</span> " + data.message;
         userChats.appendChild(newMessage);
         // Scroll to bottom of chat area
         userChats.scrollTop = userChats.scrollHeight;
@@ -58,8 +58,8 @@
         var message = input.value;
         if (message.trim() !== '') {
             input.value = '';
-            // Emit message via WebSocket
-            socket.emit('message', message);
+            // Emit message along with user ID via WebSocket
+            socket.emit('message', { user_id: "{{ session.get('user_id') }}", message: message });
         }
     }
 

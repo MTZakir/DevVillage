@@ -1,6 +1,6 @@
 /* --------------------- CHAT BOX ---------------------*/
 
-.chat-nav-option{
+.chat-nav-option {
     color: var(--color) !important;
 }
 
@@ -27,15 +27,19 @@
 
 /* Style for messages sent by the current user */
 .user-chats .message-right {
-    background-color: #DCF8C6; /* Light green background */
-    color: #000; /* Black text color */
+    background-color: #DCF8C6;
+    /* Light green background */
+    color: #000;
+    /* Black text color */
     text-align: right;
 }
 
 /* Style for messages sent by other users */
 .user-chats .message-left {
-    background-color: #F0F0F0; /* Light gray background */
-    color: #000; /* Black text color */
+    background-color: #F0F0F0;
+    /* Light gray background */
+    color: #000;
+    /* Black text color */
     text-align: left;
 }
 
@@ -69,14 +73,14 @@
 }
 
 .chat-area {
-    background-image: linear-gradient(to top right, rgb(9, 14, 17),rgb(11, 23, 41));
+    background-image: linear-gradient(to top right, rgb(9, 14, 17), rgb(11, 23, 41));
     background-blend-mode: color-dodge;
     width: 100vw;
 }
 
 .user-chats {
     overflow-y: auto;
-    max-height: 80vh;
+    max-height: 90vh
 }
 
 .textbox {
@@ -87,6 +91,7 @@
     align-items: center;
     background: #0F0F0F;
     gap: 1.563vw;
+    position: absolute;
     bottom: 0;
     /* Align to the bottom */
     height: 3.75vw;
@@ -170,7 +175,7 @@
     font-weight: 100;
     color: #ffffffde;
     width: 88.208vw;
-    height: 2.308vw;
+    height: 2.708vw;
     border-radius: 2.604vw;
     background-color: #161414;
     padding: 0px 1.042vw 0px 1.042vw;

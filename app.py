@@ -75,6 +75,7 @@ def homecomp():
 
 @app.route('/indi/chat')
 def indi_chat():
+    init_db()
     user_data = acc_nav_details(session.get("user_id"))
     if 'user_id' not in session:
         return redirect(url_for('home'))
@@ -108,6 +109,7 @@ def view_profile():
 
 @app.route('/org/chat')
 def org_chat():
+    init_db()
     user_data = acc_nav_details(session.get("user_id"))
     if 'user_id' not in session:
         return redirect(url_for('home'))
@@ -126,14 +128,13 @@ def org_chat():
         return render_template('chat.html', chat_info=chat_info, chat_history=chat_history, user_data=user_data)
 
 @socketio.on('message')
-def handle_message(message):
-    print('Received Message:', message)
-    emit('message', message, broadcast=True)
+def handle_message(data):
+    print('Received Message:', data)
+    emit('message', {'user_id': session.get('user_id'), 'message': data['message']}, broadcast=True)
 
     user_id = session.get('user_id')
     if user_id:
-        add_chat_message(user_id, message)
+        add_chat_message(user_id, data['message'])
 
 if __name__ == '__main__':
-    init_db()
     app.run(debug=True)
