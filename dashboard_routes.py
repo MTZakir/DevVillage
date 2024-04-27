@@ -422,19 +422,33 @@ def organization():
         user_id = form.applicant.data[:-2]
         # If rejected
         if form.applicant.data[-1] == "0":
+            # Send notification
             db.reference("/user_accounts").child(auth.get_user(user_id).display_name).child("Notifications").push(f"You did not qualify for the '{db.reference("/contracts").child(form.contract.data).child("Title").get()}' contract. Wish you the very best later on.")
+            # Refund user's tokens
+            user_current = db.reference("/user_accounts").child(auth.get_user(user_id).display_name)
+            user_current_token = user_current.child("Tokens").get()
+            user_current.update({"Tokens": user_current_token + 10})
+            # Remove user from applied list
             db.reference("/contracts").child(form.contract.data).child("Applied").child(user_id).delete()
 
         # If accepted
         if form.applicant.data[-1] == "1":
+            # Send notification
             db.reference("/user_accounts").child(auth.get_user(user_id).display_name).child("Notifications").push(f"You have been accepted for the '{db.reference("/contracts").child(form.contract.data).child("Title").get()}' contract. Looking forward to working with you.")
-            current = db.reference("/user_accounts").child(auth.get_user(user_id).display_name)
-            current_wallet = current.child("Wallet").get()
-            current.update({"Wallet": current_wallet + int(applicant_list[0]["Pay"])})
+            # Update user wallet
+            user_current = db.reference("/user_accounts").child(auth.get_user(user_id).display_name)
+            user_current_wallet = user_current.child("Wallet").get()
+            user_current.update({"Wallet": user_current_wallet + (int(applicant_list[0]["Pay"]) / (int(db.reference("/contracts").child(form.contract.data).child("Duration")) / 15))})
+            # Update company wallet
+            org_current = db.reference("/org_accounts").child(session.get("user_id")[2:])
+            org_current_wallet = org_current.child("Wallet").get()
+            org_current.update({"Wallet": org_current_wallet - (int(applicant_list[0]["Pay"]) / (int(db.reference("/contracts").child(form.contract.data).child("Duration")) / 15))})
+            # Add user to contractor list
             db.reference("/contracts").child(form.contract.data).child("Contractors").child(user_id).update({
                 "Contractor Name": auth.get_user(user_id).display_name,
                 "Pay": applicant_list[0]["Pay"]
             })
+            # Remove user from applied list
             db.reference("/contracts").child(form.contract.data).child("Applied").child(user_id).delete()
 
         return redirect(url_for("dashboard.organization"))

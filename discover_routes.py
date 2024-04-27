@@ -250,9 +250,14 @@ def contract(contract_id):
                         "Resume": storage.child("files/resumes/" + str(session.get("user_id")[2:]) + ".pdf").get_url(session.get("user_id")[2:])
                     }
 
+                    # Adding user to applied list of the contract
                     db.reference("/contracts").child(contract_id).child("Applied").child(session.get("user_id")[2:]).update(applicant_data)
-
+                    # Updating user's resume
                     db.reference("/user_accounts").child(auth.get_user(session.get("user_id")[2:]).display_name).update({"Resume": storage.child("files/resumes/" + str(session.get("user_id")[2:]) + ".pdf").get_url(session.get("user_id")[2:])})
+                    # Charging the user for application
+                    user_current = db.reference("/user_accounts").child(auth.get_user(session.get("user_id")[2:]).display_name)
+                    user_current_token = user_current.child("Tokens").get()
+                    user_current.update({"Tokens": user_current_token - 10})
 
                 else:
                     storage = firebase.storage()
@@ -264,7 +269,12 @@ def contract(contract_id):
                         "Resume": storage.child("files/resumes/" + str(session.get("user_id")[2:]) + ".pdf").get_url(session.get("user_id")[2:])
                     }
 
+                    # Adding user to applied list of the contract
                     db.reference("/contracts").child(contract_id).child("Applied").child(session.get("user_id")[2:]).update(applicant_data)
+                    # Charging the user for application
+                    user_current = db.reference("/user_accounts").child(auth.get_user(session.get("user_id")[2:]).display_name)
+                    user_current_token = user_current.child("Tokens").get()
+                    user_current.update({"Tokens": user_current_token - 10})
 
                 return redirect(url_for('discover.individuals'))
         

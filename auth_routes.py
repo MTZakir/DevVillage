@@ -198,7 +198,14 @@ def user_register():
                         "Expertise": form.expertise.data,
                         "First_name": form.first_name.data,
                         "Last_name": form.last_name.data,
-                        "Wallet": 0.0
+                        "Wallet": 0,
+                        "Bio": '',
+                        "DOB": '',
+                        "Gender": '',
+                        "Notifications": [],
+                        "Rating": 0.0,
+                        "Resume": '',
+                        "Tokens": 10
                     }
                     user_ref.update({form.username.data: user_data})
 
@@ -320,7 +327,10 @@ def org_register():
                     "Org Website": form.company_website.data,
                     "Email": form.email.data,
                     "Contact Person Email": form.contact_person_email.data,
-                    "Industry": form.industry.data
+                    "Industry": form.industry.data,
+                    "Description": '',
+                    "Tokens": 10,
+                    "Wallet": 0
                 }
 
                 org_ref.update({new_user.uid: dictionary})
