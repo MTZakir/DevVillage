@@ -11,17 +11,19 @@
     <div class="chat-area">
         <div class="user-chats" id="user-chats">
             <!-- Stored chat history -->
-            {% for message in chat_history %}
-            <div class="message {% if message[0] == current_user_id %}message-right{% else %}message-left{% endif %}">
-                {% if message[0] == current_user_id %}
-                <!-- Your message -->
-                <span class="sender"></span> {{ message[1] }}
-                {% else %}
-                <!-- Other user's message -->
-                <span class="sender">{{ message[0] }}:</span> {{ message[1] }}
-                {% endif %}
-            </div>
-            {% endfor %}
+            {% if chat_history %}
+                {% for message in chat_history %}
+                <div class="message {% if message[0] == current_user_id %}message-right{% else %}message-left{% endif %}">
+                    {% if message[0] == current_user_id %}
+                    <!-- Your message -->
+                    <span class="sender"></span> {{ message[1] }}
+                    {% else %}
+                    <!-- Other user's message -->
+                    <span class="sender">{{ message[0] }}:</span> {{ message[1] }}
+                    {% endif %}
+                </div>
+                {% endfor %}
+            {% endif %}
         </div>
         <div class="textbox">
             <div id="attachments">
