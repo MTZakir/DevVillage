@@ -12,20 +12,44 @@
 
 .profile-heading{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
     font-weight: 200;
     color: white;
     margin-bottom: 1.014vw;
     padding-left: 0.4vw;
 }
 
-.profile-heading .heading{
+.profile-heading div:first-child{
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-heading div:first-child .heading{
     font-size: 1.3vw;
 }
 
-.profile-heading .subheading{
+.profile-heading div:first-child .subheading{
     font-size: 0.8vw;
     color: #ffffffab;
+}
+
+.post{
+    margin: 5.5px 5px 0 0;
+}
+
+.profile-heading .post button{
+    background-color: #1f3d67;
+    border: none;
+}
+
+.profile-heading .post button:hover{
+    background-color: #122b4e;
+}
+
+.profile-heading  .post span{
+    color: white;
+    left: 29.5%;
 }
 
 .profile-btn button{

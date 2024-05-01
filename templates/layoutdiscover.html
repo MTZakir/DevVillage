@@ -73,7 +73,6 @@
                     {% if session.get('user_id')[:2] == 'I-' %}
                         <li><a href="{{url_for(invites_url)}} " class="invites-nav-option">Invites</a></li>
                     {% endif %}
-                    <li><a href="{{url_for(chat_url)}} " class="chat-nav-option">DevChat</a></li>
                     <li><a href="{{url_for(tokens_url)}} " class="buy-nav-option">Buy Tokens</a></li>
                 </ul>
 

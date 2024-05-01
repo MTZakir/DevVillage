@@ -23,7 +23,7 @@
         <div class="contract-card" data-status="{{ contract['Status'] }}">
             <div  class="contract-text">
                 <div class="comp-name-date">
-                    <h2 id="comp-name">Taken By: {% if contract["Applicant"] is defined %}{{ contract['Applicant'] }}{% else %}None{% endif %}</h2>
+                    <h2 id="comp-name">Taken By: {% if contract["Applicant"] is defined %}{{ contract['Applicant'] }}{% else %}@liamJ5454{% endif %}</h2>
                     {% if contract['Status'] == 'Ongoing' %}
                         <p>Started on {{ contract['Start_date'] }}</p>
                     {% else %}

@@ -30,6 +30,12 @@
     font-size: 7.188vw;
 }
 
+.prof-pic-comp{
+    height: 135px;
+    border-radius: 100px;
+    margin: 20px 0px 20px 0px;
+}
+
 .update-profile-pic{
     display: flex;
     gap: 2vw;

@@ -7,6 +7,11 @@
     height: 93vh;
 }
 
+.button-prices{
+    padding-top: 9vw;
+    overflow: hidden;
+}
+
 .price-description{
     display: flex;
     justify-content: center;

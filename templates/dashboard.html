@@ -70,7 +70,7 @@
                         </tbody>
                     {% endif %}
                 </table>
-                {% if session.get('user_id')[:2] == 'I-' %}
+                <!-- {% if session.get('user_id')[:2] == 'I-' %}
                     <div class="bank-paymethod-details">
                         <h2 class="banking-title">Banking details</h2>
                         <div class="banking-details">
@@ -81,7 +81,7 @@
                             <a id="payment-redirect">Add Payment Method</a>
                         </div>
                     </div>
-                {% endif %}
+                {% endif %} -->
             </div>
 
         </div>
@@ -122,12 +122,12 @@
                 </div>
             </div>
 
-            <div class="money-chart">
+            <!-- <div class="money-chart">
                 <h2 id="summary-title">Money Flow</h2>
                 <div class="chart">
                     <h2 id="work-inprogress">Not implemented yet<br>work in progress</h2>
                 </div>
-            </div>
+            </div> -->
 
             <div class="payments-summary">
                 <div class="title-button">
@@ -147,30 +147,29 @@
                 <div class="payments">
                     {% if session.get('user_id')[:2] == 'I-' %}
                         {% for transaction in recent_payments %}
-                            {% if loop.index <= 4 %}
+                            <!-- {% if loop.index <= 4 %} -->
                                 <div class="transaction">
                                     <div class="comp-img-name">
-                                        <img id='comp-img' src="/static/images/netflix.png">
+                                        <img id='comp-img' src="{{transaction['company_pic']}}">
                                         <h2 class='payment-text' id="comp-name">{{ transaction['company_name'] }}</h2>
                                     </div>
                                     <p class='payment-text status'>{{ transaction['status'] }}</p>
                                     <h2 class='payment-text' id="amount">${{ transaction['amount'] }}</h2>
                                 </div>
-                            {% endif %}
+                            <!-- {% endif %} -->
                         {% endfor %}
                     
                     {% else %}    
                         {% for transaction in recent_payments %}
-                            {% if loop.index <= 4 %}
+                            <!-- {% if loop.index <= 4 %} -->
                                 <div class="transaction">
                                     <div class="comp-img-name">
-                                        <i class="bi bi-person-circle prof-pic"></i>
                                         <h2 class='payment-text' id="comp-name">{{ transaction['contractor_name'] }}</h2>
                                     </div>
                                     <p class='payment-text status'>{{ transaction['status'] }}</p>
                                     <h2 class='payment-text' id="amount">${{ transaction['amount'] }}</h2>
                                 </div>
-                            {% endif %}
+                            <!-- {% endif %} -->
                         {% endfor %}
                     {% endif %}
                 </div>

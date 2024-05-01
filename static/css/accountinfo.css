@@ -177,6 +177,13 @@
     pointer-events: none;
 }
 
+.prof-pic-comp{
+    height: 135px;
+    /* width: 135px; */
+    border-radius: 1000px;
+    margin: 20px 0px 20px 0px;
+}
+
 @media screen and (height: 774.4px) {
     .logout {
         margin-top: 4vw;

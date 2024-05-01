@@ -89,11 +89,14 @@ def individual_settings():
     user_auth = auth.get_user(session.get("user_id")[2:])
     user_ref = db.reference("/user_accounts").child(user_auth.display_name)
 
+    expertise_list = user_ref.get()["Expertise"]
+    expertise_str = ', '.join(expertise_list)
+
     user_info = {
         "Email": user_ref.get()["Email"],
         "Password": user_auth.email,
         "Phone": user_auth.phone_number,
-        "Expertise": user_ref.get()["Expertise"],
+        "Expertise": expertise_str,
         "DOB": user_ref.get()["DOB"],
         "Gender": user_ref.get()["Gender"],
         "Bio": user_ref.get()["Bio"]
@@ -137,137 +140,38 @@ def contract_history():
 
     contracts = [
         {
-            'comp_name': 'Google',
-            'start_date': '2024-04-05',
-            'completion_date': '2024-04-09',
-            'title': 'implement firebase Authentication', 
-            'desc': 'This website need peoeple to code please send dudes and stuff',
-            'price_range': (42, 90),
-            'agreed_pay': 110,
-            'total_earned': 1142,
-            'status': 'Completed', 
-        },
-        {
-            'comp_name': 'Google',
-            'start_date': '2024-04-05',
+            'comp_name': 'Unreal Engine',
+            'start_date': '2024-03-15',
             'completion_date': '',
-            'title': 'implement firebase Authentication', 
-            'desc': 'This website need peoeple to code please send dudes and stuff',
-            'price_range': (42, 90),
-            'agreed_pay': 110,
+            'title': 'Game Developer', 
+            'desc': 'Your scope of work in your game develo...',
+            'price_range': (800, 1200),
+            'agreed_pay': 200,
             'total_earned': None,
             'status': 'Ongoing', 
         },
         {
-            'comp_name': 'Google',
-            'start_date': '2024-04-05',
-            'completion_date': '',
-            'title': 'implement firebase Authentication', 
-            'desc': 'This website need peoeple to code please send dudes and stuff',
+            'comp_name': 'Unity',
+            'start_date': '2024-03-13',
+            'completion_date': '2024-05-01',
+            'title': 'Mobile Game Devel...', 
+            'desc': 'Unity, a game development compan...',
             'price_range': (42, 90),
-            'agreed_pay': 110,
+            'agreed_pay': 437.5,
+            'total_earned': 1750,
+            'status': 'Completed', 
+        },
+        {
+            'comp_name': 'Ionic',
+            'start_date': '2024-03-10',
+            'completion_date': '2024-04-18',
+            'title': 'Mobile App Develop...', 
+            'desc': 'Ionic, a leading tech company, i...',
+            'price_range': (800, 1500),
+            'agreed_pay': 450,
             'total_earned': None,
-            'status': 'Ongoing', 
-        },
-        {
-            'comp_name': 'Google',
-            'start_date': '2024-04-05',
-            'completion_date': '2024-04-09',
-            'title': 'implement firebase Authentication', 
-            'desc': 'This website need peoeple to code please send dudes and stuff',
-            'price_range': (42, 90),
-            'agreed_pay': 110,
-            'total_earned': 1142,
             'status': 'Completed', 
-        },
-        {
-            'comp_name': 'Google',
-            'start_date': '2024-04-05',
-            'completion_date': '',
-            'title': 'implement firebase Authentication', 
-            'desc': 'This website need peoeple to code please send dudes and stuff',
-            'price_range': (42, 90),
-            'agreed_pay': 110,
-            'total_earned': None,
-            'status': 'Ongoing', 
-        },
-        {
-            'comp_name': 'Google',
-            'start_date': '2024-04-05',
-            'completion_date': '2024-04-09',
-            'title': 'implement firebase Authentication', 
-            'desc': 'This website need peoeple to code please send dudes and stuff',
-            'price_range': (42, 90),
-            'agreed_pay': 110,
-            'total_earned': 1142,
-            'status': 'Completed', 
-        },
-        {
-            'comp_name': 'Google',
-            'start_date': '2024-04-05',
-            'completion_date': '2024-04-09',
-            'title': 'implement firebase Authentication', 
-            'desc': 'This website need peoeple to code please send dudes and stuff',
-            'price_range': (42, 90),
-            'agreed_pay': 110,
-            'total_earned': 1142,
-            'status': 'Completed', 
-        },
-        {
-            'comp_name': 'Google',
-            'start_date': '2024-04-05',
-            'completion_date': '2024-04-09',
-            'title': 'implement firebase Authentication', 
-            'desc': 'This website need peoeple to code please send dudes and stuff',
-            'price_range': (42, 90),
-            'agreed_pay': 110,
-            'total_earned': 1142,
-            'status': 'Completed', 
-        },
-        {
-            'comp_name': 'Google',
-            'start_date': '2024-04-05',
-            'completion_date': '2024-04-09',
-            'title': 'implement firebase Authentication', 
-            'desc': 'This website need peoeple to code please send dudes and stuff',
-            'price_range': (42, 90),
-            'agreed_pay': 110,
-            'total_earned': 1142,
-            'status': 'Completed', 
-        },
-        {
-            'comp_name': 'Google',
-            'start_date': '2024-04-05',
-            'completion_date': '2024-04-09',
-            'title': 'implement firebase Authentication', 
-            'desc': 'This website need peoeple to code please send dudes and stuff',
-            'price_range': (42, 90),
-            'agreed_pay': 110,
-            'total_earned': 1142,
-            'status': 'Completed', 
-        },
-        {
-            'comp_name': 'Google',
-            'start_date': '2024-04-05',
-            'completion_date': '2024-04-09',
-            'title': 'implement firebase Authentication', 
-            'desc': 'This website need peoeple to code please send dudes and stuff',
-            'price_range': (42, 90),
-            'agreed_pay': 110,
-            'total_earned': 1142,
-            'status': 'Completed', 
-        },
-        {
-            'comp_name': 'Google',
-            'start_date': '2024-04-05',
-            'completion_date': '2024-04-09',
-            'title': 'implement firebase Authentication', 
-            'desc': 'This website need peoeple to code please send dudes and stuff',
-            'price_range': (42, 90),
-            'agreed_pay': 110,
-            'total_earned': 1142,
-            'status': 'Completed', 
-        },
+        }
     ]
     return render_template('contract_history.html', contracts=contracts, user_data = user_data)
 
@@ -376,16 +280,21 @@ def org_buy_tokens():
 @acc_info_blueprint.route('/acc_info/acc_settings/org', methods=['GET', 'POST'])
 def org_settings():
     is_indi_or_org(False)
+    user = auth.get_user(session.get("user_id")[2:])
+    auth.update_user(user.uid, display_name = "Unity")
     # Call this function in every route, to ensure navbar details
     user_data = acc_nav_details(session.get("user_id"))
 
     org_db_auth = auth.get_user(session.get("user_id")[2:])
     org_db_ref = db.reference("/org_accounts").child(session.get("user_id")[2:])
 
+    industry_list = org_db_ref.get()["Industry"]
+    industry_str = ', '.join(industry_list)
+
     org_data = {
         "Org_name": org_db_auth.display_name,
         "Email": org_db_ref.get()["Email"],
-        "Industry": org_db_ref.get()["Industry"],
+        "Industry": industry_str,
         "Website": org_db_ref.get()["Org Website"],
         "Contact Email": org_db_ref.get()["Contact Person Email"],
     }

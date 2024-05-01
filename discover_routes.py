@@ -74,138 +74,40 @@ def companies():
     posted_date = date.today()
     ad_list=[
         {
-            'title': 'Design and develop a home page',
-            'description': 'designer and developer needed to develop a homw page with react',
-            'date':posted_date,
-            'name': 'Victor Salazaar',
-            'ratings': 4.3
+        'title': 'Develop a portfolio website',
+        'description': 'Seeking a skilled designer and developer to create a portfolio website using React. The website should showcase projects, skills, and contact information.',
+        'date': posted_date,
+        'name': 'Victor Salazaar',
+        'ratings': 4.3
         },
         {
-            'title': 'Design and develop a home page',
-            'description': 'designer and developer needed to develop a homw page with react',
-            'date':posted_date,
-            'name': 'Victor Salazaar',
-            'ratings': 3.2
+        'title': 'Build an e-commerce platform',
+        'description': 'Seeking a talented designer and developer to build an e-commerce platform with React. The platform should include features such as product listings, shopping cart, and checkout functionality.',
+        'date': posted_date,
+        'name': 'Liam Johnson',
+        'ratings': 3.2
         },
         {
-            'title': 'Design and develop a home page',
-            'description': 'designer and developer needed to develop a homw page with react',
-            'date':posted_date,
-            'name': 'Victor Salazaar',
-            'ratings': 3.6
+        'title': 'Create a social media application',
+        'description': 'Seeking a creative designer and developer to create a social media application using React. The application should include features such as user profiles, posts, likes, and comments.',
+        'date': posted_date,
+        'name': 'Sophia Lee',
+        'ratings': 3.6
         },
         {
-            'title': 'Design and develop a home page',
-            'description': 'designer and developer needed to develop a homw page with react',
-            'date':posted_date,
-            'name': 'Victor Salazaar',
-            'ratings': 4.7
+        'title': 'Develop a blog platform',
+        'description': 'Seeking an experienced designer and developer to develop a blog platform using React. The platform should allow users to create, publish, and manage blog posts.',
+        'date': posted_date,
+        'name': 'Sam Smith',
+        'ratings': 4.7
         },
         {
-            'title': 'Design and develop a home page',
-            'description': 'designer and developer needed to develop a homw page with react',
-            'date':posted_date,
-            'name': 'Victor Salazaar',
-            'ratings': 4.1
-        },
-        {
-            'title': 'Design and develop a home page',
-            'description': 'designer and developer needed to develop a homw page with react',
-            'date':posted_date,
-            'name': 'Victor Salazaar',
-            'ratings': 2.4
-        },
-        {
-            'title': 'Design and develop a home page',
-            'description': 'designer and developer needed to develop a homw page with react',
-            'date':posted_date,
-            'name': 'Victor Salazaar',
-            'ratings': 2.4
-        },
-        {
-            'title': 'Design and develop a home page',
-            'description': 'designer and developer needed to develop a homw page with react',
-            'date':posted_date,
-            'name': 'Victor Salazaar',
-            'ratings': 2.4
-        },
-        {
-            'title': 'Design and develop a home page',
-            'description': 'designer and developer needed to develop a homw page with react',
-            'date':posted_date,
-            'name': 'Victor Salazaar',
-            'ratings': 2.4
-        },
-        {
-            'title': 'Design and develop a home page',
-            'description': 'designer and developer needed to develop a homw page with react',
-            'date':posted_date,
-            'name': 'Victor Salazaar',
-            'ratings': 2.4
-        },
-        {
-            'title': 'Design and develop a home page',
-            'description': 'designer and developer needed to develop a homw page with react',
-            'date':posted_date,
-            'name': 'Victor Salazaar',
-            'ratings': 2.4
-        },
-        {
-            'title': 'Design and develop a home page',
-            'description': 'designer and developer needed to develop a homw page with react',
-            'date':posted_date,
-            'name': 'Victor Salazaar',
-            'ratings': 2.4
-        },
-        {
-            'title': 'Design and develop a home page',
-            'description': 'designer and developer needed to develop a homw page with react',
-            'date':posted_date,
-            'name': 'Victor Salazaar',
-            'ratings': 2.4
-        },
-        {
-            'title': 'Design and develop a home page',
-            'description': 'designer and developer needed to develop a homw page with react',
-            'date':posted_date,
-            'name': 'Victor Salazaar',
-            'ratings': 2.4
-        },
-        {
-            'title': 'Design and develop a home page',
-            'description': 'designer and developer needed to develop a homw page with react',
-            'date':posted_date,
-            'name': 'Victor Salazaar',
-            'ratings': 2.4
-        },
-        {
-            'title': 'Design and develop a home page',
-            'description': 'designer and developer needed to develop a homw page with react',
-            'date':posted_date,
-            'name': 'Victor Salazaar',
-            'ratings': 2.4
-        },
-        {
-            'title': 'Design and develop a home page',
-            'description': 'designer and developer needed to develop a homw page with react',
-            'date':posted_date,
-            'name': 'Victor Salazaar',
-            'ratings': 2.4
-        },
-        {
-            'title': 'Design and develop a home page',
-            'description': 'designer and developer needed to develop a homw page with react',
-            'date':posted_date,
-            'name': 'Victor Salazaar',
-            'ratings': 2.4
-        },
-        {
-            'title': 'Design and develop a home page',
-            'description': 'designer and developer needed to develop a homw page with react',
-            'date':posted_date,
-            'name': 'Victor Salazaar',
-            'ratings': 2.4
-        },
+        'title': 'Design and build a recipe website',
+        'description': 'Seeking a skilled designer and developer to design and build a recipe sharing website with React. Users should be able to browse recipes, create accounts, and submit their own recipes.',
+        'date': posted_date,
+        'name': 'Ava Martinez',
+        'ratings': 4.1
+        }
     ]
     return render_template("org_discover.html", ad_list=ad_list, user_data = user_data)
 
@@ -277,6 +179,8 @@ def contract(contract_id):
                     user_current.update({"Tokens": user_current_token - 10})
 
                 return redirect(url_for('discover.individuals'))
+            else:
+                print(form.errors)
         
         else:
             print("You are not an individual account. You do not have permission to view it.")
@@ -307,38 +211,62 @@ def create_contract():
 
             uid = str(uuid.uuid4())
 
-            # Uploading contract image to cloud
-            storage = firebase.storage()
-            form.contract_img.data.save(form.contract_img.data.filename)
-            contract_img_upload = storage.child("images/contract_images/" + uid + "-" + form.contract_img.data.filename).put(form.contract_img.data.filename)
-            os.remove(form.contract_img.data.filename)
-
-
+            # Converting form data to proper list form
             scope = [str(x.strip()) for x in form.scope.data[1:-1].split(',')]
             deliverables = [str(x.strip()) for x in form.deliverables.data[1:-1].split(',')]
             tech = [str(x.strip()) for x in form.tech_stack.data[1:-1].split(',')]
             notes = [str(x.strip()) for x in form.notes.data[1:-1].split(',')]
 
+            # Initializing firebase storage
+            storage = firebase.storage()
 
-            contract_details = {
-                    # Form data
-                    "Title": form.title.data,
-                    "Description": form.description.data,
-                    "Min Price": form.min_price.data,
-                    "Max Price": form.max_price.data,
-                    "Duration": form.duration.data,
-                    "Difficulty": form.difficulty.data,
-                    "Contract Image": storage.child("images/contract_images/" + uid + "-" + form.contract_img.data.filename).get_url(session.get("user_id")[2:]),
-                    "Scope": scope,
-                    "Deliverables": deliverables,
-                    "Technology Stack": tech,
-                    "Payment Terms": ["Payment will be made every 15 days for a duration of " + str(payment_term_calc(form.duration.data))],
-                    # Auto data
-                    "Status": "Open",
-                    "Company Name": org_name,
-                    "Author": session.get('user_id')[2:],
-                    "Date Posted": today
-                }
+            # Defaulting to google image if contract image is not specified
+            if form.contract_img.data.filename == '':
+                contract_details = {
+                        # Form data
+                        "Title": form.title.data,
+                        "Description": form.description.data,
+                        "Min Price": form.min_price.data,
+                        "Max Price": form.max_price.data,
+                        "Duration": form.duration.data,
+                        "Difficulty": form.difficulty.data,
+                        "Contract Image": storage.child("images/contract_images/images.png").get_url(session.get("user_id")[2:]),
+                        "Scope": scope,
+                        "Deliverables": deliverables,
+                        "Technology Stack": tech,
+                        "Payment Terms": ["Payment will be made every 15 days for a duration of " + str(payment_term_calc(form.duration.data))],
+                        # Auto data
+                        "Status": "Open",
+                        "Company Name": org_name,
+                        "Author": session.get('user_id')[2:],
+                        "Date Posted": today
+                    }
+            else:
+                # Uploading contract image to cloud
+                form.contract_img.data.save(form.contract_img.data.filename)
+                contract_img_upload = storage.child("images/contract_images/" + uid + "-" + form.contract_img.data.filename).put(form.contract_img.data.filename)
+                os.remove(form.contract_img.data.filename)
+
+
+                contract_details = {
+                        # Form data
+                        "Title": form.title.data,
+                        "Description": form.description.data,
+                        "Min Price": form.min_price.data,
+                        "Max Price": form.max_price.data,
+                        "Duration": form.duration.data,
+                        "Difficulty": form.difficulty.data,
+                        "Contract Image": storage.child("images/contract_images/" + uid + "-" + form.contract_img.data.filename).get_url(session.get("user_id")[2:]),
+                        "Scope": scope,
+                        "Deliverables": deliverables,
+                        "Technology Stack": tech,
+                        "Payment Terms": ["Payment will be made every 15 days for a duration of " + str(payment_term_calc(form.duration.data))],
+                        # Auto data
+                        "Status": "Open",
+                        "Company Name": org_name,
+                        "Author": session.get('user_id')[2:],
+                        "Date Posted": today
+                    }
 
             if form.notes.data != None:
                 contract_details.update({"Notes": notes})

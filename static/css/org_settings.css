@@ -245,3 +245,7 @@
     cursor: pointer;
     background-color: #327A31;
 }
+
+.industry-inp-field{
+    min-width: 100% !important;
+}

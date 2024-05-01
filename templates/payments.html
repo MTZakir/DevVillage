@@ -20,7 +20,7 @@
                 {% if session.get('user_id')[:2] == 'I-' %}
                     <th id="org-head">Organization</th>
                 {% else %}
-                    <th id="org-head">Contractor</th>
+                    <th id="org-head">Contractor Username</th>
                 {% endif %}
                     <th id="title-head">Status</th>
                     <th id="duration_head">Amount</th>
@@ -36,7 +36,6 @@
                                     <img id='comp-img' src={{payment['comp_pic']}}>
                                     <h2 class='payment-text' id="comp-name">{{payment['comp_name']}}</h2>
                                 {% else %}
-                                    <i class="bi bi-person-circle prof-pic-contractor"></i>
                                     <h2 class='payment-text' id="comp-name">{{payment['contractor_name']}}</h2>
                                 {% endif %}
                             </div>

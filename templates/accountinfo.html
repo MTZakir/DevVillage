@@ -22,11 +22,12 @@
     <div class="sidebar">
         <div class="acc-info-display">
             {% if user_data["First_name"] is defined or user_data["Last_name"] is defined %}
-                <i class="bi bi-person-circle profile-pic"></i>
+                <img src='/static/images/liam-johnson.jpg' class="prof-pic-comp"></i>
+
                 <span class="fst-name-lst-name">{{ user_data["First_name"] }} {{ user_data["Last_name"] }}</span>
                 <span class="username">{{ user_data["Display_name"] }}</span>
             {% elif user_data["Company_name"] is defined %}
-                <i class="bi bi-person-circle profile-pic"></i>
+                <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnquaZgwR8H2rYZUDcCi2sxjOqB1Wahz6sIoKuVc-xhYBuXeim1ZNhmYlz0pCV1WZ7yPA&usqp=CAU' class="prof-pic-comp"></i>
                 <span class="fst-name-lst-name">{{ user_data["Company_name"] }}</span>
                 <span class="username">{{ user_data["Email"] }}</span>
             {% endif %}

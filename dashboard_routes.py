@@ -45,117 +45,51 @@ def individuals():
     user_data = acc_nav_details(session.get("user_id"))
 
     dashcontent = {
-            'completed_contracts': 21,
-            'total_earned': 6203.23,
-            'tokens_owned': 34,
+            'completed_contracts': 2,
+            'total_earned': 3700,
+            'tokens_owned': 30,
         }
     
     recent_payments = [
         {
-            'company_name': 'Netflix',
-            'company_pic': '/static/images/netflix.png',
-            'status': 'Completed',
-            'amount': 273,
-        },
-        {
-            'company_name': 'Netflix',
-            'company_pic': '/static/images/netflix.png',
+            'company_name': 'Unreal Engine',
+            'company_pic': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTb-r5Xf0pOtB3oJsJrvI9K4s5ho7qNpxWkjmETeIg5HA&s',
             'status': 'Ongoing',
-            'amount': 121,
+            'amount': 600,
         },
         {
-            'company_name': 'Netflix',
-            'company_pic': '/static/images/netflix.png',
+            'company_name': 'Unity',
+            'company_pic': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnquaZgwR8H2rYZUDcCi2sxjOqB1Wahz6sIoKuVc-xhYBuXeim1ZNhmYlz0pCV1WZ7yPA&usqp=CAU',
             'status': 'Completed',
-            'amount': 209,
+            'amount': 1750,
         },
         {
-            'company_name': 'Netflix',
-            'company_pic': '/static/images/netflix.png',
-            'status': 'Ongoing',
-            'amount': 628,
-        },
-        {
-            'company_name': 'Netflix',
-            'company_pic': '/static/images/netflix.png',
-            'status': 'Ongoing',
-            'amount': 123,
-        },
-        {
-            'company_name': 'Netflix',
-            'company_pic': '/static/images/netflix.png',
+            'company_name': 'Ionic',
+            'company_pic': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRS230PJ4lEC5iEQpY6pFnB6ijvZlbX4UDw-U791RufDA&s',
             'status': 'Completed',
-            'amount': 193,
+            'amount': 1350,
         }
     ]
 
     company_hires = [
         {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
+            'organization': 'Unreal Engine', 
+            'title': 'Game Developer',
+            'duration': '3 Months',
+            'expected_pay': (800, 1200), 
         },
         {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
+            'organization': 'Unity', 
+            'title': 'Mobile Game De...',
+            'duration': '2 Months',
+            'expected_pay': (1000, 2500), 
         },
         {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
-        },
-        {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
-        },
-        {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
-        },
-        {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
-        },
-        {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
-        },
-        {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
-        },
-        {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
-        },
-        {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
-        },
-        {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
-        },
+            'organization': 'Ionic', 
+            'title': 'Mobile App Dev...',
+            'duration': '1 Month 15 days',
+            'expected_pay': (800, 1500), 
+        }
     ]
 
     return render_template("dashboard.html", dashcontent=dashcontent, 
@@ -173,96 +107,26 @@ def payment_history():
 
     payments = [
         {
-            'comp_pic': '/static/images/netflix.png',
-            'comp_name': 'Netflix',
-            'status': 'Completed',
-            'amount': 274,
-            'date': '2018-07-05'
-        },
-        {
-            'comp_pic': '/static/images/netflix.png',
-            'comp_name': 'Netflix',
-            'status': 'Completed',
-            'amount': 534,
-            'date': '2018-07-05'
-        },
-        {
-            'comp_pic': '/static/images/netflix.png',
-            'comp_name': 'Netflix',
-            'status': 'Completed',
-            'amount': 211,
-            'date': '2018-07-05'
-        },
-        {
-            'comp_pic': '/static/images/netflix.png',
-            'comp_name': 'Netflix',
-            'status': 'Completed',
-            'amount': 114,
-            'date': '2018-07-05'
-        },
-        {
-            'comp_pic': '/static/images/netflix.png',
-            'comp_name': 'Netflix',
-            'status': 'Completed',
-            'amount': 674,
-            'date': '2018-07-05'
-        },
-        {
-            'comp_pic': '/static/images/netflix.png',
-            'comp_name': 'Netflix',
-            'status': 'Completed',
-            'amount': 904,
-            'date': '2018-07-05'
-        },
-        {
-            'comp_pic': '/static/images/netflix.png',
-            'comp_name': 'Netflix',
-            'status': 'Completed',
-            'amount': 304,
-            'date': '2018-07-05'
-        },
-        {
-            'comp_pic': '/static/images/netflix.png',
-            'comp_name': 'Netflix',
-            'status': 'Completed',
-            'amount': 274,
-            'date': '2018-07-05'
-        },
-        {
-            'comp_pic': '/static/images/netflix.png',
-            'comp_name': 'Netflix',
-            'status': 'Completed',
-            'amount': 352,
-            'date': '2018-07-05'
-        },
-        {
-            'comp_pic': '/static/images/netflix.png',
-            'comp_name': 'Netflix',
-            'status': 'Completed',
-            'amount': 156,
-            'date': '2018-07-05'
-        },
-        {
-            'comp_pic': '/static/images/netflix.png',
-            'comp_name': 'Netflix',
+            'comp_pic': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTb-r5Xf0pOtB3oJsJrvI9K4s5ho7qNpxWkjmETeIg5HA&s',
+            'comp_name': 'Unreal Engine',
             'status': 'Ongoing',
-            'amount': 423,
-            'date': '2018-07-05'
+            'amount': 600,
+            'date': '24-04-2024'
         },
         {
-            'comp_pic': '/static/images/netflix.png',
-            'comp_name': 'Netflix',
-            'status': 'Ongoing',
-            'amount': 690,
-            'date': '2018-07-05'
+            'comp_pic': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnquaZgwR8H2rYZUDcCi2sxjOqB1Wahz6sIoKuVc-xhYBuXeim1ZNhmYlz0pCV1WZ7yPA&usqp=CAU',
+            'comp_name': 'Unity',
+            'status': 'Completed',
+            'amount': 1750,
+            'date': '01-05-2024'
         },
         {
-            'comp_pic': '/static/images/netflix.png',
-            'comp_name': 'Netflix',
-            'status': 'Ongoing',
-            'amount': 720,
-            'date': '2018-07-05'
-        },
+            'comp_pic': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRS230PJ4lEC5iEQpY6pFnB6ijvZlbX4UDw-U791RufDA&s',
+            'comp_name': 'Ionic',
+            'status': 'Completed',
+            'amount': 1350,
+            'date': '18-04-2024'
+        }
     ]
 
     total_earned = 0
@@ -281,71 +145,23 @@ def invites():
 
     company_hires = [
         {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
+            'organization': 'Unreal Engine', 
+            'title': 'Game Developer',
+            'duration': '3 Months',
+            'expected_pay': (800, 1200), 
         },
         {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
+            'organization': 'Unity', 
+            'title': 'Mobile Game De...',
+            'duration': '2 Months',
+            'expected_pay': (1000, 2500), 
         },
         {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
-        },
-        {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
-        },
-        {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
-        },
-        {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
-        },
-        {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
-        },
-        {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
-        },
-        {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
-        },
-        {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
-        },
-        {
-            'organization': 'QVParts', 
-            'title': 'build a website api for banking',
-            'duration': '30 days',
-            'expected_pay': (500, 700), 
-        },
+            'organization': 'Ionic', 
+            'title': 'Mobile App Dev...',
+            'duration': '1 Month 15 days',
+            'expected_pay': (800, 1500), 
+        }
     ]
     return render_template("invites.html", company_hires=company_hires, user_data = user_data)
 
@@ -359,45 +175,25 @@ def organization():
     dashcontent = {
             'completed_contracts': 21,
             'ongoing_contracts': 4,
-            'tokens_owned': 34,
+            'tokens_owned': 20,
         }
     
     recent_payments = [
         {
-            'contractor_name': 'test',
-            'status': 'Closed',
-            'amount': 273,
+            'contractor_name': '@markZoing534',
+            'status': 'Ongoing',
+            'amount': 220,
         },
         {
-            'contractor_name': 'test',
-            'status': 'Closed',
-            'amount': 273,
+            'contractor_name': '@Sheinfactory',
+            'status': 'Ongoing',
+            'amount': 360,
         },
         {
-            'contractor_name': 'test',
+            'contractor_name': '@liamJ5454',
             'status': 'Closed',
-            'amount': 273,
-        },
-        {
-            'contractor_name': 'test',
-            'status': 'Closed',
-            'amount': 273,
-        },
-        {
-            'contractor_name': 'test',
-            'status': 'Closed',
-            'amount': 273,
-        },
-        {
-            'contractor_name': 'test',
-            'status': 'Closed',
-            'amount': 273,
-        },
-        {
-            'contractor_name': 'test',
-            'status': 'Closed',
-            'amount': 273,
-        },
+            'amount': 1750,
+        }
     ]
 
 
@@ -486,60 +282,23 @@ def org_payment_history():
 
     payments = [
         {
-            'contractor_name': 'test',
+            'contractor_name': '@markZoing534',
+            'status': 'Ongoing',
+            'amount': 220,
+            'date': '2024-05-03'
+        },
+        {
+            'contractor_name': '@Sheinfactory',
+            'status': 'Ongoing',
+            'amount': 360,
+            'date': '2024-04-20'
+        },        
+        {
+            'contractor_name': '@liamJ5454',
             'status': 'Closed',
-            'amount': 273,
-            'date': '1984-05-03'
-        },
-        {
-            'contractor_name': 'test',
-            'status': 'Ongoing',
-            'amount': 273,
-            'date': '1984-05-03'
-        },
-        {
-            'contractor_name': 'test',
-            'status': 'Ongoing',
-            'amount': 273,
-            'date': '1984-05-03'
-        },
-        {
-            'contractor_name': 'test',
-            'status': 'Closed',
-            'amount': 273,
-            'date': '1984-05-03'
-        },
-        {
-            'contractor_name': 'test',
-            'status': 'Ongoing',
-            'amount': 273,
-            'date': '1984-05-03'
-        },
-        {
-            'contractor_name': 'test',
-            'status': 'Ongoing',
-            'amount': 273,
-            'date': '1984-05-03'
-        },
-        {
-            'contractor_name': 'test',
-            'status': 'Closed',
-            'amount': 273,
-            'date': '1984-05-03'
-        },
-        {
-            'contractor_name': 'test',
-            'status': 'Ongoing',
-            'amount': 273,
-            'date': '1984-05-03'
-        },
-        {
-            'contractor_name': 'test',
-            'status': 'Ongoing',
-            'amount': 273,
-            'date': '1984-05-03'
-        },
-        
+            'amount': 1500,
+            'date': '2024-04-15'
+        }
     ]
 
     total_payed = 0

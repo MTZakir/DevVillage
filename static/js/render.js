@@ -277,11 +277,19 @@ document.addEventListener("DOMContentLoaded", function() {
     //handling of different navbar urls
     const currentURL = window.location.pathname;
 
-    const contrcthstrybtn = document.querySelector(".contract-history-btn button")
-    const contrcthstryspan = document.querySelector(".contract-history-btn span")
-    
+    const contrcthstrybtn = document.querySelector("#contract-history-btn button")
+    const contrcthstryspan = document.querySelector("#contract-history-btn span")
+
     const reviewbtn = document.querySelector(".review-btn button")
     const reviewspan = document.querySelector(".review-btn span")
+
+    const backdrop = document.querySelector(".backdrop");
+
+    const postbtnspan = document.querySelector(".post span")
+    const postbtn = document.querySelector(".post button")
+    
+    const hirebtnspan = document.querySelector(".hire span")
+    const hirebtn = document.querySelector(".hire button")
 
     const contrcthstrycont = document.querySelector(".contrct-cards-container")
     const reviewcont = document.querySelector(".review-cards-container")
@@ -305,6 +313,20 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     if (currentURL === "/acc_info/profile/individual" || currentURL === "/org/view_profile") {
+        //handling backdrop in view profile
+        if (currentURL === "/org/view_profile") {
+            hirebtn.addEventListener("click", (e) =>{
+                e.preventDefault();
+                if (!backdrop.classList.contains("active")) {
+                    backdrop.classList.add("active");
+                }
+                else{
+                    backdrop.classList.remove("active");
+                }
+            });
+
+        }
+
         //handling long list of expertise
         const expert_list_length = expertList.length;
         let isExpandedExprt = false;
@@ -427,6 +449,16 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
         //handling button toggle between contract history and review buttons
+        if (currentURL === "/acc_info/profile/individual") {
+            postbtn.addEventListener('mouseover', (e) => {
+                postbtnspan.style.opacity = 0.8;
+            });
+    
+            postbtn.addEventListener('mouseout', (e) => {
+                postbtnspan.style.opacity = 1;
+            });
+        }
+
         contrcthstrybtn.addEventListener("mouseover", () => {
             contrcthstryspan.classList.add('hovered');
         });
@@ -480,8 +512,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     
     const primaryColor = rootStyles.getPropertyValue('--color');
-    console.log(currentURL);
-    if (currentURL === "/discover/individual" || currentURL === "/discover/companies") {
+    if (currentURL === "/discover/individual" || currentURL === "/discover/organization") {
+        console.log(currentURL);
         const discover_nav_option = document.querySelector(".discover-nav-option");
         discover_nav_option.style.color = primaryColor;
     }

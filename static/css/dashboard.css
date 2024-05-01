@@ -217,10 +217,31 @@ h2{
 .hire-details{
     display: grid;
     background-color: #0B0F15;
-    max-height: 16.771vw; /* Set the maximum height */
+    max-height: 77vh; /* Set the maximum height */
     overflow-y: auto;
     width: 46.771vw;
     border-radius: 0px 0px 0.417vw 0.417vw;
+}
+
+.hire-details::-webkit-scrollbar{
+    width: 0.6vw;
+    background-color: #ffffff00;
+    border-bottom-right-radius: 0.4vw;
+    cursor: default;
+}
+
+.hire-details::-webkit-scrollbar-thumb {
+    background-color: #32435b;
+    border-radius: 0.23vw;
+    cursor: default;
+}
+  
+.hire-details::-webkit-scrollbar-thumb:hover {
+    background-color: #455a76 !important;
+}
+
+.hire-details::-webkit-scrollbar-thumb:active {
+    background-color: #32435b !important;
 }
 
 .details-hire:hover{

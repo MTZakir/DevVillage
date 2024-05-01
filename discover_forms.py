@@ -35,7 +35,7 @@ class CreateContract(FlaskForm):
         ],
         validators=[DataRequired()]
     )
-    contract_img = FileField('Contract Image', validators=[DataRequired(), FileAllowed(['jpg', 'jpeg', 'png'], message = 'Images only!')])
+    contract_img = FileField('Contract Image', validators=[Optional(), FileAllowed(['jpg', 'jpeg', 'png'], message = 'Images only!')])
     scope = StringField('Scope of Work', validators=[DataRequired()])
     deliverables = StringField('Deliverables', validators=[DataRequired()])
     tech_stack = StringField('Technology Stack', validators=[DataRequired()])

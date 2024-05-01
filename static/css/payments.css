@@ -1,3 +1,7 @@
+body{
+    overflow: hidden;
+}
+
 #hire-heading p{
     margin: 0;
 }
